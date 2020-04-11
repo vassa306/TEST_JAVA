@@ -44,8 +44,7 @@ public class Soucet {
         int x = pole.get(0);
         int y = pole.get(0);
         List<Integer> mensinezpet = new ArrayList<Integer>();
-        List<Integer>vetsinezpet = new ArrayList<Integer>();
-
+        List<Integer> vetsinezpet = new ArrayList<Integer>();
 
 
         System.out.println(pole);
@@ -54,10 +53,9 @@ public class Soucet {
         for (int i = 0; i < pole.size(); i++) {
             //pokud jsou hodnoty mensi nez 5
             if (pole.get(i) < 5) {
-                 mensinezpet.add(pole.get(i));
-                System.out.println("Prvni iterace:" +  mensinezpet);
+                mensinezpet.add(pole.get(i));
+                System.out.println("Prvni iterace:" + mensinezpet);
                 System.out.println("Velikost pole s nazvem mensi je: " + mensinezpet.size() + " \n cisla jsou tyto: " + mensinezpet);
-
 
 
             } else {
@@ -67,12 +65,7 @@ public class Soucet {
                 System.out.println("Velikost pole s nazvem vetsi je: " + vetsinezpet.size() + " \n cisla jsou tyto: " + vetsinezpet);
 
 
-
             }
-
-
-
-
 
 
         }
