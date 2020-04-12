@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class methods {
     public static void main(String[] args) {
         // multiplyNumbers(6, 7);
@@ -9,8 +12,18 @@ public class methods {
 
         System.out.println(numberMinusThree(4));
 */
-        questionSentence("jak se dneska vede ?");
+        evenNumbers(5, 9);
 
+    }
+
+    static List<Integer> generateList(int i, int i1) {
+        List<Integer> array = new ArrayList<Integer>();
+        array.add(5);
+        array.add(4);
+        array.add(1);
+        array.add(8);
+        array.add(3);
+        return array;
     }
 
     static int sum(int a, int b) {
@@ -82,15 +95,40 @@ public class methods {
                 if (sentence.charAt(i) != '?') {
                     question = false;
 
-
                 }
 
             }
 
-
         }
         System.out.println("Is this sentence is interogative ?\n" + question);
         return question;
+    }
+
+    static List<Integer> evenNumbers(int y, int il) {
+
+        List<Integer> field = new ArrayList<Integer>();
+        field.add(6);
+        field.add(8);
+        field.add(9);
+        field.add(10);
+        field.add(45);
+        field.add(6);
+        field.add(3);
+
+
+        System.out.println(field);
+
+
+        List<Integer> evenField = new ArrayList<Integer>();
+
+        for (int i = 0; i < field.size(); i++) {
+            if (field.get(i) % 2 == 0) {
+                evenField.add(field.get(i));
+
+            }
+        }
+        System.out.println("even field je" + evenField);
+        return evenField;
     }
 }
 
