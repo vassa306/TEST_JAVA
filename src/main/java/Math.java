@@ -36,7 +36,7 @@ public class Math {
             } else {
                 System.out.println(" Input value is not correct");
             }
-            if (annualInterest >= 1 && annualInterest <= 30) {
+            if (annualInterest <= 1 && annualInterest <= 3) {
                 System.out.println("Montrhly interest is short time duration");
             }
             monthlyInterest = annualInterest / PERCENT / MONTHS;
