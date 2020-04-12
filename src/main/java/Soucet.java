@@ -71,31 +71,6 @@ public class Soucet {
         }
 
     }
-}
-
-/*
-               System.out.println("Hodnoty prvniho cyklu jsou " + (pole.get(i)));
-
-            }
-
-
-
-            for (int j = 0; j < pole.size(); j++) {
-                if (pole.get(j) > 5) {
-                    y = pole.get(j);
-                    System.out.println("hodnoty druheho cyklu jsou: " + pole.get(j));
-
-                }
-
-
-            }
-
-
-        }
-    }
-
-
-
     static void prumer() {
         List<Integer> pole = generateList(9, 10);
         System.out.println(pole);
@@ -106,8 +81,5 @@ public class Soucet {
 
         }
         System.out.println((double) x / j);
-
-
     }
 }
-*/
