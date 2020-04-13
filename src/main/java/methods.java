@@ -17,7 +17,7 @@ public class methods {
         //fourTimesMultiply(3);
         //System.out.println(fourTimesMultiply(3));
         //  calcAbsValue(-3, -8);
-        writeSentence("Jak se vede?");
+        writeSentence("Mam se dobre, protoze miluji programovani? A,jak se mas ty?", 'a', 'e');
     }
 
 
@@ -61,34 +61,34 @@ public class methods {
 
     static void calcAbsValue(double a, double b) {
         double abs = Math.abs(a - b);
-        System.out.println(abs);
-
-
+        if (abs < 0) {
+            abs = abs * (-1);
+        } else {
+            System.out.println(abs);
+        }
     }
 
-    static int writeSentence(String sentence) {
-        char ch = sentence.charAt(sentence.indexOf('a'));
-        char ds = sentence.charAt(sentence.indexOf('e'));
-        int counta = 0;
+
+    static int writeSentence(String sentence, char a, char b) {
+
+        int count = 0;
         int counte = 0;
+
         for (int i = 0; i < sentence.length(); i++) {
 
-            if (sentence.charAt(i) == 'a') {
-                counta++;
+            if (sentence.charAt(i) == a) {
+                count++;
+
             }
-            for (int b = 0; b < sentence.length(); b++) {
-                if (sentence.charAt(b) == 'e') {
-                    counte++;
-                }
-
-
+            if (sentence.charAt(i) == b) {
+                counte++;
             }
 
         }
 
-        System.out.println("Total count of a:=" + counta);
-        System.out.println("number of e:=" + counte);
-        return counta + counte;
+        System.out.println("Total count of a = " + count + "total count of e " + counte);
+
+        return count;
     }
 
     static boolean questionSentence(String sentence) {
