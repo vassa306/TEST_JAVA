@@ -17,7 +17,9 @@ public class methods {
         //fourTimesMultiply(3);
         //System.out.println(fourTimesMultiply(3));
         //  calcAbsValue(-3, -8);
-        writeSentence("Mam se dobre, protoze miluji programovani? A,jak se mas ty?", 'a', 'e');
+        List<String> field = generateString("sadsadds", "sadddsdffd", "asassadsdasd");
+        strShorterThanX(field, 3);
+
     }
 
 
@@ -141,13 +143,17 @@ public class methods {
      * ukol cislo 9
      */
     // static //List<String> s
-    static List<String> ShortThenChars(String text, String text1, String text3, int x) {
+    static List<String> generateString(String text, String text1, String text3) {
         List<String> field = new ArrayList<String>();
         field.add(text);
         field.add(text1);
         field.add(text3);
         System.out.println(field);
+        return field;
+    }
 
+
+    static List<String> strShorterThanX(List<String> field, int x) {
         List<String> Shortthen = new ArrayList<String>();
 
         for (int i = 0; i < field.size(); i++) {
