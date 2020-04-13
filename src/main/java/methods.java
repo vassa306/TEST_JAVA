@@ -1,3 +1,4 @@
+import java.lang.Math;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,19 +13,12 @@ public class methods {
 
         System.out.println(numberMinusThree(4));
 */
-        evenNumbers(5, 9);
-
+        ShortThenChars("Test", "Testkl", "Textrrrr", 7);
+        fourTimesMultiply(3);
+        System.out.println(fourTimesMultiply(3));
+        calcAbsValue(-3, -8);
     }
 
-    static List<Integer> generateList(int i, int i1) {
-        List<Integer> array = new ArrayList<Integer>();
-        array.add(5);
-        array.add(4);
-        array.add(1);
-        array.add(8);
-        array.add(3);
-        return array;
-    }
 
     static int sum(int a, int b) {
         int sum = a + b;
@@ -48,12 +42,12 @@ public class methods {
 
     }
 
-    static int twiceMultiply(int a) {
-        int twicemultiply = a * 2;
+    static int foureMultiply(int a) {
+        int twicemultiply = a * 4;
         return twicemultiply;
     }
 
-    static int subs(int a, int b) {
+    static int subtr(int a, int b) {
         int substract = a - b;
         return substract;
 
@@ -65,9 +59,9 @@ public class methods {
     }
 
 
-    static int calcAbsValue(int a, int b) {
-        int abs = a - b;
-        return abs;
+    static void calcAbsValue(double a, double b) {
+        double abs = Math.abs(a - b);
+        System.out.println(abs);
 
 
     }
@@ -130,6 +124,39 @@ public class methods {
         System.out.println("even field je" + evenField);
         return evenField;
     }
+
+    /**
+     * ukol cislo 9
+     */
+    // static //List<String> s
+    static List<String> ShortThenChars(String text, String text1, String text3, int x) {
+        List<String> field = new ArrayList<String>();
+        field.add(text);
+        field.add(text1);
+        field.add(text3);
+        System.out.println(field);
+
+        List<String> Shortthen = new ArrayList<String>();
+
+        for (int i = 0; i < field.size(); i++) {
+            if (field.get(i).length() < (x)) {
+                Shortthen.add(field.get(i));
+
+            }
+
+
+        }
+        System.out.println("Zadana slova mensi nez hranice :" + Shortthen);
+        return Shortthen;
+
+    }
+
+    static int fourTimesMultiply(int a) {
+        int vysledek = foureMultiply(a);
+        return vysledek;
+    }
+
+
 }
 
 
