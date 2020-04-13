@@ -13,10 +13,11 @@ public class methods {
 
         System.out.println(numberMinusThree(4));
 */
-        ShortThenChars("Test", "Testkl", "Textrrrr", 7);
-        fourTimesMultiply(3);
-        System.out.println(fourTimesMultiply(3));
-        calcAbsValue(-3, -8);
+        //ShortThenChars("Test", "Testkl", "Textrrrr", 7);
+        //fourTimesMultiply(3);
+        //System.out.println(fourTimesMultiply(3));
+        //  calcAbsValue(-3, -8);
+        writeSentence("Jak se vede?");
     }
 
 
@@ -54,8 +55,7 @@ public class methods {
     }
 
     static int magic(int a, int b, int c) {
-        int magical = (a + (2 * b)) - c;
-        return magical;
+        return (a + (2 * b)) - c;
     }
 
 
@@ -68,15 +68,27 @@ public class methods {
 
     static int writeSentence(String sentence) {
         char ch = sentence.charAt(sentence.indexOf('a'));
-        int count = 0;
+        char ds = sentence.charAt(sentence.indexOf('e'));
+        int counta = 0;
+        int counte = 0;
         for (int i = 0; i < sentence.length(); i++) {
+
             if (sentence.charAt(i) == 'a') {
-                count++;
-                System.out.println("number of a:=" + ch);
+                counta++;
             }
+            for (int b = 0; b < sentence.length(); b++) {
+                if (sentence.charAt(b) == 'e') {
+                    counte++;
+                }
+
+
+            }
+
         }
-        System.out.println("Total count of a:=" + count);
-        return count;
+
+        System.out.println("Total count of a:=" + counta);
+        System.out.println("number of e:=" + counte);
+        return counta + counte;
     }
 
     static boolean questionSentence(String sentence) {
