@@ -96,6 +96,19 @@ public class Matrixes {
      * @return
      */
     static int[][] transpozice(int[][] matrix) {
+
+
+        //nejdříve vytvříme matici do které budeme transponovat
+        int[][] tmatrix = new int[4][4];
+        //v tomto foru se vytvari matrix
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                //prehozeni tedy transpovani radku a sloupcu matice
+                tmatrix[i][j] = matrix[j][i];
+            }
+        }
+        System.out.println("Transpozice je");
+        vypisMatici(tmatrix);
         return null;
     }
 
