@@ -22,12 +22,12 @@ public class FirstTestClass {
         driver.findElement(By.xpath("//button[@data-cookiebanner='accept_button']")).click();
         WebElement emailfield = driver.findElement(By.id("email"));
         emailfield.click();
-        emailfield.sendKeys("vassa306@gmail.com");
+        emailfield.sendKeys("");
 
         WebElement passfield = driver.findElement(By.id("pass"));
         passfield.click();
 
-        passfield.sendKeys("Banicek1922!");
+        passfield.sendKeys("");
         WebElement Login = driver.findElement(By.xpath("//button[@name='login']"));
         Login.click();
 
