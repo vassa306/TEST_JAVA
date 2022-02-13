@@ -5,17 +5,33 @@ import java.util.Locale;
 
 public class WorkWithStrings {
     public static void main(String[] args) {
-        String s = " Hello worlds ";
-        String a = "Hello Earth ";
+        String ss = " Hello Hello worlds ";
+        String aa = "Hello Earth ";
 
-        CheckStringContent(s);
-        toUppercase(s);
-        toLowerCase(s);
+        CheckStringContent(ss);
+        toUppercase(ss);
+        toLowerCase(ss);
         // if String is lesser than int position java threw out of bounds exception
-        checkCharPosition(a,10);
+        checkCharPosition(aa,10);
+
+        //    int b = s.trim().length();
+
+        CheckCountOfChar(ss);
+
+        concatofStrings(ss,aa);
+
     }
 
-   public static void checkCharPosition(String a, int position) {
+    public static void concatofStrings(String s, String a) {
+        System.out.println("concat:  "+ "\n" + s.trim() + "," + a.trim());
+        System.out.println("concat with concat method:  "+ "\n" + s.trim().concat("**").concat(a.trim()));
+    }
+
+    public static void CheckCountOfChar(String s) {
+        System.out.print(s.trim().length() - s.trim().replace("Hello","").length());
+    }
+
+    public static void checkCharPosition(String a, int position) {
         String upper = a.trim().toUpperCase();
         String pos = String.valueOf(a.charAt(position));
         StringBuilder builder = new StringBuilder();
@@ -37,9 +53,13 @@ public class WorkWithStrings {
         int i = s.trim().length();
         //    int b = s.trim().length();
         boolean a = s.contains("e");
-        String o = s.replace("e", "s");
+        String o = s.replace("ell", "sss");
         System.out.print(i + "contains e: " + a + " replace " + o + " length without space ");
     }
+
+
+
+
 
 }
 
