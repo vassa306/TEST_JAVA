@@ -8,6 +8,7 @@ import java.util.Locale;
 public class WorkWithStrings {
     public static void main(String[] args) {
         String s = " Hello Hello worlds ";
+        String b = " HELLO WORLDS WORLDS ";
         String a = "Hello Earth ";
 
         CheckStringContent(s);
@@ -25,23 +26,78 @@ public class WorkWithStrings {
         addSubIntoList(s, 5, 13);
 
         isContainsString(s);
+
+        isTheSameStrings(s, a);
+
+        compareIgnoreCase(s, b);
+
+        compareMultipleStrings(s, b, a);
+
+        String inputstring = "testing";
+
+        // reverse for
+        reverseString(s);
+
+        counOfWords(s);
+
+    }
+
+    public static void counOfWords(String s) {
+        String[] words = s.trim().split(" ");
+        System.out.println("number of words is " + words.length);
     }
 
 
+
+    public static void reverseString(String inputstring) {
+        inputstring.trim();
+        String output = "";
+        for (int i = inputstring.length()-1; i >= 0; i --){
+            output = output + inputstring.charAt(i);
+
+        }
+        System.out.println(output + "length is " + output.length());
+    }
+
+    public static void compareMultipleStrings(String s, String b,String a) {
+        if (s.compareTo(b)==0 && s.compareTo(a)==0 && b.compareTo(a)==0){
+            System.out.println("the same string ");
+        }else{
+            System.out.println("not the same string");
+        }
+    }
+
+
+    public static void compareIgnoreCase(String s, String b) {
+        if (s.compareToIgnoreCase(b)==0){
+            System.out.println("the same string ");
+        }else{
+            System.out.println("not the same string");
+        }
+    }
+
+
+    public static void isTheSameStrings(String s2, String s3) {
+        if (s2.equals(s3)) {
+            System.out.println(s2);
+        } else {
+            System.out.println(s3);
+        }
+    }
 
 
     public static void addSubIntoList(String s,int a, int b) {
         int startindex = a;
         int endindex=b;
-        List<String> subslist = new ArrayList<String>();
+        List<String> sublist = new ArrayList<String>();
         String subs1 = s.trim().substring(startindex);
         String subs2 = s.trim().substring(endindex);
         String subs3 = s.trim().substring(startindex,endindex);
-        subslist.add(subs1);
-        subslist.add(subs2);
-        subslist.add(subs3);
+        sublist.add(subs1);
+        sublist.add(subs2);
+        sublist.add(subs3);
 
-        for (String jmeno : subslist) {
+        for (String jmeno : sublist) {
             System.out.println("list contains " + jmeno);
         }
 
@@ -51,8 +107,9 @@ public class WorkWithStrings {
     }
 
     public static void concatofStrings(String s, String a) {
-        System.out.println("concat:  "+ "\n" + s.trim() + "," + a.trim());
-        System.out.println("concat with concat method:  "+ "\n" + s.trim().concat("**").concat(a.trim()));
+        System.out.println("concat:  "+ "\n" + s.trim() + a.trim());
+      String result = s.trim().concat(a.trim());
+      System.out.println(result.length() + " " + result);
     }
 
     public static void CheckCountOfChar(String s) {
@@ -86,7 +143,7 @@ public class WorkWithStrings {
     }
 
         public static void isContainsString(String s){
-            if (s.contains("Ello")) {
+            if (s.contains("ello")) {
                 System.out.println("value found");
             } else {
                 System.out.println("value not found");
