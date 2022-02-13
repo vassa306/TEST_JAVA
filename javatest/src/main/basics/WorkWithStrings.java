@@ -8,8 +8,10 @@ import java.util.Locale;
 public class WorkWithStrings {
     public static void main(String[] args) {
         String s = " Hello Hello worlds ";
-        String b = " HELLO WORLDS WORLDS ";
+        String b = " HELLO Hello WORLDS";
         String a = "Hello Earth ";
+        String c = " Hello earth ";
+        String p = "racecar";
 
         CheckStringContent(s);
         toUppercase(s);
@@ -27,7 +29,7 @@ public class WorkWithStrings {
 
         isContainsString(s);
 
-        isTheSameStrings(s, a);
+      //  isTheSameStrings(s, a);
 
         compareIgnoreCase(s, b);
 
@@ -41,6 +43,26 @@ public class WorkWithStrings {
         counOfWords(s);
 
         countOfSpaces(s);
+
+        isPalidrome(p);
+
+        testTheSameData(a, c);
+    }
+
+    public static void testTheSameData(String s, String p) {
+        if (s.trim().equalsIgnoreCase(p.trim())){
+            System.out.println("the same data");
+        }else{
+            System.out.println("data does not match");
+        }
+    }
+
+    public static void isPalidrome(String s) {
+        if (reverseString(s).compareToIgnoreCase(s)==0){
+            System.out.println("is palidrome");
+        }else{
+            System.out.println("not palidrome");
+        }
     }
 
     public static void countOfSpaces(String s) {
@@ -56,14 +78,14 @@ public class WorkWithStrings {
 
 
 
-    public static void reverseString(String inputstring) {
+    public static String reverseString(String inputstring) {
         inputstring.trim();
         String output = "";
         for (int i = inputstring.length()-1; i >= 0; i --){
             output = output + inputstring.charAt(i);
 
         }
-        System.out.println(output + "length is " + output.length());
+        return output;
     }
 
     public static void compareMultipleStrings(String s, String b,String a) {
@@ -83,7 +105,7 @@ public class WorkWithStrings {
         }
     }
 
-
+/*
     public static void isTheSameStrings(String s2, String s3) {
         if (s2.equals(s3)) {
             System.out.println(s2);
@@ -91,7 +113,7 @@ public class WorkWithStrings {
             System.out.println(s3);
         }
     }
-
+*/
 
     public static void addSubIntoList(String s,int a, int b) {
         int startindex = a;
