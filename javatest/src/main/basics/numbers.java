@@ -59,6 +59,8 @@ public class numbers {
 
 
 
+
+
     public static void main(String[] args) {
         List<Integer> numbers = generateList(7, 20);
         numberInInterval(numbers, 8, 15, 10);
@@ -66,6 +68,17 @@ public class numbers {
         List<Integer> pole;
         pole = generateList(20, 20);
         minNumberVypis(pole);
+
+        int [] array = {4,5,6,7,28,3,1,0, -4};
+        int init = array[0];
+        for(int i = 0; i< array.length; i++){
+            if(init>array[i]){
+                init=array[i];
+
+            }
+
+        }
+        System.out.println("minimal value is " + init);
     }
 }
 
