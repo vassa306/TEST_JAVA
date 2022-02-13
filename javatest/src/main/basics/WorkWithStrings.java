@@ -1,6 +1,8 @@
 package main.basics;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class WorkWithStrings {
@@ -20,13 +22,27 @@ public class WorkWithStrings {
 
         concatofStrings(s,a);
 
-        substrMethod(s,5,13);
+        addSubIntoList(s,5,13);
     }
 
-    public static void substrMethod(String s,int a, int b) {
+    public static void addSubIntoList(String s,int a, int b) {
         int startindex = a;
         int endindex=b;
-        System.out.println(s.trim().substring(startindex,endindex));
+        List<String> subslist = new ArrayList<String>();
+        String subs1 = s.trim().substring(startindex);
+        String subs2 = s.trim().substring(endindex);
+        String subs3 = s.trim().substring(startindex,endindex);
+        subslist.add(subs1);
+        subslist.add(subs2);
+        subslist.add(subs3);
+
+        for (String jmeno : subslist) {
+            System.out.println("list contains " + jmeno);
+        }
+
+       // System.out.println(s.trim().substring(startindex));
+       // System.out.println(s.trim().substring(endindex));
+      ///  System.out.println(s.trim().substring(startindex,endindex));
     }
 
     public static void concatofStrings(String s, String a) {
