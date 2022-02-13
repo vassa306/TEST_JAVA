@@ -40,6 +40,13 @@ public class WorkWithStrings {
 
         counOfWords(s);
 
+        countOfSpaces(s);
+    }
+
+    public static void countOfSpaces(String s) {
+        String word = s.trim();
+        int count = word.length() - word.replace(" ","").length();
+        System.out.println("number of spaces: " + count);
     }
 
     public static void counOfWords(String s) {
