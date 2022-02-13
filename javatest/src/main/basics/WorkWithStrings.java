@@ -5,21 +5,28 @@ import java.util.Locale;
 
 public class WorkWithStrings {
     public static void main(String[] args) {
-        String ss = " Hello Hello worlds ";
-        String aa = "Hello Earth ";
+        String s = " Hello Hello worlds ";
+        String a = "Hello Earth ";
 
-        CheckStringContent(ss);
-        toUppercase(ss);
-        toLowerCase(ss);
+        CheckStringContent(s);
+        toUppercase(s);
+        toLowerCase(s);
         // if String is lesser than int position java threw out of bounds exception
-        checkCharPosition(aa,10);
+        checkCharPosition(a,10);
 
         //    int b = s.trim().length();
 
-        CheckCountOfChar(ss);
+        CheckCountOfChar(s);
 
-        concatofStrings(ss,aa);
+        concatofStrings(s,a);
 
+        substrMethod(s,5,13);
+    }
+
+    public static void substrMethod(String s,int a, int b) {
+        int startindex = a;
+        int endindex=b;
+        System.out.println(s.trim().substring(startindex,endindex));
     }
 
     public static void concatofStrings(String s, String a) {
