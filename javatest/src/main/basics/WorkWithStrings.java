@@ -14,16 +14,21 @@ public class WorkWithStrings {
         toUppercase(s);
         toLowerCase(s);
         // if String is lesser than int position java threw out of bounds exception
-        checkCharPosition(a,10);
+        checkCharPosition(a, 10);
 
         //    int b = s.trim().length();
 
         CheckCountOfChar(s);
 
-        concatofStrings(s,a);
+        concatofStrings(s, a);
 
-        addSubIntoList(s,5,13);
+        addSubIntoList(s, 5, 13);
+
+        isContainsString(s);
     }
+
+
+
 
     public static void addSubIntoList(String s,int a, int b) {
         int startindex = a;
@@ -80,9 +85,18 @@ public class WorkWithStrings {
         System.out.print(i + "contains e: " + a + " replace " + o + " length without space ");
     }
 
+        public static void isContainsString(String s){
+            if (s.contains("Ello")) {
+                System.out.println("value found");
+            } else {
+                System.out.println("value not found");
+            }
+        }
+    }
 
 
 
 
-}
+
+
 
