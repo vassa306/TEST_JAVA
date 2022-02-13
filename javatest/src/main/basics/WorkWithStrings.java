@@ -41,7 +41,7 @@ public class WorkWithStrings {
 
     public static void toUppercase(String a) {
         String upper = a.trim().toUpperCase();
-        System.out.print("string to uppercase is " + upper);
+        System.out.print("string to uppercase is a" + upper);
     }
 
     public static void toLowerCase(String a) {
