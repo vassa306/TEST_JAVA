@@ -47,6 +47,10 @@ public class WorkWithStrings {
         isPalidrome(p);
 
         testTheSameData(a, c);
+
+        
+
+
     }
 
     public static void testTheSameData(String s, String p) {
