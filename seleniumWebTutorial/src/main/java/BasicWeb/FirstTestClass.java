@@ -13,12 +13,14 @@ import java.util.concurrent.TimeUnit;
 
 public class FirstTestClass {
 
-    public static void main (String[] args){
+
+    public static void main (String[] args) throws InterruptedException {
         WebDriver driver = setUp();
         logIntoFB(driver);
+        driver.close();
     }
 
-    public static void logIntoFB(WebDriver driver) {
+    public static void logIntoFB(WebDriver driver) throws InterruptedException {
         driver.findElement(By.xpath("//button[@data-cookiebanner='accept_button']")).click();
         WebElement emailfield = driver.findElement(By.id("email"));
         emailfield.click();
@@ -36,6 +38,22 @@ public class FirstTestClass {
         String title = driver.getTitle();
         String URL = driver.getCurrentUrl();
         System.out.println("Page title: " + title + " Page URL is: " +  URL);
+        /* check link on webpage*/
+        WebElement link = driver.findElement(By.partialLinkText("Forgot password?"));
+        link.click();
+        System.out.println("link is " + link);
+        /*
+        WebElement CancelBtn = driver.findElement(By.xpath("//div[@class=\'rfloat _ohf\']/a[@role=\'button\']"));
+        String Cancel = CancelBtn.getText();
+        CancelBtn.click();
+        System.out.println(Cancel);
+        */
+        WebElement Search = driver.findElement(By.xpath("//div[@class='rfloat _ohf']/button[@value='1']"));
+        Search.getText();
+        Search.click();
+        Thread.sleep(2000);
+        System.out.println("search button text is" + Search);
+
     }
 
 
