@@ -18,6 +18,7 @@ public class FirstTestClass {
         WebDriver driver = setUp();
         logIntoFB(driver);
         driver.close();
+        driver.quit();
     }
 
     public static void logIntoFB(WebDriver driver) throws InterruptedException {
@@ -53,6 +54,10 @@ public class FirstTestClass {
         Search.click();
         Thread.sleep(2000);
         System.out.println("search button text is" + Search);
+
+        WebElement Alert = driver.findElement(By.xpath("//div[@class='pam uiBoxRed']/div[@class='_9o4g fsl fwb fcb']"));
+        String Alertx=Alert.getText();
+        System.out.println("text in Alert is " +  Alertx);
 
     }
 
