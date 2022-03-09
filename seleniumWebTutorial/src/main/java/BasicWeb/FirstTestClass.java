@@ -8,13 +8,26 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 
 public class FirstTestClass {
 
 
-    public static void main (String[] args) throws InterruptedException {
+
+
+    public static void main (String[] args) throws InterruptedException, IOException {
+
+        Properties prop = new Properties();
+        try (FileInputStream file = new FileInputStream("C:\\Developer\\seleniumWebTutorial\\src\\main\\java\\config\\object.properties")) {
+            prop.load(file);
+            System.out.println(prop.getProperty("login"));
+            System.out.println(prop.getProperty("password"));
+        }
+
         WebDriver driver = setUp();
         logIntoFB(driver);
         driver.close();
