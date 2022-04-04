@@ -1,9 +1,11 @@
 package BasicWeb;
 
 import Actions.TestActions;
-
-import org.openqa.selenium.WebDriver;
-
+import org.testng.*;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,6 +13,35 @@ import java.util.Properties;
 
 
 public class FirstTestClass extends TestActions{
+
+    @BeforeTest
+    public void setUp(){
+    commonSetup();
+    }
+
+    @Test(priority = 1)
+    public void validLoginFb() throws InterruptedException {
+    validLogin(driver);
+    }
+
+    @Test
+    public void invalidLoginFb(){
+
+    }
+
+    @AfterTest
+    public void cleanUp(){
+        driver.close();
+
+    }
+
+    @AfterSuite
+    public void exitTests(){
+        driver.quit();
+    }
+
+
+
 
 
 
@@ -25,7 +56,7 @@ public class FirstTestClass extends TestActions{
             System.out.println(prop.getProperty("password"));
         }
             TestActions.commonSetup();
-            logIntoFB(driver);
+            validLogin(driver);
 
 
         }
