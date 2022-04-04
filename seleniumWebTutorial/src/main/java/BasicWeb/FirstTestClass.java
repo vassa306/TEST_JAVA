@@ -44,13 +44,6 @@ public class FirstTestClass extends TestActions{
         driver.quit();
     }
 
-
-
-
-
-
-
-
     public void main(String[] args) throws InterruptedException, IOException {
 
         Properties prop = new Properties();
@@ -60,7 +53,7 @@ public class FirstTestClass extends TestActions{
             System.out.println(prop.getProperty("password"));
         }
             TestActions.commonSetup();
-            validLogin(driver);
+            getLinks();
 
 
         }

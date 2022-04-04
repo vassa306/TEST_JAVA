@@ -21,6 +21,7 @@ public abstract class TestActions {
     public static void commonSetup() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("disable-notifications");
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
         System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
