@@ -11,6 +11,8 @@ import java.util.concurrent.TimeUnit;
 
 import static constants.LoginConstants.DEFAULT_LOGIN;
 import static constants.LoginConstants.DEFAULT_PASS;
+import static constants.ValidationMessages.Incorrect_Login;
+import static constants.ValidationMessages.Incorrect_Password;
 
 public abstract class TestActions {
     protected static WebDriver driver;
@@ -28,12 +30,12 @@ public abstract class TestActions {
 
     }
 
-    public static void validLogin(WebDriver driver) throws InterruptedException {
-        LoginPage loginPage = new Homepage(driver).getLoginPage();
-        loginPage.getBanner().click();
+    public void getPageLink(WebDriver driver) throws InterruptedException {
+        LoginPage loginPage = getLoginPage();
         loginPage.getLogin().sendKeys(DEFAULT_LOGIN);
         loginPage.getPasssword().sendKeys(DEFAULT_PASS);
         driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS);
+        
 
         String title = driver.getTitle();
         String URL = driver.getCurrentUrl();
@@ -62,17 +64,29 @@ public abstract class TestActions {
 
          */
     }
-    public void invalidLogin(){
-        commonSetup();
-        LoginPage loginPage = new Homepage(driver).getLoginPage();
-        loginPage.getBanner().click();
+    public void invalidPassword(WebDriver driver) {
+
+        LoginPage loginPage = getLoginPage();
         loginPage.getLogin().sendKeys(DEFAULT_LOGIN);
         loginPage.getPasssword().sendKeys(Keys.ENTER);
-        String validationMgs = driver.findElement(By.className("_9ay7")).getText();
-        Assert.assertEquals(validationMgs,"The password you’ve entered is incorrect. Forgot Password?");
+        String validationMgs = TestActions.driver.findElement(By.className("_9ay7")).getText();
+        Assert.assertEquals(validationMgs, Incorrect_Password);
+        System.out.println(" value is " + validationMgs);
+    }
+        public void invalidLogin(WebDriver driver){
+            LoginPage loginPage = getLoginPage();
+            loginPage.getLogin().sendKeys(Keys.ENTER);
+            String valLoginMsg = TestActions.driver.findElement(By.className("_9ay7")).getText();
+            Assert.assertEquals(valLoginMsg, Incorrect_Login);
+            System.out.println("value is " + valLoginMsg);
 
 
+        }
 
+    private LoginPage getLoginPage() {
+        LoginPage loginPage = new Homepage(driver).getLoginPage();
+        loginPage.getBanner().click();
+        return loginPage;
     }
 
     public void cleanUp(){

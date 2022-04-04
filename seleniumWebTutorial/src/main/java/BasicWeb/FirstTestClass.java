@@ -20,23 +20,23 @@ public class FirstTestClass extends TestActions{
     }
 
     @Test(priority = 1)
-    public void validLoginFb() throws InterruptedException {
-    validLogin(driver);
+    public void getLinks() throws InterruptedException {
+    getPageLink(driver);
+    driver.close();
     }
 
     @Test(priority = 2)
-    public void invalidLoginFb(){
-        invalidPassword();
-    }
-
-    @Test(priority = 2)
-    public void invalidLogin(){
-        invalidLogin();
-    }
-    @AfterTest
-    public void cleanUp(){
+    public void invalidPassFb(){
+        commonSetup();
+        invalidPassword(driver);
         driver.close();
+    }
 
+    @Test(priority = 3)
+    public void invalidLoginFb(){
+        commonSetup();
+        invalidLogin(driver);
+        driver.close();
     }
 
     @AfterSuite
