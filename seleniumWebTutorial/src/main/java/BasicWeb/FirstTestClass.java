@@ -24,11 +24,15 @@ public class FirstTestClass extends TestActions{
     validLogin(driver);
     }
 
-    @Test
+    @Test(priority = 2)
     public void invalidLoginFb(){
-
+        invalidPassword();
     }
 
+    @Test(priority = 2)
+    public void invalidLogin(){
+        invalidLogin();
+    }
     @AfterTest
     public void cleanUp(){
         driver.close();
@@ -47,7 +51,7 @@ public class FirstTestClass extends TestActions{
 
 
 
-    public static void main(String[] args) throws InterruptedException, IOException {
+    public void main(String[] args) throws InterruptedException, IOException {
 
         Properties prop = new Properties();
         try (FileInputStream file = new FileInputStream("C:\\devops\\Test_JAVA\\seleniumWebTutorial\\src\\main\\java\\config\\object.properties")) {
