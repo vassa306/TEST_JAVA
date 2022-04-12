@@ -2,10 +2,7 @@ package BasicWeb;
 
 import Actions.TestActions;
 import org.testng.*;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,8 +11,8 @@ import java.util.Properties;
 
 public class FirstTestClass extends TestActions{
 
-    @BeforeTest
-    public void setUp(){
+    @BeforeMethod
+    public void setUp() {
     commonSetup();
     }
 
@@ -27,22 +24,22 @@ public class FirstTestClass extends TestActions{
 
     @Test(priority = 2)
     public void invalidPassFb(){
-        commonSetup();
         invalidPassword(driver);
         driver.close();
     }
 
     @Test(priority = 3)
     public void invalidLoginFb(){
-        commonSetup();
         invalidLogin(driver);
         driver.close();
     }
 
-    @AfterSuite
+    @AfterMethod
     public void exitTests(){
-        driver.quit();
+        tearUp();
     }
+
+
 
     public void main(String[] args) throws InterruptedException, IOException {
 
@@ -52,8 +49,7 @@ public class FirstTestClass extends TestActions{
             System.out.println(prop.getProperty("login"));
             System.out.println(prop.getProperty("password"));
         }
-            TestActions.commonSetup();
-            getLinks();
+
 
 
         }

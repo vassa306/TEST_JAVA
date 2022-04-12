@@ -8,11 +8,13 @@ public class LoginPage {
     private final WebElement banner;
     private final WebElement login;
     private final WebElement passsword;
+    private final WebElement link;
 
     public LoginPage(WebDriver driver){
         banner = driver.findElement(By.xpath("//button[@data-cookiebanner='accept_button']"));
         login = driver.findElement(By.id("email"));
         passsword = driver.findElement(By.id("pass"));
+        link = driver.findElement(By.partialLinkText("Forgot account?"));
     }
 
     public WebElement getBanner() {
@@ -25,5 +27,10 @@ public class LoginPage {
 
     public WebElement getPasssword() {
         return passsword;
+    }
+
+    public WebElement getLink(){
+        return link;
+
     }
 }
