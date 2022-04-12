@@ -34,6 +34,11 @@ public class FirstTestClass extends TestActions{
         driver.close();
     }
 
+    @Test(priority = 4)
+    public void getPageLinks(){
+        getAllLinks(driver);
+    }
+
     @AfterMethod
     public void exitTests(){
         tearUp();

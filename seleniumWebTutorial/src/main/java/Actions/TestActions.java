@@ -75,9 +75,20 @@ public abstract class TestActions {
 
     }
 
-    public void getAllLinks(){
+    public void getAllLinks(WebDriver driver){
         List<WebElement> links = driver.findElements(By.tagName("a"));
-        System.out.println("Total links are " + links.size());
+        System.out.println("Printing Links");
+        int num = links.size();
+        System.out.println("Total link Size is " + links.size());
+        Assert.assertEquals(num,LINKSCOUNT,"Wrong links count");
+
+        for (WebElement link: links){
+            System.out.println(link.getText() + "URL is " + link.getAttribute("href"));
+
+
+        }
+
+
     }
 
 }
