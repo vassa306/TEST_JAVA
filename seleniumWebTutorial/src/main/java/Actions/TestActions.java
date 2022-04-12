@@ -90,6 +90,19 @@ public abstract class TestActions {
 
 
     }
+    public void getLinksFromFooter(WebDriver driver){
+        WebElement block = driver.findElement(By.xpath("//div[@class=\"_95ke _8opy\"]"));
+        List<WebElement> footerlinks = block.findElements(By.tagName("a"));
+        System.out.println("Printing Footer Links");
+        int linknum = footerlinks.size();
+        System.out.println("Total Links in Footer: " + linknum);
+        Assert.assertEquals(linknum,FOOTERLINKSCOUNT,"incorrect number of links");
+
+        for (WebElement footerlink : footerlinks){
+            System.out.println(footerlink.getText()+"URL is " + footerlink.getAttribute("href"));
+        }
+
+    }
 
 }
 

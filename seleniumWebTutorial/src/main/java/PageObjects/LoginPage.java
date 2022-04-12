@@ -15,6 +15,7 @@ public class LoginPage {
         login = driver.findElement(By.id("email"));
         passsword = driver.findElement(By.id("pass"));
         link = driver.findElement(By.partialLinkText("Forgot account?"));
+
     }
 
     public WebElement getBanner() {

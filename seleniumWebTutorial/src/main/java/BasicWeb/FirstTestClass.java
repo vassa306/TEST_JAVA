@@ -38,6 +38,10 @@ public class FirstTestClass extends TestActions{
     public void getPageLinks(){
         getAllLinks(driver);
     }
+    @Test(priority = 5)
+    public void getFooterLink(){
+        getLinksFromFooter(driver);
+    }
 
     @AfterMethod
     public void exitTests(){
