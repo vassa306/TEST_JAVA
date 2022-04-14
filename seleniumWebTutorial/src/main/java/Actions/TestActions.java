@@ -5,15 +5,16 @@ import PageObjects.LoginPage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 import static constants.LoginConstants.*;
 import static constants.ValidationMessages.*;
+import static java.util.concurrent.TimeUnit.*;
 
 public abstract class TestActions {
     protected static WebDriver driver;
@@ -29,7 +30,7 @@ public abstract class TestActions {
         driver.manage().window().maximize();
         String baseUrl = "https://www.facebook.com";
         driver.get(baseUrl);
-        driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, SECONDS);
 
 
     }
@@ -43,7 +44,7 @@ public abstract class TestActions {
         driver.manage().window().maximize();
         String baseUrl = "https://www.way2automation.com/way2auto_jquery/index.php";
         driver.get(baseUrl);
-        driver.manage().timeouts().implicitlyWait(15,TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(15, SECONDS);
     }
 
     public static void commonSetupWiki(){
@@ -63,7 +64,7 @@ public abstract class TestActions {
         LoginPage loginPage = getLoginPage();
         loginPage.getLogin().sendKeys(DEFAULT_LOGIN);
         loginPage.getPasssword().sendKeys(DEFAULT_PASS);
-        driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(8, SECONDS);
 
         String title = driver.getTitle();
         String URL = driver.getCurrentUrl();
@@ -141,28 +142,41 @@ public abstract class TestActions {
             }
         }
 
-        public void pickValueFromDropdown(WebDriver driver, String name, String option){
-        WebElement dropdown = driver.findElement(By.name(name));
-        boolean displayed = dropdown.isDisplayed();
-        Assert.assertEquals(displayed,true,"Is not displayed");
-        Select select = new Select(dropdown);
-        select.selectByValue(option);
-        WebDriverWait wait = new WebDriverWait(driver,5);
-        }
-
-        public void pickValuefromWiki(WebDriver driver, String id, String option, String value) {
-            WebElement selectElement = driver.findElement(By.id(id));
-            Select select = new Select(selectElement);
-            select.selectByVisibleText(option);
-            select.selectByValue(value);
-            WebDriverWait wait = new WebDriverWait(driver,5);
-
-
-
-
+        public void pickValueFromDropdown(WebDriver driver, String name, String option) {
+            WebElement dropdown = driver.findElement(By.name(name));
+            boolean displayed = dropdown.isDisplayed();
+            Assert.assertEquals(displayed, true, "Is not displayed");
+            Select select = new Select(dropdown);
+            select.selectByValue(option);
+            String actt = select.getFirstSelectedOption().getText();
+            Assert.assertEquals(actt,option, "Incorrect value is selected");
+            System.out.println("selected value is " + actt);
         }
 
 
-}
+        public void pickValueByVisibleText(WebDriver driver, String id, String option) {
+        Select select = new Select(driver.findElement(By.id(id)));
+        select.selectByVisibleText(option);
+        String act = select.getFirstSelectedOption().getText();
+        Assert.assertEquals(act,option,"The incorrect value has been selected");
+        System.out.println("selected value is "+ act);
+
+        }
+
+        public void pickValuefrom(WebDriver driver,String Id,String value) throws InterruptedException {
+        Select select = new Select(driver.findElement(By.id(Id)));
+        select.selectByValue(value);
+        String act = select.getFirstSelectedOption().getText();
+        Assert.assertEquals(act,"हिन्दी","INCORRECT language is selected");
+        System.out.println(act);
+
+            }
+
+        }
+
+
+
+
+
 
 

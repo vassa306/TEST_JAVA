@@ -11,10 +11,18 @@ public class WikiTestClass extends TestActions {
         commonSetupWiki();
     }
 
+
+
     @Test
     public void selectLanguageOnWiki() {
-        pickValuefromWiki(driver,"searchLanguage","Eesti","hi");
+        pickValueByVisibleText(driver,"searchLanguage","Eesti");
 
+
+    }
+
+    @Test
+    public void selectvaluefromWiki() throws InterruptedException {
+        pickValuefrom(driver,"searchLanguage","hi");
     }
 
     @AfterMethod
