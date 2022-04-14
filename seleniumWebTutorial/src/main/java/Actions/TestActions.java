@@ -5,6 +5,8 @@ import PageObjects.LoginPage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import static constants.ValidationMessages.*;
 
 public abstract class TestActions {
     protected static WebDriver driver;
+    private List<WebElement> options;
 
 
     public static void commonSetup() {
@@ -26,11 +29,37 @@ public abstract class TestActions {
         driver.manage().window().maximize();
         String baseUrl = "https://www.facebook.com";
         driver.get(baseUrl);
+        driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 
 
     }
 
-    public void getPageLink(WebDriver driver) throws InterruptedException {
+    public static void commonSetupWeb(){
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("disable-notifications");
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+        System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
+        driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
+        String baseUrl = "https://www.way2automation.com/way2auto_jquery/index.php";
+        driver.get(baseUrl);
+        driver.manage().timeouts().implicitlyWait(15,TimeUnit.SECONDS);
+    }
+
+    public static void commonSetupWiki(){
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("disable-notifications");
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+        System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
+        driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
+        String baseUrl = "https://www.wikipedia.org";
+        driver.get(baseUrl);
+    }
+
+
+
+    public void checkPageLink(WebDriver driver) throws InterruptedException {
         LoginPage loginPage = getLoginPage();
         loginPage.getLogin().sendKeys(DEFAULT_LOGIN);
         loginPage.getPasssword().sendKeys(DEFAULT_PASS);
@@ -64,6 +93,21 @@ public abstract class TestActions {
 
         }
 
+    public void getLinksFromFooter(WebDriver driver){
+        LoginPage loginPage = getLoginPage();
+        WebElement block = driver.findElement(By.xpath("//div[@class=\"_95ke _8opy\"]"));
+        List<WebElement> footerlinks = block.findElements(By.tagName("a"));
+        System.out.println("Printing Footer Links");
+        int linknum = footerlinks.size();
+        System.out.println("Total Links in Footer: " + linknum);
+        Assert.assertEquals(linknum,FOOTERLINKSCOUNT,"incorrect number of links");
+
+        for (WebElement footerlink : footerlinks){
+            System.out.println(footerlink.getText()+" URL is " + footerlink.getAttribute("href"));
+        }
+
+    }
+
     private LoginPage getLoginPage() {
         LoginPage loginPage = new Homepage(driver).getLoginPage();
         loginPage.getBanner().click();
@@ -74,35 +118,50 @@ public abstract class TestActions {
         driver.quit();
 
     }
-
-    public void getAllLinks(WebDriver driver){
+    public void getAllLinks(WebDriver driver) {
         List<WebElement> links = driver.findElements(By.tagName("a"));
         System.out.println("Printing Links");
         int num = links.size();
         System.out.println("Total link Size is " + links.size());
-        Assert.assertEquals(num,LINKSCOUNT,"Wrong links count");
+        Assert.assertEquals(num, LINKSCOUNT, "Wrong links count");
 
-        for (WebElement link: links){
+        for (WebElement link : links) {
             System.out.println(link.getText() + "URL is " + link.getAttribute("href"));
 
 
         }
-
-
     }
-    public void getLinksFromFooter(WebDriver driver){
-        WebElement block = driver.findElement(By.xpath("//div[@class=\"_95ke _8opy\"]"));
-        List<WebElement> footerlinks = block.findElements(By.tagName("a"));
-        System.out.println("Printing Footer Links");
-        int linknum = footerlinks.size();
-        System.out.println("Total Links in Footer: " + linknum);
-        Assert.assertEquals(linknum,FOOTERLINKSCOUNT,"incorrect number of links");
 
-        for (WebElement footerlink : footerlinks){
-            System.out.println(footerlink.getText()+"URL is " + footerlink.getAttribute("href"));
+        public void getDropdownValues(WebDriver driver, String name){
+        List<WebElement>options = driver.findElements(By.name(name));
+        System.out.println("Printingvalues :");
+        for (WebElement option : options){
+            System.out.println("values is " + option.getText());
+
+            }
         }
 
-    }
+        public void pickValueFromDropdown(WebDriver driver, String name, String option){
+        WebElement dropdown = driver.findElement(By.name(name));
+        boolean displayed = dropdown.isDisplayed();
+        Assert.assertEquals(displayed,true,"Is not displayed");
+        Select select = new Select(dropdown);
+        select.selectByValue(option);
+        WebDriverWait wait = new WebDriverWait(driver,5);
+        }
+
+        public void pickValuefromWiki(WebDriver driver, String id, String option, String value) {
+            WebElement selectElement = driver.findElement(By.id(id));
+            Select select = new Select(selectElement);
+            select.selectByVisibleText(option);
+            select.selectByValue(value);
+            WebDriverWait wait = new WebDriverWait(driver,5);
+
+
+
+
+        }
+
 
 }
 

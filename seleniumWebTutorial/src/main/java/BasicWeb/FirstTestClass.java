@@ -18,20 +18,20 @@ public class FirstTestClass extends TestActions{
 
     @Test(priority = 1)
     public void getLinks() throws InterruptedException {
-    getPageLink(driver);
-    driver.close();
+    checkPageLink(driver);
+
     }
 
     @Test(priority = 2)
     public void invalidPassFb(){
         invalidPassword(driver);
-        driver.close();
+
     }
 
     @Test(priority = 3)
     public void invalidLoginFb(){
         invalidLogin(driver);
-        driver.close();
+
     }
 
     @Test(priority = 4)
