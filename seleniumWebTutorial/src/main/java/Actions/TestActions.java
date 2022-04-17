@@ -2,19 +2,24 @@ package Actions;
 
 import PageObjects.Homepage;
 import PageObjects.LoginPage;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.*;
+import org.openqa.selenium.support.locators.RelativeLocator;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import static org.openqa.selenium.support.locators.RelativeLocator.*;
 
+import java.time.Duration;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.concurrent.TimeUnit;
 
 import static constants.LoginConstants.*;
 import static constants.ValidationMessages.*;
-import static java.util.concurrent.TimeUnit.*;
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 
 public abstract class TestActions {
     protected static WebDriver driver;
@@ -56,6 +61,29 @@ public abstract class TestActions {
         driver.manage().window().maximize();
         String baseUrl = "https://www.wikipedia.org";
         driver.get(baseUrl);
+    }
+
+    public static void commonSetupTask(){
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("disable-notifications");
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+        System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
+        driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
+        String baseUrl = "https://www.google.com";
+        driver.get(baseUrl);
+    }
+
+    public static void commonSetupForm(){
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("disable-notifications");
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+        System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
+        driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
+        String baseUrl = "https://qa.way2automation.com";
+        driver.get(baseUrl);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
 
@@ -169,6 +197,43 @@ public abstract class TestActions {
         String act = select.getFirstSelectedOption().getText();
         Assert.assertEquals(act,"हिन्दी","INCORRECT language is selected");
         System.out.println(act);
+
+            }
+
+            public void handleGoogle(WebDriver driver) throws InterruptedException {
+            driver.findElement(By.xpath("//button[@id = \"L2AGLb\"]")).click();
+            WebElement input =  driver.findElement(By.xpath("//input[@class=\'gLFyf gsfi\']"));
+            input.sendKeys("way2automation");
+            input.sendKeys(Keys.ENTER);
+            driver.manage().timeouts().implicitlyWait(10, SECONDS);
+            driver.findElement(By.partialLinkText("Way2Automation: Get Online Selenium Certification Course")).click();
+            WebElement block = driver.findElement(By.xpath("//div[@class=\'ast-builder-grid-row ast-builder-grid-row-has-sides ast-builder-grid-row-no-center\']"));
+            List<WebElement> headerlinks = block.findElements(By.tagName("a"));
+            int actcount = headerlinks.size();
+            for(WebElement headerlink: headerlinks){
+                System.out.println("URL is " + headerlink.getAttribute("href"));
+
+
+            }
+                System.out.println(headerlinks.size());
+                Assert.assertEquals(actcount, 9);
+            }
+
+            public void insertIntoForm(WebDriver driver)  {
+             WebElement email = driver.findElement(RelativeLocator.with(By.tagName("input"))
+                .above(By.tagName("select")));
+             WebElement phone = driver.findElement(RelativeLocator.with(By.tagName("input")).above(email));
+             phone.sendKeys("aaaaaa");
+             WebElement name = driver.findElement(RelativeLocator.with(By.tagName("input")).above(phone));
+             name.sendKeys("aaaaa");
+             WebElement city = driver.findElement(RelativeLocator.with(By.tagName("input")).below(By.tagName("select")));
+             WebElement username = driver.findElement(RelativeLocator.with(By.tagName("input")).below(city));
+             WebElement password = driver.findElement(RelativeLocator.with(By.tagName("input")).below(username));
+             WebElement submit = driver.findElement(RelativeLocator.with(By.tagName("input")).below(password));
+             String s = submit.getTagName();
+                System.out.println("tag " + s.toLowerCase() + "/" + submit.getLocation());
+             submit.click();
+
 
             }
 

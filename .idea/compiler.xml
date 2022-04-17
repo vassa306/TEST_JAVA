@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="seleniumWebTutorial" target="7" />
+      <module name="seleniumWebTutorial" target="8" />
       <module name="TEST_JAVA" target="1.5" />
     </bytecodeTargetLevel>
   </component>
