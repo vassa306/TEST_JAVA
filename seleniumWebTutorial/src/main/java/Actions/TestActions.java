@@ -2,17 +2,16 @@ package Actions;
 
 import PageObjects.Homepage;
 import PageObjects.LoginPage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import static org.openqa.selenium.support.locators.RelativeLocator.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 
@@ -82,6 +81,18 @@ public abstract class TestActions {
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         String baseUrl = "https://qa.way2automation.com";
+        driver.get(baseUrl);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+    }
+
+    public static void commonSetupCheckbox(){
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("disable-notifications");
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+        System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
+        driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
+        String baseUrl = "http://www.tizag.com/htmlT/htmlcheckboxes.php";
         driver.get(baseUrl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
@@ -181,7 +192,6 @@ public abstract class TestActions {
             System.out.println("selected value is " + actt);
         }
 
-
         public void pickValueByVisibleText(WebDriver driver, String id, String option) {
         Select select = new Select(driver.findElement(By.id(id)));
         select.selectByVisibleText(option);
@@ -189,14 +199,17 @@ public abstract class TestActions {
         Assert.assertEquals(act,option,"The incorrect value has been selected");
         System.out.println("selected value is "+ act);
 
+
         }
 
-        public void pickValuefrom(WebDriver driver,String Id,String value) throws InterruptedException {
+        public void pickValuefrom(WebDriver driver,String Id,String value) throws InterruptedException, IOException {
         Select select = new Select(driver.findElement(By.id(Id)));
         select.selectByValue(value);
         String act = select.getFirstSelectedOption().getText();
         Assert.assertEquals(act,"हिन्दी","INCORRECT language is selected");
         System.out.println(act);
+
+
 
             }
 
@@ -219,7 +232,7 @@ public abstract class TestActions {
                 Assert.assertEquals(actcount, 9);
             }
 
-            public void insertIntoForm(WebDriver driver)  {
+            public void insertIntoForm(WebDriver driver) throws IOException {
              WebElement email = driver.findElement(RelativeLocator.with(By.tagName("input"))
                 .above(By.tagName("select")));
              WebElement phone = driver.findElement(RelativeLocator.with(By.tagName("input")).above(email));
@@ -229,15 +242,48 @@ public abstract class TestActions {
              WebElement city = driver.findElement(RelativeLocator.with(By.tagName("input")).below(By.tagName("select")));
              WebElement username = driver.findElement(RelativeLocator.with(By.tagName("input")).below(city));
              WebElement password = driver.findElement(RelativeLocator.with(By.tagName("input")).below(username));
+             File passscrn = password.getScreenshotAs(OutputType.FILE);
+             FileUtils.copyFile(passscrn,new File("./screenshot/pass.jpg"));
              WebElement submit = driver.findElement(RelativeLocator.with(By.tagName("input")).below(password));
              String s = submit.getTagName();
                 System.out.println("tag " + s.toLowerCase() + "/" + submit.getLocation());
              submit.click();
+             File screen = submit.getScreenshotAs(OutputType.FILE);
+             FileUtils.copyFile(screen, new File("./screenshot/below.jpg"));
+
+            }
+
+            public static boolean isElementPresent(String locator) {
+                try {
+                    driver.findElement(By.xpath(locator));
+                    return true;
+                }catch (Throwable t){
+                    return false;
+                }
+            }
+
+            public void tickCheckboxes() throws IOException {
+//               int i = 1;
+//                int count = 0;
+//               while (isElementPresent("//div[4]/input["+i+"]")) {
+//                    driver.findElement(By.xpath("//div[4]/input["+i+"]")).click();
+//                  i++;
+//                    count++;
+//             }
+                WebElement block = driver.findElement(By.xpath("/html/body/table[3]/tbody/tr[1]/td[2]/table/tbody/tr/td/div[4]"));
+                List<WebElement>checkboxes = block.findElements(By.name("sports"));
+                System.out.println("number of checkboxes is : " + checkboxes.size());
+                for (WebElement checkbox : checkboxes){
+                    checkbox.click();
+                }
+                File f = block.getScreenshotAs(OutputType.FILE);
+                FileUtils.copyFile(f,new File("./screenshot/block.jpg"));
+
 
 
             }
 
-        }
+    }
 
 
 

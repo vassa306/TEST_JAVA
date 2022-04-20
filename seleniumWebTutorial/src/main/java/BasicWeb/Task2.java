@@ -6,6 +6,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
+
 public class Task2 extends TestActions {
     @BeforeMethod
     public void setUp(){
@@ -14,9 +16,10 @@ public class Task2 extends TestActions {
 
     }
     @Test
-    public void handleForm() {
+    public void handleForm() throws IOException {
         insertIntoForm(driver);
     }
+
 
     @AfterMethod()
         public void tearUp(){
