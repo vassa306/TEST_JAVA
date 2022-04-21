@@ -10,7 +10,9 @@ import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
@@ -298,15 +300,15 @@ public abstract class TestActions {
 
     }
 
-    public void handleWebTables(String row, String coll) {
+    public void handleWebTables(String row, String coll) throws IOException {
         List<WebElement> rowNums = driver.findElements(By.xpath(row));
         System.out.println("Row count is : " + rowNums.size());
         List<WebElement> collNums = driver.findElements(By.xpath(coll));
         System.out.println("columns count is: " + collNums.size());
         Assert.assertEquals(rowNums.size(), ROWSCOUNTALL, "Incorrect rows size");
 
-        for (WebElement rowNum : rowNums){
-            System.out.print("[" +rowNum.getText().toUpperCase() + "]" + "\n");
+        for (WebElement rowNum : rowNums) {
+            System.out.print("[" + rowNum.getText().toUpperCase() + "]" + "\n");
 
 //        for (int rows = 1; rows < rowNums.size(); rows++) {
 //
@@ -316,9 +318,32 @@ public abstract class TestActions {
 //
 //            }
         }
+        exportToTxt(rowNums);
 
     }
 
+        public void exportToTxt(List<WebElement>rowNums) throws IOException {
+            File F = new File("C:\\FileWriting\\myTextFile.txt");
+            FileWriter fw = new FileWriter(F, false);
+            BufferedWriter writer = new BufferedWriter(fw);
+
+            //Writing into file first loop rows and second columns
+            for (int rof = 0; rof < 1; rof++) {
+                for (int col = 0; col < 1; col++) {
+                    for (WebElement rowNum : rowNums) {
+                    writer.write(rowNum.getText().toUpperCase() + ","+ "\n ");
+                }
+                writer.newLine();
+
+            }
+            writer.close();
+            System.out.println("file created!");
+
+
+        }
+
+
+    }
 }
 
 
