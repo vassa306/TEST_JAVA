@@ -8,4 +8,5 @@ public class LoginConstants {
     public static int LINKSCOUNT = 66;
     public static int FOOTERLINKSCOUNT = 41;
     public static String SELECTEDROODOWN = "Germany";
+    public static int ROWSCOUNT = 533;
 }

@@ -301,7 +301,7 @@ public abstract class TestActions {
         System.out.println("Row count is : " + rowNums.size());
         List<WebElement> collNums = driver.findElements(By.xpath(coll));
         System.out.println("columns count is: " + collNums.size());
-        Assert.assertEquals(rowNums.size(), 533, "Incorrect rows size");
+        Assert.assertEquals(rowNums.size(), ROWSCOUNT, "Incorrect rows size");
 
         for (WebElement rowNum : rowNums){
             System.out.print("[" +rowNum.getText().toUpperCase() + "]" + "\n");
