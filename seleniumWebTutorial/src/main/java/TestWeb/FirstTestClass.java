@@ -1,7 +1,6 @@
-package BasicWeb;
+package TestWeb;
 
 import Actions.TestActions;
-import org.testng.*;
 import org.testng.annotations.*;
 
 import java.io.FileInputStream;

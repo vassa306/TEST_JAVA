@@ -1,4 +1,4 @@
-package BasicWeb;
+package TestWeb;
 
 import Actions.TestActions;
 import org.testng.annotations.AfterMethod;

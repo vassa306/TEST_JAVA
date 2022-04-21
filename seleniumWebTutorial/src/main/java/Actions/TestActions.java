@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
+import java.util.Locale;
 
 import static constants.LoginConstants.*;
 import static constants.ValidationMessages.*;
@@ -39,7 +40,7 @@ public abstract class TestActions {
 
     }
 
-    public static void commonSetupWeb(){
+    public static void commonSetupWeb() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("disable-notifications");
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
@@ -51,7 +52,7 @@ public abstract class TestActions {
         driver.manage().timeouts().implicitlyWait(15, SECONDS);
     }
 
-    public static void commonSetupWiki(){
+    public static void commonSetupWiki() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("disable-notifications");
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
@@ -62,7 +63,7 @@ public abstract class TestActions {
         driver.get(baseUrl);
     }
 
-    public static void commonSetupTask(){
+    public static void commonSetupTask() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("disable-notifications");
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
@@ -73,7 +74,7 @@ public abstract class TestActions {
         driver.get(baseUrl);
     }
 
-    public static void commonSetupForm(){
+    public static void commonSetupForm() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("disable-notifications");
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
@@ -85,7 +86,7 @@ public abstract class TestActions {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
-    public static void commonSetupCheckbox(){
+    public static void commonSetupCheckbox() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("disable-notifications");
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
@@ -97,6 +98,17 @@ public abstract class TestActions {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
+    public static void commonSetupWebTable() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("disable-notifications");
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+        System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
+        driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
+        String baseUrl = "https://money.rediff.com/gainers/bse/daily/groupa";
+        driver.get(baseUrl);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+    }
 
 
     public void checkPageLink(WebDriver driver) throws InterruptedException {
@@ -107,13 +119,14 @@ public abstract class TestActions {
 
         String title = driver.getTitle();
         String URL = driver.getCurrentUrl();
-        Assert.assertEquals(title,LOGINPAGE_TITLE );
+        Assert.assertEquals(title, LOGINPAGE_TITLE);
         System.out.println("Page title: " + title + " Page URL is: " + URL);
         /* check link on webpage*/
-        Assert.assertEquals(URL,LOGINPAGE_URL);
+        Assert.assertEquals(URL, LOGINPAGE_URL);
         String actuallinkvalue = loginPage.getLink().getText();
-        Assert.assertEquals(actuallinkvalue,Reset_Password);
+        Assert.assertEquals(actuallinkvalue, Reset_Password);
     }
+
     public void invalidPassword(WebDriver driver) {
 
         LoginPage loginPage = getLoginPage();
@@ -123,27 +136,28 @@ public abstract class TestActions {
         Assert.assertEquals(validationMgs, Incorrect_Password);
         System.out.println(" value is " + validationMgs);
     }
-        public void invalidLogin(WebDriver driver){
-            LoginPage loginPage = getLoginPage();
-            loginPage.getLogin().sendKeys(Keys.ENTER);
-            String valLoginMsg = TestActions.driver.findElement(By.className("_9ay7")).getText();
-            Assert.assertEquals(valLoginMsg, Incorrect_Login);
-            System.out.println("value is " + valLoginMsg);
+
+    public void invalidLogin(WebDriver driver) {
+        LoginPage loginPage = getLoginPage();
+        loginPage.getLogin().sendKeys(Keys.ENTER);
+        String valLoginMsg = TestActions.driver.findElement(By.className("_9ay7")).getText();
+        Assert.assertEquals(valLoginMsg, Incorrect_Login);
+        System.out.println("value is " + valLoginMsg);
 
 
-        }
+    }
 
-    public void getLinksFromFooter(WebDriver driver){
+    public void getLinksFromFooter(WebDriver driver) {
         LoginPage loginPage = getLoginPage();
         WebElement block = driver.findElement(By.xpath("//div[@class=\"_95ke _8opy\"]"));
         List<WebElement> footerlinks = block.findElements(By.tagName("a"));
         System.out.println("Printing Footer Links");
         int linknum = footerlinks.size();
         System.out.println("Total Links in Footer: " + linknum);
-        Assert.assertEquals(linknum,FOOTERLINKSCOUNT,"incorrect number of links");
+        Assert.assertEquals(linknum, FOOTERLINKSCOUNT, "incorrect number of links");
 
-        for (WebElement footerlink : footerlinks){
-            System.out.println(footerlink.getText()+" URL is " + footerlink.getAttribute("href"));
+        for (WebElement footerlink : footerlinks) {
+            System.out.println(footerlink.getText() + " URL is " + footerlink.getAttribute("href"));
         }
 
     }
@@ -154,10 +168,11 @@ public abstract class TestActions {
         return loginPage;
     }
 
-    public void tearUp(){
+    public void tearUp() {
         driver.quit();
 
     }
+
     public void getAllLinks(WebDriver driver) {
         List<WebElement> links = driver.findElements(By.tagName("a"));
         System.out.println("Printing Links");
@@ -172,97 +187,96 @@ public abstract class TestActions {
         }
     }
 
-        public void getDropdownValues(WebDriver driver, String name){
-        List<WebElement>options = driver.findElements(By.name(name));
+    public void getDropdownValues(WebDriver driver, String name) {
+        List<WebElement> options = driver.findElements(By.name(name));
         System.out.println("Printingvalues :");
-        for (WebElement option : options){
+        for (WebElement option : options) {
             System.out.println("values is " + option.getText());
 
-            }
         }
+    }
 
-        public void pickValueFromDropdown(WebDriver driver, String name, String option) {
-            WebElement dropdown = driver.findElement(By.name(name));
-            boolean displayed = dropdown.isDisplayed();
-            Assert.assertEquals(displayed, true, "Is not displayed");
-            Select select = new Select(dropdown);
-            select.selectByValue(option);
-            String actt = select.getFirstSelectedOption().getText();
-            Assert.assertEquals(actt,option, "Incorrect value is selected");
-            System.out.println("selected value is " + actt);
-        }
+    public void pickValueFromDropdown(WebDriver driver, String name, String option) {
+        WebElement dropdown = driver.findElement(By.name(name));
+        boolean displayed = dropdown.isDisplayed();
+        Assert.assertEquals(displayed, true, "Is not displayed");
+        Select select = new Select(dropdown);
+        select.selectByValue(option);
+        String actt = select.getFirstSelectedOption().getText();
+        Assert.assertEquals(actt, option, "Incorrect value is selected");
+        System.out.println("selected value is " + actt);
+    }
 
-        public void pickValueByVisibleText(WebDriver driver, String id, String option) {
+    public void pickValueByVisibleText(WebDriver driver, String id, String option) {
         Select select = new Select(driver.findElement(By.id(id)));
         select.selectByVisibleText(option);
         String act = select.getFirstSelectedOption().getText();
-        Assert.assertEquals(act,option,"The incorrect value has been selected");
-        System.out.println("selected value is "+ act);
+        Assert.assertEquals(act, option, "The incorrect value has been selected");
+        System.out.println("selected value is " + act);
 
 
-        }
+    }
 
-        public void pickValuefrom(WebDriver driver,String Id,String value) throws InterruptedException, IOException {
+    public void pickValuefrom(WebDriver driver, String Id, String value) throws InterruptedException, IOException {
         Select select = new Select(driver.findElement(By.id(Id)));
         select.selectByValue(value);
         String act = select.getFirstSelectedOption().getText();
-        Assert.assertEquals(act,"हिन्दी","INCORRECT language is selected");
+        Assert.assertEquals(act, "हिन्दी", "INCORRECT language is selected");
         System.out.println(act);
 
 
+    }
 
-            }
-
-            public void handleGoogle(WebDriver driver) throws InterruptedException {
-            driver.findElement(By.xpath("//button[@id = \"L2AGLb\"]")).click();
-            WebElement input =  driver.findElement(By.xpath("//input[@class=\'gLFyf gsfi\']"));
-            input.sendKeys("way2automation");
-            input.sendKeys(Keys.ENTER);
-            driver.manage().timeouts().implicitlyWait(10, SECONDS);
-            driver.findElement(By.partialLinkText("Way2Automation: Get Online Selenium Certification Course")).click();
-            WebElement block = driver.findElement(By.xpath("//div[@class=\'ast-builder-grid-row ast-builder-grid-row-has-sides ast-builder-grid-row-no-center\']"));
-            List<WebElement> headerlinks = block.findElements(By.tagName("a"));
-            int actcount = headerlinks.size();
-            for(WebElement headerlink: headerlinks){
-                System.out.println("URL is " + headerlink.getAttribute("href"));
+    public void handleGoogle(WebDriver driver) throws InterruptedException {
+        driver.findElement(By.xpath("//button[@id = \"L2AGLb\"]")).click();
+        WebElement input = driver.findElement(By.xpath("//input[@class=\'gLFyf gsfi\']"));
+        input.sendKeys("way2automation");
+        input.sendKeys(Keys.ENTER);
+        driver.manage().timeouts().implicitlyWait(10, SECONDS);
+        driver.findElement(By.partialLinkText("Way2Automation: Get Online Selenium Certification Course")).click();
+        WebElement block = driver.findElement(By.xpath("//div[@class=\'ast-builder-grid-row ast-builder-grid-row-has-sides ast-builder-grid-row-no-center\']"));
+        List<WebElement> headerlinks = block.findElements(By.tagName("a"));
+        int actcount = headerlinks.size();
+        for (WebElement headerlink : headerlinks) {
+            System.out.println("URL is " + headerlink.getAttribute("href"));
 
 
-            }
-                System.out.println(headerlinks.size());
-                Assert.assertEquals(actcount, 9);
-            }
+        }
+        System.out.println(headerlinks.size());
+        Assert.assertEquals(actcount, 9);
+    }
 
-            public void insertIntoForm(WebDriver driver) throws IOException {
-             WebElement email = driver.findElement(RelativeLocator.with(By.tagName("input"))
+    public void insertIntoForm(WebDriver driver) throws IOException {
+        WebElement email = driver.findElement(RelativeLocator.with(By.tagName("input"))
                 .above(By.tagName("select")));
-             WebElement phone = driver.findElement(RelativeLocator.with(By.tagName("input")).above(email));
-             phone.sendKeys("aaaaaa");
-             WebElement name = driver.findElement(RelativeLocator.with(By.tagName("input")).above(phone));
-             name.sendKeys("aaaaa");
-             WebElement city = driver.findElement(RelativeLocator.with(By.tagName("input")).below(By.tagName("select")));
-             WebElement username = driver.findElement(RelativeLocator.with(By.tagName("input")).below(city));
-             WebElement password = driver.findElement(RelativeLocator.with(By.tagName("input")).below(username));
-             File passscrn = password.getScreenshotAs(OutputType.FILE);
-             FileUtils.copyFile(passscrn,new File("./screenshot/pass.jpg"));
-             WebElement submit = driver.findElement(RelativeLocator.with(By.tagName("input")).below(password));
-             String s = submit.getTagName();
-                System.out.println("tag " + s.toLowerCase() + "/" + submit.getLocation());
-             submit.click();
-             File screen = submit.getScreenshotAs(OutputType.FILE);
-             FileUtils.copyFile(screen, new File("./screenshot/below.jpg"));
+        WebElement phone = driver.findElement(RelativeLocator.with(By.tagName("input")).above(email));
+        phone.sendKeys("aaaaaa");
+        WebElement name = driver.findElement(RelativeLocator.with(By.tagName("input")).above(phone));
+        name.sendKeys("aaaaa");
+        WebElement city = driver.findElement(RelativeLocator.with(By.tagName("input")).below(By.tagName("select")));
+        WebElement username = driver.findElement(RelativeLocator.with(By.tagName("input")).below(city));
+        WebElement password = driver.findElement(RelativeLocator.with(By.tagName("input")).below(username));
+        File passscrn = password.getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(passscrn, new File("./screenshot/pass.jpg"));
+        WebElement submit = driver.findElement(RelativeLocator.with(By.tagName("input")).below(password));
+        String s = submit.getTagName();
+        System.out.println("tag " + s.toLowerCase() + "/" + submit.getLocation());
+        submit.click();
+        File screen = submit.getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(screen, new File("./screenshot/below.jpg"));
 
-            }
+    }
 
-            public static boolean isElementPresent(String locator) {
-                try {
-                    driver.findElement(By.xpath(locator));
-                    return true;
-                }catch (Throwable t){
-                    return false;
-                }
-            }
+    public static boolean isElementPresent(String locator) {
+        try {
+            driver.findElement(By.xpath(locator));
+            return true;
+        } catch (Throwable t) {
+            return false;
+        }
+    }
 
-            public void tickCheckboxes() throws IOException {
+    public void tickCheckboxes(WebDriver driver) throws IOException {
 //               int i = 1;
 //                int count = 0;
 //               while (isElementPresent("//div[4]/input["+i+"]")) {
@@ -270,20 +284,44 @@ public abstract class TestActions {
 //                  i++;
 //                    count++;
 //             }
-                WebElement block = driver.findElement(By.xpath("/html/body/table[3]/tbody/tr[1]/td[2]/table/tbody/tr/td/div[4]"));
-                List<WebElement>checkboxes = block.findElements(By.name("sports"));
-                System.out.println("number of checkboxes is : " + checkboxes.size());
-                for (WebElement checkbox : checkboxes){
-                    checkbox.click();
-                }
-                File f = block.getScreenshotAs(OutputType.FILE);
-                FileUtils.copyFile(f,new File("./screenshot/block.jpg"));
+        WebElement block = driver.findElement(By.xpath("/html/body/table[3]/tbody/tr[1]/td[2]/table/tbody/tr/td/div[4]"));
+        List<WebElement> checkboxes = block.findElements(By.name("sports"));
+        System.out.println("number of checkboxes is : " + checkboxes.size());
+        for (WebElement checkbox : checkboxes) {
+            checkbox.click();
+        }
+        File f = block.getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(f, new File("./screenshot/block.jpg"));
 
-
-
-            }
 
     }
+
+    public void handleWebTables(String row, String coll) {
+        List<WebElement> rowNums = driver.findElements(By.xpath(row));
+        System.out.println("Row count is : " + rowNums.size());
+        List<WebElement> collNums = driver.findElements(By.xpath(coll));
+        System.out.println("columns count is: " + collNums.size());
+        Assert.assertEquals(rowNums.size(), 533, "Incorrect rows size");
+
+        for (WebElement rowNum : rowNums){
+            System.out.print("[" +rowNum.getText().toUpperCase() + "]" + "\n");
+
+//        for (int rows = 1; rows < rowNums.size(); rows++) {
+//
+//            for (int cols = 1; cols < collNums.size(); cols++) {
+//                System.out.print(driver.findElement(By.xpath("//table[@class='dataTable']/tbody/tr["+rows+"]/td["+cols+"]")).getText()+"   ");
+//
+//
+//            }
+        }
+
+    }
+
+}
+
+
+
+
 
 
 

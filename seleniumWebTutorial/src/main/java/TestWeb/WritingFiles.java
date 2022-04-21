@@ -1,4 +1,4 @@
-package BasicWeb;
+package TestWeb;
 
 import java.io.BufferedWriter;
 import java.io.File;
