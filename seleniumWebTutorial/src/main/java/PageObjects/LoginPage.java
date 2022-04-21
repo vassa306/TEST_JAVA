@@ -14,7 +14,7 @@ public class LoginPage {
         banner = driver.findElement(By.xpath("//button[@data-cookiebanner='accept_button']"));
         login = driver.findElement(By.id("email"));
         passsword = driver.findElement(By.id("pass"));
-        link = driver.findElement(By.partialLinkText("Forgot account?"));
+        link = driver.findElement(By.partialLinkText("Forgot password?"));
 
     }
 

@@ -14,9 +14,8 @@ import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
-import java.util.Locale;
 
-import static constants.LoginConstants.*;
+import static constants.TestConstants.*;
 import static constants.ValidationMessages.*;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -105,7 +104,7 @@ public abstract class TestActions {
         System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
-        String baseUrl = "https://money.rediff.com/gainers/bse/daily/groupa";
+        String baseUrl = "https://money.rediff.com/gainers/bse/daily/groupall";
         driver.get(baseUrl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
@@ -174,16 +173,19 @@ public abstract class TestActions {
     }
 
     public void getAllLinks(WebDriver driver) {
+        getLoginPage();
         List<WebElement> links = driver.findElements(By.tagName("a"));
         System.out.println("Printing Links");
         int num = links.size();
         System.out.println("Total link Size is " + links.size());
-        Assert.assertEquals(num, LINKSCOUNT, "Wrong links count");
+        try {
+            for (WebElement link : links) {
+                System.out.println(link.getText() + " URL is " + link.getAttribute("href"));
 
-        for (WebElement link : links) {
-            System.out.println(link.getText() + "URL is " + link.getAttribute("href"));
+            }
 
-
+        } catch (StaleElementReferenceException e) {
+            e.getMessage();
         }
     }
 
@@ -301,7 +303,7 @@ public abstract class TestActions {
         System.out.println("Row count is : " + rowNums.size());
         List<WebElement> collNums = driver.findElements(By.xpath(coll));
         System.out.println("columns count is: " + collNums.size());
-        Assert.assertEquals(rowNums.size(), ROWSCOUNT, "Incorrect rows size");
+        Assert.assertEquals(rowNums.size(), ROWSCOUNTALL, "Incorrect rows size");
 
         for (WebElement rowNum : rowNums){
             System.out.print("[" +rowNum.getText().toUpperCase() + "]" + "\n");
