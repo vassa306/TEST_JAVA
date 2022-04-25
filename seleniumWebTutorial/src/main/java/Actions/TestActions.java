@@ -2,6 +2,7 @@ package Actions;
 
 import PageObjects.Homepage;
 import PageObjects.LoginPage;
+import com.sun.org.apache.xml.internal.security.utils.JavaUtils;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,6 +15,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
 import java.time.Duration;
 import java.util.List;
 
@@ -386,7 +388,47 @@ public abstract class TestActions {
                 System.out.println("Element found");
             }
         }
-        Assert.assertEquals(text,FROM,"Invalid value selected");
+        Assert.assertEquals(text, FROM, "Invalid value selected");
+    }
+
+    public static String[] getMonthYear(String monthYearVal) {
+        return monthYearVal.split(" ");
+    }
+
+
+
+
+    public static void handleCalendar(String locator, String expDay, String expMonth, String expYear) throws ParseException {
+        try {
+
+
+        Integer i = Integer.parseInt(expDay);
+        if((expMonth.equals("June") || (expMonth.equals("March")) || (i > 31)) || (i < 1)){
+            System.out.println("Wrong date selected: " + expDay + " / " + expMonth);
+            return;
+       }
+
+        if (i==null){
+            System.out.println("not value selected");
+        }
+
+      WebElement picker = driver.findElement(By.id(locator));
+        picker.click();
+        String monthYearVal = driver.findElement(By.className("ui-datepicker-title")).getText();
+       while (!(getMonthYear(monthYearVal)[0].equals(expMonth)
+                && getMonthYear(monthYearVal)[1].equals(expYear))) {
+            driver.findElement(By.xpath("//a[@title='Next']")).click();
+            monthYearVal = driver.findElement(By.className("ui-datepicker-title")).getText();
+
+
+        }
+
+       WebElement s = driver.findElement(By.xpath("//a[text()='" + expDay + "']"));
+       s.click();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
 
