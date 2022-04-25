@@ -111,6 +111,18 @@ public abstract class TestActions {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
+    public static void commonSetupHandleJs() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("disable-notifications");
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+        System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
+        driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
+        String baseUrl = "https://ksrtc.in/oprs-web/guest/home.do";
+        driver.get(baseUrl);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+    }
+
 
     public void checkPageLink(WebDriver driver) throws InterruptedException {
         LoginPage loginPage = getLoginPage();
@@ -331,6 +343,7 @@ public abstract class TestActions {
             for (int rof = 0; rof < 1; rof++) {
                 for (int col = 0; col < 1; col++) {
                     for (WebElement rowNum : rowNums) {
+
                     writer.write(rowNum.getText().toUpperCase() + ","+ "\n ");
                 }
                 writer.newLine();
@@ -341,6 +354,21 @@ public abstract class TestActions {
 
 
         }
+
+
+    }
+    public void handleJSelement(String locator){
+        driver.findElement(By.id(locator)).sendKeys("BENG");
+        for (int i=0; i<4;i++){
+            driver.findElement(By.id(locator)).sendKeys(Keys.DOWN);
+        }
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        // do not forget insert return before statement
+        String script = "return document.getElementById(\"fromPlaceName\").value;";
+        String text = (String) js.executeScript(script);
+        System.out.println(text);
+        Assert.assertEquals(text,FROM," Invalid value selected");
+
 
 
     }
