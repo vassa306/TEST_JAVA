@@ -11,4 +11,5 @@ public class TestConstants {
     public static int ROWSCOUNTA = 533;
     public static int ROWSCOUNTALL = 1415;
     public static String FROM = "BENGALURU INTERNATION AIRPORT";
+    public static int TIMEOUT = 1000;
 }

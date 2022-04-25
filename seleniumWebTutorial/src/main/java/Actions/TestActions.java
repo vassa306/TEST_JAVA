@@ -334,17 +334,17 @@ public abstract class TestActions {
 
     }
 
-        public void exportToTxt(List<WebElement>rowNums) throws IOException {
-            File F = new File("C:\\FileWriting\\myTextFile.txt");
-            FileWriter fw = new FileWriter(F, false);
-            BufferedWriter writer = new BufferedWriter(fw);
+    public void exportToTxt(List<WebElement> rowNums) throws IOException {
+        File F = new File("C:\\FileWriting\\myTextFile.txt");
+        FileWriter fw = new FileWriter(F, false);
+        BufferedWriter writer = new BufferedWriter(fw);
 
-            //Writing into file first loop rows and second columns
-            for (int rof = 0; rof < 1; rof++) {
-                for (int col = 0; col < 1; col++) {
-                    for (WebElement rowNum : rowNums) {
+        //Writing into file first loop rows and second columns
+        for (int rof = 0; rof < 1; rof++) {
+            for (int col = 0; col < 1; col++) {
+                for (WebElement rowNum : rowNums) {
 
-                    writer.write(rowNum.getText().toUpperCase() + ","+ "\n ");
+                    writer.write(rowNum.getText().toUpperCase() + "," + "\n ");
                 }
                 writer.newLine();
 
@@ -357,20 +357,36 @@ public abstract class TestActions {
 
 
     }
-    public void handleJSelement(String locator){
+
+    public void handleJSelement(String locator) throws InterruptedException {
         driver.findElement(By.id(locator)).sendKeys("BENG");
-        for (int i=0; i<4;i++){
-            driver.findElement(By.id(locator)).sendKeys(Keys.DOWN);
-        }
-        JavascriptExecutor js = (JavascriptExecutor)driver;
+        driver.findElement(By.id(locator)).sendKeys(Keys.DOWN);
+        Thread.sleep(TIMEOUT);
+        driver.findElement(By.id(locator)).sendKeys(Keys.DOWN);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         // do not forget insert return before statement
         String script = "return document.getElementById(\"fromPlaceName\").value;";
         String text = (String) js.executeScript(script);
-        System.out.println(text);
-        Assert.assertEquals(text,FROM," Invalid value selected");
+        //System.out.println(text);
+        //Assert.assertEquals(text,FROM," Invalid value selected");
+        int i = 0;
 
-
-
+        while (!text.equalsIgnoreCase(FROM)) {
+            i++;
+            driver.findElement(By.id(locator)).sendKeys(Keys.DOWN);
+            Thread.sleep(TIMEOUT);
+            text = (String) js.executeScript(script);
+            System.out.println(text);
+            if (i > 10) {
+                break;
+            }
+            if (i > 10) {
+                System.out.println("Element not found");
+            } else {
+                System.out.println("Element found");
+            }
+        }
+        Assert.assertEquals(text,FROM,"Invalid value selected");
     }
 }
 
