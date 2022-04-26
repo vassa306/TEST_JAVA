@@ -1,5 +1,12 @@
 package TestWeb;
 
-public class HardWaitExercise {
+import Actions.TestActions;
+import org.testng.annotations.BeforeMethod;
 
+public class HardWaitExercise extends TestActions {
+   @BeforeMethod
+    public void commonSetUp(){
+       commonSetUpHardWait();
+   }
+   
 }

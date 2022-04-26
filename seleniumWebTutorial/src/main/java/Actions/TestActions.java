@@ -123,6 +123,18 @@ public abstract class TestActions {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
+    public static void commonSetUpHardWait() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("disable-notifications");
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+        System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
+        driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
+        String baseUrl = "https://alaskatrips.poweredbygps.com/g/pt/hotels";
+        driver.get(baseUrl);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
+    }
+
 
     public void checkPageLink(WebDriver driver) throws InterruptedException {
         LoginPage loginPage = getLoginPage();
