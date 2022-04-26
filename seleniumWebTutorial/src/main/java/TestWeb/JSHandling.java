@@ -19,10 +19,17 @@ public class JSHandling extends TestActions {
     }
 
     @Test
-    public void testDatepicker() throws ParseException {
-        handleCalendar("txtJourneyDate","25","May","2022");
+    public void pickerFrom() throws ParseException {
+        pickValueFromPicker("txtJourneyDate","29","April","2022");
 
     }
+
+    @Test
+    public void pickerTo()throws ParseException{
+        pickValueFromPicker("txtReturnJourneyDate","25","May","2022");
+    }
+
+
 
     @AfterMethod
     public void tearUp(){

@@ -2,7 +2,6 @@ package Actions;
 
 import PageObjects.Homepage;
 import PageObjects.LoginPage;
-import com.sun.org.apache.xml.internal.security.utils.JavaUtils;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -10,15 +9,14 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.Duration;
+import java.time.Month;
 import java.util.List;
-
 import static constants.TestConstants.*;
 import static constants.ValidationMessages.*;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -396,9 +394,15 @@ public abstract class TestActions {
     }
 
 
+    public static String convertToMonth(String selectedMonth) {
+        Month month = Month.of(Integer.parseInt(selectedMonth));
+        return String.valueOf(month);
+    }
 
 
-    public static void handleCalendar(String locator, String expDay, String expMonth, String expYear) throws ParseException {
+
+
+    public static void pickValueFromPicker(String locator, String expDay, String expMonth, String expYear) throws ParseException {
         try {
 
 
@@ -419,12 +423,23 @@ public abstract class TestActions {
                 && getMonthYear(monthYearVal)[1].equals(expYear))) {
             driver.findElement(By.xpath("//a[@title='Next']")).click();
             monthYearVal = driver.findElement(By.className("ui-datepicker-title")).getText();
-
-
         }
-
        WebElement s = driver.findElement(By.xpath("//a[text()='" + expDay + "']"));
        s.click();
+       JavascriptExecutor js = (JavascriptExecutor)driver;
+       String script = "return document.getElementById(\""+locator+"\").value;";
+            String date = (String)js.executeScript(script);
+            System.out.println(date);
+            String selectedDate = date.substring(0,2);
+            String selectedMonth = date.substring(4,5);
+            String selectedYear = date.substring(6);
+            String convertedMonth = convertToMonth(selectedMonth).toLowerCase();
+            String cap = convertedMonth.substring(0,1).toUpperCase();
+            String capitalizedMonth = cap + convertedMonth.substring(1);
+            System.out.println(capitalizedMonth);
+            Assert.assertEquals(selectedDate,expDay, "Invalid date selected");
+            Assert.assertEquals(capitalizedMonth,expMonth,"Wrong month selected");
+            Assert.assertEquals(selectedYear,expYear,"Invalid Year selected");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
