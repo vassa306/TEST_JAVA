@@ -13,6 +13,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.time.Duration;
 import java.time.Month;
@@ -130,7 +131,18 @@ public abstract class TestActions {
         System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
-        String baseUrl = "https://alaskatrips.poweredbygps.com/g/pt/hotels";
+        String baseUrl = "https://www.expedia.co.in/";
+        driver.get(baseUrl);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
+    }
+
+    public static void commonSetUp (String baseUrl) {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("disable-notifications");
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+        System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
+        driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
         driver.get(baseUrl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
     }
@@ -457,6 +469,64 @@ public abstract class TestActions {
             System.out.println(e.getMessage());
         }
     }
+
+    public void hardWaitTest() throws InterruptedException, ParseException {
+       WebElement e = driver.findElement(By.id("package-origin-hp-package"));
+       e.click();
+       e.sendKeys("nyc");
+       e.sendKeys(Keys.ARROW_DOWN);
+       e.sendKeys(Keys.ENTER);
+       WebElement picker = driver.findElement(By.id("package-departing-hp-package"));
+       picker.sendKeys(SELECTEDDATE);
+       picker.sendKeys(Keys.ENTER);
+       JavascriptExecutor js = (JavascriptExecutor) driver;
+       String script = "return document.getElementById(\"package-departing-hp-package\").value;";
+       String date = (String)js.executeScript(script);
+        System.out.println(date);
+    }
+    //how to click all links in for
+    public void handleTabs() throws InterruptedException {
+        System.out.println("total links are: " + driver.findElements(By.tagName("a")).size());
+        WebElement footer = driver.findElement(By.cssSelector(".footer__info-links.grid-col.grid-col-2"));
+        List<WebElement> Links = footer.findElements(By.tagName("a"));
+        System.out.println("count link " + Links.size());
+        int allLinks = Links.size();
+        Assert.assertEquals(allLinks,ALLLINKS,"wrong links count");
+
+        WebElement columndriver = driver.findElement(By.cssSelector(".footer__info-links.grid-col.grid-col-2 ul"));
+        System.out.println("Total links in first column is: " + columndriver.findElements(By.tagName("a")).size());
+
+        for (int i = 0; i<columndriver.findElements(By.tagName("a")).size();i++){
+            String clickonlinkTab = Keys.chord(Keys.CONTROL,Keys.ENTER);
+            columndriver.findElements(By.tagName("a")).get(i).sendKeys(clickonlinkTab);
+            Thread.sleep(TIMEOUT);
+        }
+        java.util.Iterator<String>iter = driver.getWindowHandles().iterator();
+        while (iter.hasNext()){
+            driver.switchTo().window(iter.next());
+            System.out.println("opened pages: " + driver.getTitle() + ", " + driver.getCurrentUrl());
+        }
+
+    }
+
+    public void handlesWindows(){
+        WebElement banner = driver.findElement(By.xpath("//div[@class=\'click_nri\']/a"));
+        banner.click();
+        WebElement e = driver.findElement(By.xpath("//a[text()=\"English\"]"));
+        e.click();
+        //open a new page by using CTRL+ENTER
+        String clickonlinkTab = Keys.chord(Keys.CONTROL,Keys.ENTER);
+        driver.findElement(By.linkText("Careers")).sendKeys(clickonlinkTab);
+
+        java.util.Iterator<String>iter = driver.getWindowHandles().iterator();
+        String parentid = iter.next();
+        String childId = iter.next();
+        driver.switchTo().window(parentid);
+        System.out.println("Page title is: " + driver.getTitle() + "URL: " + driver.getCurrentUrl());
+        driver.switchTo().window(childId);
+        System.out.println("Page title is: " + driver.getTitle() + "URL: " + driver.getCurrentUrl());
+    }
+
 }
 
 

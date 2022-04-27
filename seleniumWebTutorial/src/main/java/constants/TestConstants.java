@@ -12,4 +12,9 @@ public class TestConstants {
     public static int ROWSCOUNTALL = 1415;
     public static String FROM = "BENGALURU INTERNATION AIRPORT";
     public static int TIMEOUT = 1000;
+    public static String SELECTEDDATE = "28/04/2022";
+    public static int ALLLINKS = 13;
+
+    /*Test URLS */
+    public static String HANDLETABPOPURL = "https://www.hdfc.com/";
 }
