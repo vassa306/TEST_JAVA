@@ -13,7 +13,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.time.Duration;
 import java.time.Month;
@@ -136,7 +135,7 @@ public abstract class TestActions {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
     }
 
-    public static void commonSetUp (String baseUrl) {
+    public static void commonSetUp(String baseUrl) {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("disable-notifications");
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
@@ -206,7 +205,9 @@ public abstract class TestActions {
     }
 
     public void tearUp() {
+        driver.close();
         driver.quit();
+
 
     }
 
@@ -424,46 +425,44 @@ public abstract class TestActions {
     }
 
 
-
-
     public static void pickValueFromPicker(String locator, String expDay, String expMonth, String expYear) throws ParseException {
         try {
 
 
-        Integer i = Integer.parseInt(expDay);
-        if((expMonth.equals("June") || (expMonth.equals("March")) || (i > 31)) || (i < 1)){
-            System.out.println("Wrong date selected: " + expDay + " / " + expMonth);
-            return;
-       }
+            Integer i = Integer.parseInt(expDay);
+            if ((expMonth.equals("June") || (expMonth.equals("March")) || (i > 31)) || (i < 1)) {
+                System.out.println("Wrong date selected: " + expDay + " / " + expMonth);
+                return;
+            }
 
-        if (i==null){
-            System.out.println("not value selected");
-        }
+            if (i == null) {
+                System.out.println("not value selected");
+            }
 
-      WebElement picker = driver.findElement(By.id(locator));
-        picker.click();
-        String monthYearVal = driver.findElement(By.className("ui-datepicker-title")).getText();
-       while (!(getMonthYear(monthYearVal)[0].equals(expMonth)
-                && getMonthYear(monthYearVal)[1].equals(expYear))) {
-            driver.findElement(By.xpath("//a[@title='Next']")).click();
-            monthYearVal = driver.findElement(By.className("ui-datepicker-title")).getText();
-        }
-       WebElement s = driver.findElement(By.xpath("//a[text()='" + expDay + "']"));
-       s.click();
-       JavascriptExecutor js = (JavascriptExecutor)driver;
-       String script = "return document.getElementById(\""+locator+"\").value;";
-            String date = (String)js.executeScript(script);
+            WebElement picker = driver.findElement(By.id(locator));
+            picker.click();
+            String monthYearVal = driver.findElement(By.className("ui-datepicker-title")).getText();
+            while (!(getMonthYear(monthYearVal)[0].equals(expMonth)
+                    && getMonthYear(monthYearVal)[1].equals(expYear))) {
+                driver.findElement(By.xpath("//a[@title='Next']")).click();
+                monthYearVal = driver.findElement(By.className("ui-datepicker-title")).getText();
+            }
+            WebElement s = driver.findElement(By.xpath("//a[text()='" + expDay + "']"));
+            s.click();
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            String script = "return document.getElementById(\"" + locator + "\").value;";
+            String date = (String) js.executeScript(script);
             System.out.println(date);
-            String selectedDate = date.substring(0,2);
-            String selectedMonth = date.substring(4,5);
+            String selectedDate = date.substring(0, 2);
+            String selectedMonth = date.substring(4, 5);
             String selectedYear = date.substring(6);
             String convertedMonth = convertToMonth(selectedMonth).toLowerCase();
-            String cap = convertedMonth.substring(0,1).toUpperCase();
+            String cap = convertedMonth.substring(0, 1).toUpperCase();
             String capitalizedMonth = cap + convertedMonth.substring(1);
             System.out.println(capitalizedMonth);
-            Assert.assertEquals(selectedDate,expDay, "Invalid date selected");
-            Assert.assertEquals(capitalizedMonth,expMonth,"Wrong month selected");
-            Assert.assertEquals(selectedYear,expYear,"Invalid Year selected");
+            Assert.assertEquals(selectedDate, expDay, "Invalid date selected");
+            Assert.assertEquals(capitalizedMonth, expMonth, "Wrong month selected");
+            Assert.assertEquals(selectedYear, expYear, "Invalid Year selected");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -471,19 +470,20 @@ public abstract class TestActions {
     }
 
     public void hardWaitTest() throws InterruptedException, ParseException {
-       WebElement e = driver.findElement(By.id("package-origin-hp-package"));
-       e.click();
-       e.sendKeys("nyc");
-       e.sendKeys(Keys.ARROW_DOWN);
-       e.sendKeys(Keys.ENTER);
-       WebElement picker = driver.findElement(By.id("package-departing-hp-package"));
-       picker.sendKeys(SELECTEDDATE);
-       picker.sendKeys(Keys.ENTER);
-       JavascriptExecutor js = (JavascriptExecutor) driver;
-       String script = "return document.getElementById(\"package-departing-hp-package\").value;";
-       String date = (String)js.executeScript(script);
+        WebElement e = driver.findElement(By.id("package-origin-hp-package"));
+        e.click();
+        e.sendKeys("nyc");
+        e.sendKeys(Keys.ARROW_DOWN);
+        e.sendKeys(Keys.ENTER);
+        WebElement picker = driver.findElement(By.id("package-departing-hp-package"));
+        picker.sendKeys(SELECTEDDATE);
+        picker.sendKeys(Keys.ENTER);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String script = "return document.getElementById(\"package-departing-hp-package\").value;";
+        String date = (String) js.executeScript(script);
         System.out.println(date);
     }
+
     //how to click all links in for
     public void handleTabs() throws InterruptedException {
         System.out.println("total links are: " + driver.findElements(By.tagName("a")).size());
@@ -491,40 +491,53 @@ public abstract class TestActions {
         List<WebElement> Links = footer.findElements(By.tagName("a"));
         System.out.println("count link " + Links.size());
         int allLinks = Links.size();
-        Assert.assertEquals(allLinks,ALLLINKS,"wrong links count");
+        Assert.assertEquals(allLinks, ALLLINKS, "wrong links count");
 
         WebElement columndriver = driver.findElement(By.cssSelector(".footer__info-links.grid-col.grid-col-2 ul"));
         System.out.println("Total links in first column is: " + columndriver.findElements(By.tagName("a")).size());
 
-        for (int i = 0; i<columndriver.findElements(By.tagName("a")).size();i++){
-            String clickonlinkTab = Keys.chord(Keys.CONTROL,Keys.ENTER);
+        for (int i = 0; i < columndriver.findElements(By.tagName("a")).size(); i++) {
+            String clickonlinkTab = Keys.chord(Keys.CONTROL, Keys.ENTER);
             columndriver.findElements(By.tagName("a")).get(i).sendKeys(clickonlinkTab);
             Thread.sleep(TIMEOUT);
         }
-        java.util.Iterator<String>iter = driver.getWindowHandles().iterator();
-        while (iter.hasNext()){
+        java.util.Iterator<String> iter = driver.getWindowHandles().iterator();
+        while (iter.hasNext()) {
             driver.switchTo().window(iter.next());
             System.out.println("opened pages: " + driver.getTitle() + ", " + driver.getCurrentUrl());
         }
 
     }
 
-    public void handlesWindows(){
+    public void handlesWindows() {
         WebElement banner = driver.findElement(By.xpath("//div[@class=\'click_nri\']/a"));
         banner.click();
         WebElement e = driver.findElement(By.xpath("//a[text()=\"English\"]"));
         e.click();
         //open a new page by using CTRL+ENTER
-        String clickonlinkTab = Keys.chord(Keys.CONTROL,Keys.ENTER);
+        String clickonlinkTab = Keys.chord(Keys.CONTROL, Keys.ENTER);
         driver.findElement(By.linkText("Careers")).sendKeys(clickonlinkTab);
 
-        java.util.Iterator<String>iter = driver.getWindowHandles().iterator();
+        java.util.Iterator<String> iter = driver.getWindowHandles().iterator();
         String parentid = iter.next();
         String childId = iter.next();
         driver.switchTo().window(parentid);
         System.out.println("Page title is: " + driver.getTitle() + "URL: " + driver.getCurrentUrl());
         driver.switchTo().window(childId);
         System.out.println("Page title is: " + driver.getTitle() + "URL: " + driver.getCurrentUrl());
+    }
+
+    public void handleFrame(String frameId, String locator) {
+        WebElement btn = driver.findElement(By.id("accept-choices"));
+        btn.click();
+        List<WebElement> frames = driver.findElements(By.tagName("iframe"));
+        System.out.println(frames.size());
+        driver.switchTo().frame(frameId);
+        driver.findElement(By.xpath(locator)).click();
+        driver.switchTo().defaultContent();
+        for (WebElement frame : frames) {
+            System.out.println(frame.getAttribute("id"));
+        }
     }
 
 }
