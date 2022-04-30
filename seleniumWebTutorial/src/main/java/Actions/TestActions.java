@@ -26,6 +26,13 @@ public abstract class TestActions {
     protected static WebDriver driver;
     private List<WebElement> options;
 
+    long startTime;
+    long endTime;
+    long duration;
+    double seconds;
+
+
+
 
     public static void commonSetup() {
         ChromeOptions options = new ChromeOptions();
@@ -528,6 +535,7 @@ public abstract class TestActions {
     }
 
     public void handleFrame(String frameId, String locator) {
+        startTime = System.nanoTime();
         WebElement btn = driver.findElement(By.id("accept-choices"));
         btn.click();
         List<WebElement> frames = driver.findElements(By.tagName("iframe"));
@@ -538,6 +546,10 @@ public abstract class TestActions {
         for (WebElement frame : frames) {
             System.out.println(frame.getAttribute("id"));
         }
+        endTime = System.nanoTime();
+        duration = endTime - startTime;
+        seconds = duration/1000000000.0;
+        System.out.println("Time taken to execute this method " + seconds+ " seconds");
     }
 
 }
