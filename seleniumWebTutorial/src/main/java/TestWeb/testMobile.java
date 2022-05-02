@@ -25,7 +25,7 @@ public class testMobile extends TestActions
     }
     @Test
     public void loginGmailMobile() throws IOException {
-
+        testMobileIphone();
     }
 
     @AfterTest
