@@ -5,6 +5,8 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
+
 public class HandleParrentFrame extends TestActions {
     @BeforeTest
     public void setUp(){
@@ -12,7 +14,7 @@ public class HandleParrentFrame extends TestActions {
     }
 
     @Test
-    public void firsttest(){
+    public void firsttest() throws IOException {
 
         swichToParrentFrame();
     }

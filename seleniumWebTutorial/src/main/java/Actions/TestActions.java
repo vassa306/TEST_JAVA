@@ -144,7 +144,7 @@ public abstract class TestActions {
         driver.manage().window().maximize();
         String baseUrl = "https://www.expedia.co.in/";
         driver.get(baseUrl);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
     public static void commonSetUp(String baseUrl) {
@@ -593,30 +593,35 @@ public abstract class TestActions {
         emailField.sendKeys(DEFAULT_LOGIN);
         File email = emailField.getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(email, new File("./screenshot/emailfield.jpg"));
-        captureFullpage();
 
     }
-
-
     //new way how to take full page screenshot
-    public void captureFullpage() throws IOException {
+    public void captureFullpage(String name) throws IOException {
         File pageScreenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(pageScreenshot,new File("./screenshot/page.jpg"));
+        FileUtils.copyFile(pageScreenshot,new File("./screenshot/"+name+".jpg"));
 
     }
 
-    public void swichToParrentFrame(){
+
+    public void swichToParrentFrame() throws IOException {
         int framescnt;
-        WebElement acceptBtn = driver.findElement(By.id("accept-choices"));
-        acceptBtn.click();
         List<WebElement>frames = driver.findElements(By.tagName("iframe"));
         framescnt = frames.size();
-        System.out.println("Number of frames in page: " + framescnt);
+        System.out.println("Number of frames in whole page is : " + framescnt);
+        Assert.assertEquals(framescnt,3,"Invalid count of frames");
+        captureFullpage("W3schoolsPage");
+        driver.switchTo().frame(FRAMEID);
+
+        driver.switchTo().defaultContent();
+
 
 
 
 
     }
+
+
+
 
 
 
