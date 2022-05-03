@@ -616,10 +616,13 @@ public abstract class TestActions extends TestConstants {
 
     }
 
-    public void handleMultipleWindows(String firsturl, String secondurl) throws IOException {
+    public void handleMultipleWindows(String firstUrl, String secondUrl) throws IOException {
         String closedUrl = null;
+        String currentUrl = null;
+        String url = null;
+        String lastUrl = null;
         driver.switchTo().newWindow(WindowType.TAB);
-        driver.get(firsturl);
+        driver.get(firstUrl);
         WebElement e = driver.findElement(By.id("L2AGLb"));
         e.click();
         //write some text into input in Google
@@ -628,8 +631,8 @@ public abstract class TestActions extends TestConstants {
         captureFullpage("googlePageResult");
         // open another new window
         driver.switchTo().newWindow(WindowType.WINDOW);
-        driver.get(secondurl);
-        String currentUrl = driver.getCurrentUrl();
+        driver.get(secondUrl);
+        currentUrl = driver.getCurrentUrl();
         Assert.assertEquals(currentUrl,"https://www.google.com/intl/cs/gmail/about/", "Wrong windows selected");
         int openedsize = driver.getWindowHandles().size();
         System.out.println(openedsize);
@@ -639,25 +642,27 @@ public abstract class TestActions extends TestConstants {
         //iterate through
         List<String>winIndex = new ArrayList<String>();
         while (iterator.hasNext()){
+            //add winids into list
             winIndex.add(iterator.next());
        }
         //get first window a close it
         driver.switchTo().window(winIndex.get(0));
         closedUrl = driver.getCurrentUrl();
         System.out.println("closed url: " + driver.getCurrentUrl());
-        Assert.assertEquals(closedUrl,"https://www.way2automation.com/","invalid URL closed");
+        Assert.assertEquals(closedUrl,EXPURL,"invalid URL closed");
         driver.close();
-
+        //switch to third window
         driver.switchTo().window(winIndex.get(2));
-        String url = driver.getCurrentUrl();
+        url = driver.getCurrentUrl();
         System.out.println(url);
         Assert.assertEquals(url,"https://www.google.com/intl/cs/gmail/about/","wrong window closed");
         driver.close();
         // check url of Last Window
         driver.switchTo().window(winIndex.get(1));
-        String lasturl = driver.getCurrentUrl();
-        System.out.println("remaining: " + lasturl);
-        Assert.assertEquals(lasturl,FIRSTURL,"wrong window remains");
+        lastUrl = driver.getCurrentUrl();
+        System.out.println("remaining: " + lastUrl);
+        Assert.assertEquals(lastUrl,FIRSTURL,"wrong window remains");
+        captureFullpage("lastUrlScreen");
 
     }
 
