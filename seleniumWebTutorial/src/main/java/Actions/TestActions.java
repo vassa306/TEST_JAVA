@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.Select;
+import org.sikuli.script.Screen;
 import org.testng.Assert;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -34,8 +35,6 @@ public abstract class TestActions {
     long endTime;
     long duration;
     double seconds;
-
-
 
 
     public static void commonSetup() {
@@ -157,28 +156,27 @@ public abstract class TestActions {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
     }
 
-    public static void phoneSetup(String baseUrl){
+    public static void phoneSetup(String baseUrl) {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("disable-notifications");
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
         System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
         driver = new ChromeDriver(options);
-        DevTools devtools = ((ChromeDriver)driver).getDevTools();
+        DevTools devtools = ((ChromeDriver) driver).getDevTools();
         devtools.createSession();
-        Map<String, Object> deviceMetrics = new HashMap<String,Object>() {
+        Map<String, Object> deviceMetrics = new HashMap<String, Object>() {
             {
-                put("width",375);
-                put("height",812);
+                put("width", 375);
+                put("height", 812);
                 put("mobile", true);
                 put("deviceScaleFactor", 50);
             }
 
         };
-        ((ChromeDriver)driver).executeCdpCommand("Emulation.setDeviceMetricsOverride",deviceMetrics);
+        ((ChromeDriver) driver).executeCdpCommand("Emulation.setDeviceMetricsOverride", deviceMetrics);
         driver.get(baseUrl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
     }
-
 
 
     public void checkPageLink(WebDriver driver) throws InterruptedException {
@@ -449,6 +447,7 @@ public abstract class TestActions {
     }
 
     public static String[] getMonthYear(String monthYearVal) {
+
         return monthYearVal.split(" ");
     }
 
@@ -575,21 +574,31 @@ public abstract class TestActions {
         }
         endTime = System.nanoTime();
         duration = endTime - startTime;
-        seconds = duration/1000000000.0;
-        System.out.println("Time taken to execute this method " + seconds+ " seconds");
+        seconds = duration / 1000000000.0;
+        System.out.println("Time taken to execute this method " + seconds + " seconds");
     }
+
     public void testMobileIphone() throws IOException {
         String currentUrl = driver.getCurrentUrl();
         System.out.println("current url: " + currentUrl);
-        Assert.assertEquals(currentUrl,"https://accounts.google.com/signin/v2/identifier?service=mail&passive=1209600&osid=1&continue=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&followup=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&emr=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin"
-                ,"Invalid loaded URL");
-        WebElement emailField =  driver.findElement(By.xpath("//input[@type=\"email\"]"));
+        Assert.assertEquals(currentUrl, "https://accounts.google.com/signin/v2/identifier?service=mail&passive=1209600&osid=1&continue=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&followup=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&emr=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin"
+                , "Invalid loaded URL");
+        WebElement emailField = driver.findElement(By.xpath("//input[@type=\"email\"]"));
         emailField.sendKeys(DEFAULT_LOGIN);
         File email = emailField.getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(email,new File("./screenshot/emailfield.jpg"));
+        FileUtils.copyFile(email, new File("./screenshot/emailfield.jpg"));
+        captureFullpage();
+    }
 
+
+    //new way how to take full page screenshot
+    public void captureFullpage() throws IOException {
+        File pageScreenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(pageScreenshot,new File("./screenshot/page.jpg"));
 
     }
+
+
 
 
 }
