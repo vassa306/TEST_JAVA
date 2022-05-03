@@ -17,4 +17,8 @@ public class TestConstants {
 
     /*Test URLS */
     public static String HANDLETABPOPURL = "https://www.hdfc.com/";
+    public static String FRAMEID = "iframeResult";
+    public static String FIRSTURL = "https://www.google.cz/";
+    public static String SECONDURL = "https://gmail.com";
+
 }

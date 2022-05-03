@@ -2,6 +2,7 @@ package Actions;
 
 import PageObjects.Homepage;
 import PageObjects.LoginPage;
+import constants.TestConstants;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,16 +21,15 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.time.Duration;
 import java.time.Month;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import static com.sun.org.apache.xml.internal.security.keys.keyresolver.KeyResolver.iterator;
 import static constants.TestConstants.*;
 import static constants.ValidationMessages.*;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 
-public abstract class TestActions {
+public abstract class TestActions extends TestConstants {
     protected static WebDriver driver;
     private List<WebElement> options;
 
@@ -614,12 +614,52 @@ public abstract class TestActions {
 
         driver.switchTo().defaultContent();
 
-
-
-
-
     }
 
+    public void handleMultipleWindows(String firsturl, String secondurl) throws IOException {
+        String closedUrl = null;
+        driver.switchTo().newWindow(WindowType.TAB);
+        driver.get(firsturl);
+        WebElement e = driver.findElement(By.id("L2AGLb"));
+        e.click();
+        //write some text into input in Google
+        WebElement searchbox = driver.findElement(By.name("q"));
+        searchbox.sendKeys("Hello Selenium 4");
+        captureFullpage("googlePageResult");
+        // open another new window
+        driver.switchTo().newWindow(WindowType.WINDOW);
+        driver.get(secondurl);
+        String currentUrl = driver.getCurrentUrl();
+        Assert.assertEquals(currentUrl,"https://www.google.com/intl/cs/gmail/about/", "Wrong windows selected");
+        int openedsize = driver.getWindowHandles().size();
+        System.out.println(openedsize);
+        Set<String> winids = driver.getWindowHandles();
+        //create iterator
+        Iterator<String>iterator = winids.iterator();
+        //iterate through
+        List<String>winIndex = new ArrayList<String>();
+        while (iterator.hasNext()){
+            winIndex.add(iterator.next());
+       }
+        //get first window a close it
+        driver.switchTo().window(winIndex.get(0));
+        closedUrl = driver.getCurrentUrl();
+        System.out.println("closed url: " + driver.getCurrentUrl());
+        Assert.assertEquals(closedUrl,"https://www.way2automation.com/","invalid URL closed");
+        driver.close();
+
+        driver.switchTo().window(winIndex.get(2));
+        String url = driver.getCurrentUrl();
+        System.out.println(url);
+        Assert.assertEquals(url,"https://www.google.com/intl/cs/gmail/about/","wrong window closed");
+        driver.close();
+        // check url of Last Window
+        driver.switchTo().window(winIndex.get(1));
+        String lasturl = driver.getCurrentUrl();
+        System.out.println("remaining: " + lasturl);
+        Assert.assertEquals(lasturl,FIRSTURL,"wrong window remains");
+
+    }
 
 
 
