@@ -11,6 +11,8 @@ import org.openqa.selenium.devtools.v85.log.Log;
 import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -159,17 +161,14 @@ public abstract class TestActions {
     public static void phoneSetup(String baseUrl) {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("disable-notifications");
+        options.addArguments("--disable-features=VizDisplayCompositor");
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
         System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
         driver = new ChromeDriver(options);
-        try (DevTools devtools = ((ChromeDriver) driver).getDevTools()) {
-            devtools.send(Log.enable());
-            devtools.addListener(Log.entryAdded(),
-                    logEntry -> {
-                        System.out.println("log: "+logEntry.getText());
-                        System.out.println("level: "+logEntry.getLevel());
-                    });
-        }
+        DevTools devtools = ((ChromeDriver) driver).getDevTools();
+        devtools.createSession();
+
+
 
         Map<String, Object> deviceMetrics = new HashMap<String, Object>() {
             {
@@ -494,7 +493,7 @@ public abstract class TestActions {
             String date = (String) js.executeScript(script);
             System.out.println(date);
             String selectedDate = date.substring(0, 2);
-            String selectedMonth = date.substring(4, 5);
+            String selectedMonth = date.substring(3, 5);
             String selectedYear = date.substring(6);
             String convertedMonth = convertToMonth(selectedMonth).toLowerCase();
             String cap = convertedMonth.substring(0, 1).toUpperCase();
@@ -594,6 +593,7 @@ public abstract class TestActions {
         emailField.sendKeys(DEFAULT_LOGIN);
         File email = emailField.getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(email, new File("./screenshot/emailfield.jpg"));
+        captureFullpage();
 
     }
 
@@ -604,6 +604,22 @@ public abstract class TestActions {
         FileUtils.copyFile(pageScreenshot,new File("./screenshot/page.jpg"));
 
     }
+
+    public void swichToParrentFrame(){
+        int framescnt;
+        WebElement acceptBtn = driver.findElement(By.id("accept-choices"));
+        acceptBtn.click();
+        List<WebElement>frames = driver.findElements(By.tagName("iframe"));
+        framescnt = frames.size();
+        System.out.println("Number of frames in page: " + framescnt);
+
+
+
+
+    }
+
+
+
 
 
 
