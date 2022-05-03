@@ -17,6 +17,7 @@ public class Task2 extends TestActions {
     @Test
     public void handleForm() throws IOException {
         insertIntoForm(driver);
+        captureFullpage();
     }
 
 

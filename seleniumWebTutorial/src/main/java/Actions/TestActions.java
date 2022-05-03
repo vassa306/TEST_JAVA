@@ -7,9 +7,9 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
+import org.openqa.selenium.devtools.v85.log.Log;
 import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.Select;
-import org.sikuli.script.Screen;
 import org.testng.Assert;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -162,8 +162,15 @@ public abstract class TestActions {
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
         System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
         driver = new ChromeDriver(options);
-        DevTools devtools = ((ChromeDriver) driver).getDevTools();
-        devtools.createSession();
+        try (DevTools devtools = ((ChromeDriver) driver).getDevTools()) {
+            devtools.send(Log.enable());
+            devtools.addListener(Log.entryAdded(),
+                    logEntry -> {
+                        System.out.println("log: "+logEntry.getText());
+                        System.out.println("level: "+logEntry.getLevel());
+                    });
+        }
+
         Map<String, Object> deviceMetrics = new HashMap<String, Object>() {
             {
                 put("width", 375);
@@ -587,7 +594,7 @@ public abstract class TestActions {
         emailField.sendKeys(DEFAULT_LOGIN);
         File email = emailField.getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(email, new File("./screenshot/emailfield.jpg"));
-        captureFullpage();
+
     }
 
 
