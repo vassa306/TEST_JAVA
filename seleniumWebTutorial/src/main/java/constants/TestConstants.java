@@ -1,6 +1,6 @@
 package constants;
 
-public class TestConstants {
+public class TestConstants extends TestUrls {
     public static String DEFAULT_LOGIN = "vassa306@gmail.com";
     public static String DEFAULT_PASS = "xxxxx";
     public static String LOGINPAGE_TITLE = "Facebook - log in or sign up";
@@ -22,5 +22,6 @@ public class TestConstants {
     public static String SECONDURL = "https://gmail.com";
     public static String EXPURL = "https://www.way2automation.com/";
     public static int CNTFRAMES = 3;
+    public static String TITLESSL = "expired.badssl.com";
 
 }

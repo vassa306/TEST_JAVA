@@ -3,15 +3,19 @@ package Actions;
 import PageObjects.Homepage;
 import PageObjects.LoginPage;
 import constants.TestConstants;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.print.PrintOptions;
 import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+
 
 
 import java.io.BufferedWriter;
@@ -182,6 +186,32 @@ public abstract class TestActions extends TestConstants {
         driver.manage().window().maximize();
         driver.get(baseUrl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
+    }
+    //new firefox options
+    public static void setupWithNewOptions(String baseUrl){
+
+        FirefoxOptions options = new FirefoxOptions();
+        //WebDriverManager.firefoxdriver().setup();
+        options.addArguments("--headless");
+        System.setProperty("webdriver.gecko.driver", "C:\\webdriver\\geckodriver.exe");
+        driver = new FirefoxDriver(options);
+        driver.get(baseUrl);
+        driver.manage().window().maximize();
+        System.out.println(driver.getTitle());
+    }
+    //handle bad SSL certificates
+    public static void setUpWithBasSSL(String baseUrl){
+        ChromeOptions options = new ChromeOptions();
+        options.setAcceptInsecureCerts(true);
+        options.addArguments("disable-notifications");
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+        options.addArguments("incognito");
+        System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
+        driver = new ChromeDriver(options);
+        driver.get(baseUrl);
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
+
     }
 
     public static void phoneSetup(String baseUrl) {
@@ -712,11 +742,19 @@ public abstract class TestActions extends TestConstants {
         @String name
         @Webdriver driver
      */
-    public   void printToPDF(String name) throws IOException {
+    public void printToPDF(String name) throws IOException {
        Pdf pdf = ((PrintsPage)driver).print(new PrintOptions());
-       //use java nio file library instead of Google.com io
+       //use java nio file library instead of Google.com io and run in headless mode
         Files.write(Paths.get("./"+name+".pdf"),OutputType.BYTES.convertFromBase64Png(pdf.getContent()));
     }
+
+    public void checkOptions() throws IOException {
+        String title = driver.getTitle();
+        Assert.assertEquals(title,TITLESSL,"invalid title printed");
+        captureFullpage("badSSL");
+    }
+
+
 
 
 }
