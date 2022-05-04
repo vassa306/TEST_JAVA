@@ -8,16 +8,18 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.v85.log.Log;
+import org.openqa.selenium.print.PrintOptions;
 import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
+
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.time.Duration;
 import java.time.Month;
@@ -170,6 +172,18 @@ public abstract class TestActions extends TestConstants {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
     }
 
+    public static void commonSetUpPrint(String baseUrl) {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("headless");
+        options.addArguments("disable-notifications");
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+        System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
+        driver= new ChromeDriver(options);
+        driver.manage().window().maximize();
+        driver.get(baseUrl);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
+    }
+
     public static void phoneSetup(String baseUrl) {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("disable-notifications");
@@ -213,7 +227,7 @@ public abstract class TestActions extends TestConstants {
         Assert.assertEquals(actuallinkvalue, Reset_Password);
     }
 
-    public void invalidPassword(WebDriver driver) {
+    public void invalidPassword(WebDriver  driver) {
 
         LoginPage loginPage = getLoginPage();
         loginPage.getLogin().sendKeys(DEFAULT_LOGIN);
@@ -692,19 +706,17 @@ public abstract class TestActions extends TestConstants {
         WebElement e = driver.findElement(By.id("content"));
         System.out.println(e.getText());
         captureFullpage("BasicAuthorization");
-
-
-
     }
-
-
-
-
-
-
-
-
-
+    /*
+        parameters:
+        @String name
+        @Webdriver driver
+     */
+    public   void printToPDF(String name) throws IOException {
+       Pdf pdf = ((PrintsPage)driver).print(new PrintOptions());
+       //use java nio file library instead of Google.com io
+        Files.write(Paths.get("./"+name+".pdf"),OutputType.BYTES.convertFromBase64Png(pdf.getContent()));
+    }
 
 
 }
