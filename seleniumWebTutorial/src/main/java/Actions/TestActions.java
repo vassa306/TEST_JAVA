@@ -232,12 +232,27 @@ public abstract class TestActions extends TestConstants {
                 put("height", 812);
                 put("mobile", true);
                 put("deviceScaleFactor", 50);
+                put("deviceName","iPhone X");
             }
 
         };
         ((ChromeDriver) driver).executeCdpCommand("Emulation.setDeviceMetricsOverride", deviceMetrics);
         driver.get(baseUrl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
+    }
+
+        //second Method for Mobile Set UP
+        public void setUpForIphone(String baseUrl){
+        Map<String,String> mobileEm = new HashMap<String,String>();
+        mobileEm.put("deviceName", "iPhone SE");
+        ChromeOptions opt = new ChromeOptions();
+        opt.setExperimentalOption("mobileEmulation",mobileEm);
+        System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
+        driver = new ChromeDriver(opt);
+        driver.get(baseUrl);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+
     }
 
 
