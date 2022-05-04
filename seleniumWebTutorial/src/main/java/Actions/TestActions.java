@@ -11,9 +11,13 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.print.PrintOptions;
 import org.openqa.selenium.support.locators.RelativeLocator;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
@@ -192,13 +196,13 @@ public abstract class TestActions extends TestConstants {
     public static void setupWithNewOptions(String baseUrl){
 
         FirefoxOptions options = new FirefoxOptions();
-        //WebDriverManager.firefoxdriver().setup();
-        options.addArguments("--headless");
+        WebDriverManager.firefoxdriver().setup();
+        //options.addArguments("--headless");
         System.setProperty("webdriver.gecko.driver", "C:\\webdriver\\geckodriver.exe");
         driver = new FirefoxDriver(options);
         driver.get(baseUrl);
         driver.manage().window().maximize();
-        System.out.println(driver.getTitle());
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
     //handle bad SSL certificates
     public static void setUpWithBasSSL(String baseUrl){
@@ -786,6 +790,29 @@ public abstract class TestActions extends TestConstants {
         }
 
     }
+
+    public void testMouseOver(String xpathlocator,String locator){
+        WebElement accept = driver.findElement(By.id("L2AGLb"));
+        accept.click();
+        WebElement search = driver.findElement(By.name("q"));
+        search.sendKeys("way2automation");
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpathlocator))).click();
+        driver.findElement(By.partialLinkText("Way2Automation: Get Online Selenium Certification Course")).click();
+        Actions action = new Actions(driver);
+        WebElement menu =  driver.findElement(By.id("menu-item-27617"));
+        action.moveToElement(menu).perform();
+        WebElement pracpag = driver.findElement(By.linkText(locator));
+        pracpag.click();
+
+
+
+
+
+
+    }
+
+
 
 
 
