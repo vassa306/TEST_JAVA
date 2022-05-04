@@ -806,12 +806,15 @@ public abstract class TestActions extends TestConstants {
         WebElement pracpag = driver.findElement(By.linkText(locator));
         pracpag.click();
 
-
-
-
-
-
-
+    }
+    //Actions contains interactions actions for slider e.g.
+    public void handleDemoSlider(int xOffest) throws IOException {
+        WebElement frame = driver.findElement(By.xpath("//iframe[@class=\"demo-frame\"]"));
+            driver.switchTo().frame(frame);
+            WebElement slider = driver.findElement(By.xpath("//div[@id =\"slider\"]"));
+            new Actions(driver).dragAndDropBy(slider, xOffest, 0).perform();
+            captureFullpage("slider");
+        }
     }
 
 
@@ -823,7 +826,7 @@ public abstract class TestActions extends TestConstants {
 
 
 
-}
+
 
 
 
