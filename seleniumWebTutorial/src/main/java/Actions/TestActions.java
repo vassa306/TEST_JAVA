@@ -15,7 +15,8 @@ import org.openqa.selenium.print.PrintOptions;
 import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 
 
 import java.io.BufferedWriter;
@@ -768,6 +769,27 @@ public abstract class TestActions extends TestConstants {
         Assert.assertEquals(title,TITLESSL,"invalid title printed");
         captureFullpage("badSSL");
     }
+
+    public void getRectAttributes(){
+        WebElement img = driver.findElement(By.xpath("//*[@id=\"logo\"]"));
+        // call method get Rect from Rectangle class
+        if (img.isDisplayed()) {
+            Rectangle rect = img.getRect();
+            // print all coordinations of Gmail Logo
+            System.out.println("------------------------------------");
+            System.out.println("Height :" + rect.getHeight());
+            System.out.println("Width :" + rect.getWidth());
+            System.out.println("X coordinations " + rect.getX());
+            System.out.println("Y coordinates " + rect.getY());
+        }else {
+            System.out.println("Element is not displayed" );
+        }
+
+    }
+
+
+
+
 
 
 
