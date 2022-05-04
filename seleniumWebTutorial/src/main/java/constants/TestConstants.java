@@ -21,5 +21,6 @@ public class TestConstants {
     public static String FIRSTURL = "https://www.google.cz/";
     public static String SECONDURL = "https://gmail.com";
     public static String EXPURL = "https://www.way2automation.com/";
+    public static int CNTFRAMES = 3;
 
 }

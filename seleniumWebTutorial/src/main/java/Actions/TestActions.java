@@ -158,6 +158,18 @@ public abstract class TestActions extends TestConstants {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
     }
 
+    public static void commonSetUpBasicAuth(String baseUrl) {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("disable-notifications");
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+        System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
+        driver = new ChromeDriver(options);
+        ((HasAuthentication)driver).register(UsernameAndPassword.of("admin","admin"));
+        driver.manage().window().maximize();
+        driver.get(baseUrl);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
+    }
+
     public static void phoneSetup(String baseUrl) {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("disable-notifications");
@@ -604,23 +616,33 @@ public abstract class TestActions extends TestConstants {
 
 
     public void swichToParrentFrame() throws IOException {
-        int framescnt;
+        int framescnt = 0;
+
+        WebElement e = driver.findElement(By.id("accept-choices"));
+        e.click();
         List<WebElement>frames = driver.findElements(By.tagName("iframe"));
         framescnt = frames.size();
-        System.out.println("Number of frames in whole page is : " + framescnt);
-        Assert.assertEquals(framescnt,3,"Invalid count of frames");
-        captureFullpage("W3schoolsPage");
-        driver.switchTo().frame(FRAMEID);
+        System.out.println("Number of frames in page is : " + framescnt);
+        for (WebElement frame : frames){
+            System.out.println(frame.getAttribute("id"));
+        }
+        Assert.assertEquals(framescnt,CNTFRAMES,"Invalid count of frames");
+        captureFullpage("frames");
 
-        driver.switchTo().defaultContent();
+
+        driver.switchTo().frame(1);
+        System.out.println(driver.getTitle());
+
 
     }
 
     public void handleMultipleWindows(String firstUrl, String secondUrl) throws IOException {
+
         String closedUrl = null;
         String currentUrl = null;
         String url = null;
         String lastUrl = null;
+
         driver.switchTo().newWindow(WindowType.TAB);
         driver.get(firstUrl);
         WebElement e = driver.findElement(By.id("L2AGLb"));
@@ -665,6 +687,17 @@ public abstract class TestActions extends TestConstants {
         captureFullpage("lastUrlScreen");
 
     }
+
+    public void basicAuthorization() throws IOException {
+        WebElement e = driver.findElement(By.id("content"));
+        System.out.println(e.getText());
+        captureFullpage("BasicAuthorization");
+
+
+
+    }
+
+
 
 
 
