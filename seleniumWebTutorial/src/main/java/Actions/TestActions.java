@@ -799,11 +799,13 @@ public abstract class TestActions extends TestConstants {
         WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(5));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpathlocator))).click();
         driver.findElement(By.partialLinkText("Way2Automation: Get Online Selenium Certification Course")).click();
-        Actions action = new Actions(driver);
         WebElement menu =  driver.findElement(By.id("menu-item-27617"));
+        Actions action = new Actions(driver);
+
         action.moveToElement(menu).perform();
         WebElement pracpag = driver.findElement(By.linkText(locator));
         pracpag.click();
+
 
 
 
