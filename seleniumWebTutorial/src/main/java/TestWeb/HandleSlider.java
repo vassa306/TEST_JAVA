@@ -14,7 +14,7 @@ public class HandleSlider extends TestActions {
 
         @Test
         public void TestcaseSlider() throws IOException {
-            handleDemoSlider(800);
+            handleDemoSlider(700);
         }
 
 

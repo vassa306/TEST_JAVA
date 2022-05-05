@@ -14,13 +14,10 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.print.PrintOptions;
 import org.openqa.selenium.support.locators.RelativeLocator;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
 
 
 import java.io.BufferedWriter;
@@ -34,8 +31,6 @@ import java.time.Duration;
 import java.time.Month;
 import java.util.*;
 
-import static com.sun.org.apache.xml.internal.security.keys.keyresolver.KeyResolver.iterator;
-import static constants.TestConstants.*;
 import static constants.ValidationMessages.*;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -175,7 +170,7 @@ public abstract class TestActions extends TestConstants {
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
         System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
         driver = new ChromeDriver(options);
-        ((HasAuthentication)driver).register(UsernameAndPassword.of("admin","admin"));
+        ((HasAuthentication) driver).register(UsernameAndPassword.of("admin", "admin"));
         driver.manage().window().maximize();
         driver.get(baseUrl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
@@ -187,13 +182,14 @@ public abstract class TestActions extends TestConstants {
         options.addArguments("disable-notifications");
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
         System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
-        driver= new ChromeDriver(options);
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.get(baseUrl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
     }
+
     //new firefox options
-    public static void setupWithNewOptions(String baseUrl){
+    public static void setupWithNewOptions(String baseUrl) {
 
         FirefoxOptions options = new FirefoxOptions();
         WebDriverManager.firefoxdriver().setup();
@@ -204,8 +200,30 @@ public abstract class TestActions extends TestConstants {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
+
+    public static void assfour() {
+
+        System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
+        driver = new ChromeDriver();
+        driver.get("https://google.com");
+        //set width and height
+        int width = 120;
+        int height = 120;
+
+        //20 means speed of resizing
+        //1000 means width and height
+        for (int i = 0; i <= 800; i = i +20) {
+            Dimension dim = new Dimension(width + i, height + i);
+            driver.manage().window().setSize(dim);
+
+        }
+
+
+    }
+
+
     //handle bad SSL certificates
-    public static void setUpWithBasSSL(String baseUrl){
+    public static void setUpWithBasSSL(String baseUrl) {
         ChromeOptions options = new ChromeOptions();
         options.setAcceptInsecureCerts(true);
         options.addArguments("disable-notifications");
@@ -230,14 +248,13 @@ public abstract class TestActions extends TestConstants {
         devtools.createSession();
 
 
-
         Map<String, Object> deviceMetrics = new HashMap<String, Object>() {
             {
                 put("width", 375);
                 put("height", 812);
                 put("mobile", true);
                 put("deviceScaleFactor", 50);
-                put("deviceName","iPhone X");
+                put("deviceName", "iPhone X");
             }
 
         };
@@ -246,12 +263,12 @@ public abstract class TestActions extends TestConstants {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
     }
 
-        //second Method for Mobile Set UP
-        public void setUpForIphone(String baseUrl){
-        Map<String,String> mobileEm = new HashMap<String,String>();
+    //second Method for Mobile Set UP
+    public void setUpForIphone(String baseUrl) {
+        Map<String, String> mobileEm = new HashMap<String, String>();
         mobileEm.put("deviceName", "iPhone SE");
         ChromeOptions opt = new ChromeOptions();
-        opt.setExperimentalOption("mobileEmulation",mobileEm);
+        opt.setExperimentalOption("mobileEmulation", mobileEm);
         System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
         driver = new ChromeDriver(opt);
         driver.get(baseUrl);
@@ -277,7 +294,7 @@ public abstract class TestActions extends TestConstants {
         Assert.assertEquals(actuallinkvalue, Reset_Password);
     }
 
-    public void invalidPassword(WebDriver  driver) {
+    public void invalidPassword(WebDriver driver) {
 
         LoginPage loginPage = getLoginPage();
         loginPage.getLogin().sendKeys(DEFAULT_LOGIN);
@@ -671,10 +688,11 @@ public abstract class TestActions extends TestConstants {
         FileUtils.copyFile(email, new File("./screenshot/emailfield.jpg"));
 
     }
+
     //new way how to take full page screenshot
     public void captureFullpage(String name) throws IOException {
-        File pageScreenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(pageScreenshot,new File("./screenshot/"+name+".jpg"));
+        File pageScreenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(pageScreenshot, new File("./screenshot/" + name + ".jpg"));
 
     }
 
@@ -684,13 +702,13 @@ public abstract class TestActions extends TestConstants {
 
         WebElement e = driver.findElement(By.id("accept-choices"));
         e.click();
-        List<WebElement>frames = driver.findElements(By.tagName("iframe"));
+        List<WebElement> frames = driver.findElements(By.tagName("iframe"));
         framescnt = frames.size();
         System.out.println("Number of frames in page is : " + framescnt);
-        for (WebElement frame : frames){
+        for (WebElement frame : frames) {
             System.out.println(frame.getAttribute("id"));
         }
-        Assert.assertEquals(framescnt,CNTFRAMES,"Invalid count of frames");
+        Assert.assertEquals(framescnt, CNTFRAMES, "Invalid count of frames");
         captureFullpage("frames");
 
 
@@ -719,35 +737,35 @@ public abstract class TestActions extends TestConstants {
         driver.switchTo().newWindow(WindowType.WINDOW);
         driver.get(secondUrl);
         currentUrl = driver.getCurrentUrl();
-        Assert.assertEquals(currentUrl,"https://www.google.com/intl/cs/gmail/about/", "Wrong windows selected");
+        Assert.assertEquals(currentUrl, "https://www.google.com/intl/cs/gmail/about/", "Wrong windows selected");
         int openedsize = driver.getWindowHandles().size();
         System.out.println(openedsize);
         Set<String> winids = driver.getWindowHandles();
         //create iterator
-        Iterator<String>iterator = winids.iterator();
+        Iterator<String> iterator = winids.iterator();
         //iterate through
-        List<String>winIndex = new ArrayList<String>();
-        while (iterator.hasNext()){
+        List<String> winIndex = new ArrayList<String>();
+        while (iterator.hasNext()) {
             //add winids into list
             winIndex.add(iterator.next());
-       }
+        }
         //get first window a close it
         driver.switchTo().window(winIndex.get(0));
         closedUrl = driver.getCurrentUrl();
         System.out.println("closed url: " + driver.getCurrentUrl());
-        Assert.assertEquals(closedUrl,EXPURL,"invalid URL closed");
+        Assert.assertEquals(closedUrl, EXPURL, "invalid URL closed");
         driver.close();
         //switch to third window
         driver.switchTo().window(winIndex.get(2));
         url = driver.getCurrentUrl();
         System.out.println(url);
-        Assert.assertEquals(url,"https://www.google.com/intl/cs/gmail/about/","wrong window closed");
+        Assert.assertEquals(url, "https://www.google.com/intl/cs/gmail/about/", "wrong window closed");
         driver.close();
         // check url of Last Window
         driver.switchTo().window(winIndex.get(1));
         lastUrl = driver.getCurrentUrl();
         System.out.println("remaining: " + lastUrl);
-        Assert.assertEquals(lastUrl,FIRSTURL,"wrong window remains");
+        Assert.assertEquals(lastUrl, FIRSTURL, "wrong window remains");
         captureFullpage("lastUrlScreen");
 
     }
@@ -757,24 +775,25 @@ public abstract class TestActions extends TestConstants {
         System.out.println(e.getText());
         captureFullpage("BasicAuthorization");
     }
+
     /*
         parameters:
         @String name
         @Webdriver driver
      */
     public void printToPDF(String name) throws IOException {
-       Pdf pdf = ((PrintsPage)driver).print(new PrintOptions());
-       //use java nio file library instead of Google.com io and run in headless mode
-        Files.write(Paths.get("./"+name+".pdf"),OutputType.BYTES.convertFromBase64Png(pdf.getContent()));
+        Pdf pdf = ((PrintsPage) driver).print(new PrintOptions());
+        //use java nio file library instead of Google.com io and run in headless mode
+        Files.write(Paths.get("./" + name + ".pdf"), OutputType.BYTES.convertFromBase64Png(pdf.getContent()));
     }
 
     public void checkOptions() throws IOException {
         String title = driver.getTitle();
-        Assert.assertEquals(title,TITLESSL,"invalid title printed");
+        Assert.assertEquals(title, TITLESSL, "invalid title printed");
         captureFullpage("badSSL");
     }
 
-    public void getRectAttributes(){
+    public void getRectAttributes() {
         WebElement img = driver.findElement(By.xpath("//*[@id=\"logo\"]"));
         // call method get Rect from Rectangle class
         if (img.isDisplayed()) {
@@ -785,21 +804,21 @@ public abstract class TestActions extends TestConstants {
             System.out.println("Width :" + rect.getWidth());
             System.out.println("X coordinations " + rect.getX());
             System.out.println("Y coordinates " + rect.getY());
-        }else {
-            System.out.println("Element is not displayed" );
+        } else {
+            System.out.println("Element is not displayed");
         }
 
     }
 
-    public void testMouseOver(String xpathlocator,String locator){
+    public void testMouseOver(String xpathlocator, String locator) {
         WebElement accept = driver.findElement(By.id("L2AGLb"));
         accept.click();
         WebElement search = driver.findElement(By.name("q"));
         search.sendKeys("way2automation");
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpathlocator))).click();
         driver.findElement(By.partialLinkText("Way2Automation: Get Online Selenium Certification Course")).click();
-        WebElement menu =  driver.findElement(By.id("menu-item-27617"));
+        WebElement menu = driver.findElement(By.id("menu-item-27617"));
         Actions action = new Actions(driver);
 
         action.moveToElement(menu).perform();
@@ -807,15 +826,32 @@ public abstract class TestActions extends TestConstants {
         pracpag.click();
 
     }
+
     //Actions contains interactions actions for slider e.g.
     public void handleDemoSlider(int xOffest) throws IOException {
         WebElement frame = driver.findElement(By.xpath("//iframe[@class=\"demo-frame\"]"));
-            driver.switchTo().frame(frame);
-            WebElement slider = driver.findElement(By.xpath("//div[@id =\"slider\"]"));
-            new Actions(driver).dragAndDropBy(slider, xOffest, 0).perform();
-            captureFullpage("slider");
-        }
+        driver.switchTo().frame(frame);
+        WebElement mainSlider = driver.findElement(By.id("slider"));
+        int wi = mainSlider.getSize().width / 2;
+        WebElement slider = driver.findElement(By.xpath("//div[@id =\"slider\"]"));
+        new Actions(driver).dragAndDropBy(slider, xOffest, 0).perform();
+        captureFullpage("slider");
     }
+
+    public void handleResizable() {
+        WebElement frame = driver.findElement(By.xpath("//iframe[@class=\"demo-frame\"]"));
+        driver.switchTo().frame(frame);
+        WebElement resize = driver.findElement(By.xpath("//div[@class=\"ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se\"]"));
+        Actions action = new Actions(driver);
+        action.dragAndDropBy(resize, 300, 200).perform();
+
+
+    }
+
+    public void resizeWindows() {
+
+    }
+}
 
 
 
