@@ -863,8 +863,34 @@ public abstract class TestActions extends TestConstants {
         Actions actions = new Actions(driver);
         //do not forget perform
         actions.dragAndDrop(draggable, droppable).perform();
+    }
 
+    public void rightClick() throws IOException {
+        String url = null;
+        WebElement img = driver.findElement(By.xpath("/html/body/div/table/tbody/tr/td[2]/div[2]/table[1]/tbody/tr/td[3]/p[2]/img"));
 
+        Actions actions = new Actions(driver);
+        actions.contextClick(img).moveToElement(img).perform();
+        //move to submenu 2
+        actions.moveToElement(driver.findElement(By.id("dm2m1i1tdT"))).perform();
+        // move to submenu 3
+        actions.moveToElement(driver.findElement(By.id("dm2m2i1tdT"))).perform();
+        driver.findElement(By.id("dm2m3i1tdT")).click();
+        //print url of second page
+        Set<String> winids = driver.getWindowHandles();
+        //create iterator
+        Iterator<String> iterator = winids.iterator();
+        //iterate through
+        List<String> winIndex = new ArrayList<String>();
+        while (iterator.hasNext()) {
+            //add winids into list
+            winIndex.add(iterator.next());
+        }
+        //get first window a close it
+        driver.switchTo().window(winIndex.get(1));
+        url = driver.getCurrentUrl();
+        Assert.assertEquals(url,"http://deluxe-menu.com/installation-info.html","wrong item has been selected");
+        captureFullpage("secondWindow");
     }
 }
 
