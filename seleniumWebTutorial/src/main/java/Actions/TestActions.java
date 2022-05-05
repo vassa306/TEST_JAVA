@@ -212,7 +212,7 @@ public abstract class TestActions extends TestConstants {
 
         //20 means speed of resizing
         //1000 means width and height
-        for (int i = 0; i <= 800; i = i +20) {
+        for (int i = 0; i <= 800; i = i + 20) {
             Dimension dim = new Dimension(width + i, height + i);
             driver.manage().window().setSize(dim);
 
@@ -828,9 +828,14 @@ public abstract class TestActions extends TestConstants {
     }
 
     //Actions contains interactions actions for slider e.g.
-    public void handleDemoSlider(int xOffest) throws IOException {
-        WebElement frame = driver.findElement(By.xpath("//iframe[@class=\"demo-frame\"]"));
-        driver.switchTo().frame(frame);
+    public WebDriver switchToFrame(String locator) {
+        WebElement frame = driver.findElement(By.xpath(locator));
+        return driver.switchTo().frame(frame);
+
+    }
+
+    public void handleDemoSlider(int xOffest, String locator) throws IOException {
+        switchToFrame(locator);
         WebElement mainSlider = driver.findElement(By.id("slider"));
         int wi = mainSlider.getSize().width / 2;
         WebElement slider = driver.findElement(By.xpath("//div[@id =\"slider\"]"));
@@ -838,17 +843,27 @@ public abstract class TestActions extends TestConstants {
         captureFullpage("slider");
     }
 
-    public void handleResizable() {
-        WebElement frame = driver.findElement(By.xpath("//iframe[@class=\"demo-frame\"]"));
-        driver.switchTo().frame(frame);
-        WebElement resize = driver.findElement(By.xpath("//div[@class=\"ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se\"]"));
+    public void handleResizable(String locator) {
+        // better cannot repeat the same code x times!!!
+        switchToFrame("//iframe[@class=\"demo-frame\"]");
+        //WebElement frame = driver.findElement(By.xpath("//iframe[@class=\"demo-frame\"]"));
+        //driver.switchTo().frame(frame);
+        WebElement resize = driver.findElement(By.xpath(locator));
         Actions action = new Actions(driver);
         action.dragAndDropBy(resize, 300, 200).perform();
 
 
     }
 
-    public void resizeWindows() {
+    //drag and drop
+    public void dragAndDrop() {
+        switchToFrame(FRAME);
+        WebElement draggable = driver.findElement(By.xpath("//div[@class=\"ui-widget-content ui-draggable ui-draggable-handle\"]"));
+        WebElement droppable = driver.findElement(By.xpath("//div[@id = 'droppable']"));
+        Actions actions = new Actions(driver);
+        //do not forget perform
+        actions.dragAndDrop(draggable, droppable).perform();
+
 
     }
 }

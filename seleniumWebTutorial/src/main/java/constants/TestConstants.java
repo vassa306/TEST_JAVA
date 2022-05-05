@@ -15,7 +15,7 @@ public class TestConstants extends TestUrls {
     public static String SELECTEDDATE = "28/04/2022";
     public static int ALLLINKS = 13;
 
-    /*Test URLS */
+    /*Test URLS and locators*/
     public static String HANDLETABPOPURL = "https://www.hdfc.com/";
     public static String FRAMEID = "iframeResult";
     public static String FIRSTURL = "https://www.google.cz/";
@@ -23,5 +23,7 @@ public class TestConstants extends TestUrls {
     public static String EXPURL = "https://www.way2automation.com/";
     public static int CNTFRAMES = 3;
     public static String TITLESSL = "expired.badssl.com";
+    public static String LOCATORFORRES = "//div[@class='ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se']";
+    public static String FRAME = "//iframe[@class='demo-frame']";
 
 }

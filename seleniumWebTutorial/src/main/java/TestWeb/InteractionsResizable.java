@@ -14,7 +14,7 @@ public class InteractionsResizable extends TestActions {
 
     @Test
     public void testcaseResizable(){
-        handleResizable();
+        handleResizable(LOCATORFORRES);
     }
     @AfterTest
     public void tearUp(){
