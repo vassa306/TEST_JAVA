@@ -9,21 +9,20 @@ import java.io.IOException;
 
 public class BadSSL extends TestActions {
     @BeforeTest
-    public void setUp(){
+    public void setUp() {
         setUpWithBasSSL("https://expired.badssl.com/");
     }
 
     @Test
     public void testcaseBadSSl() throws IOException {
-        checkOptions();
+        checkOptions(driver);
         System.out.println("Bad SSL page appears");
     }
 
     @AfterTest
-    public void tearUp(){
+    public void tearUp() {
         driver.close();
-        driver.quit();
+
+
     }
-
-
 }

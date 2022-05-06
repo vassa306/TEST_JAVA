@@ -12,7 +12,7 @@ public class DragAndDropTest extends TestActions {
 
     @Test
     public void testcaseDroppable(){
-        dragAndDrop();
+        dragAndDrop(driver);
     }
 
 }

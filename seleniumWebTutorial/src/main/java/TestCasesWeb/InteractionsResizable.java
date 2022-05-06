@@ -1,12 +1,10 @@
 package TestCasesWeb;
 
 import Actions.TestActions;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 public class InteractionsResizable extends TestActions {
-    @BeforeTest
+    @BeforeMethod
     public void setUp(){
         commonSetUp("https://jqueryui.com/resizable/");
 
@@ -16,7 +14,7 @@ public class InteractionsResizable extends TestActions {
     public void testcaseResizable(){
         handleResizable(LOCATORFORRES);
     }
-    @AfterTest
+    @AfterMethod
     public void tearUp(){
         driver.close();
         driver.quit();

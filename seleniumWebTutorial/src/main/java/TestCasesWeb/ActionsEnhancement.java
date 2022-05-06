@@ -1,12 +1,10 @@
 package TestCasesWeb;
 
 import Actions.TestActions;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 public class ActionsEnhancement extends TestActions {
-    @BeforeTest
+    @BeforeMethod
     public void setUp(){
         commonSetUp("https://google.com");
 
@@ -17,9 +15,8 @@ public class ActionsEnhancement extends TestActions {
         testEnhacement();
     }
 
-    @AfterTest
-    public void tearUp(){
-        driver.close();
-        driver.quit();
+    @AfterMethod
+    public void EndTest(){
+        tearUp();
     }
 }

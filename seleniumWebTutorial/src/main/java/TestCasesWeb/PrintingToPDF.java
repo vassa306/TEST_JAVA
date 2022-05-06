@@ -1,6 +1,7 @@
 package TestCasesWeb;
 
 import Actions.TestActions;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -13,7 +14,12 @@ public class PrintingToPDF extends TestActions {
    }
     @Test(priority = 1)
     public void testPrinttoPdf() throws IOException {
-        printToPDF("selenium");
+        printToPDF(driver,"selenium");
+    }
+    @AfterTest
+    public void tearUp(){
+       driver.close();
+       driver.quit();
     }
 
 }

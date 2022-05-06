@@ -21,6 +21,5 @@ public class Checkboxes extends TestActions {
     @AfterMethod
     public void tearUp(){
         driver.close();
-        driver.quit();
     }
 }

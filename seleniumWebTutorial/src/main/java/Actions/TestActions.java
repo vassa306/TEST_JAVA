@@ -12,6 +12,7 @@ import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.SourceType;
 import org.openqa.selenium.print.PrintOptions;
 import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -262,7 +263,6 @@ public abstract class TestActions extends TestConstants {
         driver.get(baseUrl);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
     }
-
 
 
     //second Method for Mobile Set UP
@@ -783,13 +783,13 @@ public abstract class TestActions extends TestConstants {
         @String name
         @Webdriver driver
      */
-    public void printToPDF(String name) throws IOException {
+    public void printToPDF(WebDriver driver, String name) throws IOException {
         Pdf pdf = ((PrintsPage) driver).print(new PrintOptions());
         //use java nio file library instead of Google.com io and run in headless mode
         Files.write(Paths.get("./" + name + ".pdf"), OutputType.BYTES.convertFromBase64Png(pdf.getContent()));
     }
 
-    public void checkOptions() throws IOException {
+    public void checkOptions(WebDriver driver) throws IOException {
         String title = driver.getTitle();
         Assert.assertEquals(title, TITLESSL, "invalid title printed");
         captureFullpage("badSSL");
@@ -812,7 +812,7 @@ public abstract class TestActions extends TestConstants {
 
     }
 
-    public void testMouseOver(String xpathlocator, String locator) {
+    public void testMouseOver(WebDriver driver, String xpathlocator, String locator) {
         WebElement accept = driver.findElement(By.id("L2AGLb"));
         accept.click();
         WebElement search = driver.findElement(By.name("q"));
@@ -836,7 +836,7 @@ public abstract class TestActions extends TestConstants {
 
     }
 
-    public void handleDemoSlider(int xOffest, String locator) throws IOException {
+    public void handleDemoSlider(WebDriver driver, int xOffest, String locator) throws IOException {
         switchToFrame(locator);
         WebElement mainSlider = driver.findElement(By.id("slider"));
         int wi = mainSlider.getSize().width / 2;
@@ -858,7 +858,7 @@ public abstract class TestActions extends TestConstants {
     }
 
     //drag and drop
-    public void dragAndDrop() {
+    public void dragAndDrop(WebDriver driver) {
         switchToFrame(FRAME);
         WebElement draggable = driver.findElement(By.xpath("//div[@class=\"ui-widget-content ui-draggable ui-draggable-handle\"]"));
         WebElement droppable = driver.findElement(By.xpath("//div[@id = 'droppable']"));
@@ -892,37 +892,38 @@ public abstract class TestActions extends TestConstants {
         //get second window
         driver.switchTo().window(winIndex.get(1));
         url = driver.getCurrentUrl();
-        Assert.assertEquals(url,URLEXP,"wrong page opened");
+        Assert.assertEquals(url, URLEXP, "wrong page opened");
         captureFullpage("secondWindow");
     }
+
     //how to handle CTRL C or CTRL+V with Selenium
     //use element instead of actions and working now
     public void pressKeyboard(String locator) throws IOException {
 
         WebElement search = driver.findElement(By.id(locator));
         search.sendKeys("testvasek@gmail.com");
-        search.sendKeys(Keys.chord(Keys.CONTROL+"a"));
-        search.sendKeys(Keys.chord(Keys.CONTROL+"c"));
+        search.sendKeys(Keys.chord(Keys.CONTROL + "a"));
+        search.sendKeys(Keys.chord(Keys.CONTROL + "c"));
         driver.findElement(By.xpath("//*[@id=\"view_container\"]/div/div/div[2]/div/div[1]/div/form/span/section/div")).click();
         search.click();
-        search.sendKeys(Keys.chord(Keys.CONTROL+"v"));
+        search.sendKeys(Keys.chord(Keys.CONTROL + "v"));
         captureFullpage("CTRLC + V");
     }
 
-    public void handleJSAlert(){
+    public void handleJSAlert() {
         driver.findElement(By.linkText("Sign in")).click();
         WebElement btnLogin = driver.findElement(By.xpath("//input[@type='submit']"));
         btnLogin.click();
         Alert alert = driver.switchTo().alert();
         String alertText = alert.getText();
-        System.out.println("Text in alert is: "+ alertText);
-        Assert.assertEquals(alertText,VALIDATIONMSGREDIFF,"wrong alert text");
+        System.out.println("Text in alert is: " + alertText);
+        Assert.assertEquals(alertText, VALIDATIONMSGREDIFF, "wrong alert text");
         alert.accept();
 
     }
 
     //how to get locations on any element on page
-    public void testEnhacement(){
+    public void testEnhacement() {
         String url = null;
         WebElement Accept = driver.findElement(By.id("L2AGLb"));
         Accept.click();
@@ -933,14 +934,87 @@ public abstract class TestActions extends TestConstants {
         int y = link.getRect().getY();
 
         Actions actions = new Actions(driver);
-        actions.moveByOffset(x,y).click().perform();
+        actions.moveByOffset(x, y).click().perform();
 
         url = driver.getCurrentUrl();
         System.out.println("current URL " + url);
-        Assert.assertEquals(url,GMAIL,"wrong page opens");
+        Assert.assertEquals(url, GMAIL, "wrong page opens");
 
     }
+
+    //in course but page changed//
+    public void handleSVGGraph() throws InterruptedException {
+        /*
+        Thread.sleep(5000);
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"root\"]/div/div[3]/div[1]/div[4]/div[2]/div/div[9]/div[1]/div[1]")));
+
+        //add values into LIST
+        List<WebElement> graphPoints = driver.findElements(By.xpath("(//*[name()='svg' and @preserveAspectRatio='xMidYMid meet'])[6]"));
+
+        Actions actions = new Actions(driver);
+        for(WebElement point: graphPoints){
+            actions.moveToElement(point).perform();
+            System.out.println(driver.findElement(By.xpath("//div[@class=\"stats is-confirmed\"]/div/h2")).getText());
+
+         */
+
+        //new code
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[1]/div[4]/div[2]/div/div[9]/div[1]/div[1]")).click();
+//Select no of days button at bottom
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(text(),'30 days')]"))).click();
+
+//come back to state Delhi
+        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[1]/div[4]/div[2]/div/div[9]/div[1]/div[1]")).click();
+
+//get list of all circle elements
+        List<WebElement> confirmedPts = driver.findElements(By.xpath("//div[@class='svg-parent fadeInUp is-confirmed']//*[name()='circle']"));
+        System.out.println("no of graphpoints = " + confirmedPts.size());
+        Actions action = new Actions(driver);
+        int i = 0;
+
+        System.out.println("Confirmed cases===============");
+
+        for (WebElement point : confirmedPts) {
+            i++;
+            action.moveToElement(point).perform();
+            System.out.println("day" + i + "=" + driver.findElement(By.xpath("//div[@class='stats is-confirmed']/div/h2")).getText());
+        }
+
+        List<WebElement> activePts = driver.findElements(By.xpath("//div[@class='svg-parent fadeInUp is-confirmed']//*[name()='circle']"));
+        int j = 0;
+        System.out.println("Active cases=============");
+        for (WebElement point : activePts) {
+            j++;
+            action.moveToElement(point).perform();
+            System.out.println("number of confirmed cases in day" + j + "=" + driver.findElement(By.xpath("//div[@class='stats is-active']//div/h2")).getText());
+
+        }
+
+        List<WebElement> recoveredPts = driver.findElements(By.xpath("//div[@class='svg-parent fadeInUp is-recovered']//*[name()='circle']"));
+        int k = 0;
+        System.out.println("Recovered cases");
+        for (WebElement point : recoveredPts) {
+            k++;
+            action.moveToElement(point).perform();
+            System.out.println("day" + k + "=" + driver.findElement(By.xpath("//div[@class='stats is-recovered']//div/h2")).getText());
+        }
+
+        List<WebElement> vacinatedPTS = driver.findElements(By.xpath("//div[@class='svg-parent fadeInUp is-vaccinated']//*[name()='circle']"));
+        int l = 0;
+        System.out.println("Vacinated cases");
+        for (WebElement point: vacinatedPTS) {
+            l++;
+            action.moveToElement(point).perform();
+            System.out.println("Vaccinated cases in day" + l + "=" + driver.findElement(By.xpath("//div[@class='stats is-vaccinated']//div/h2")).getText());
+
+        }
+
+    }
+
 }
+
 
 
 

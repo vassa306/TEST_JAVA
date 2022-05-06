@@ -12,9 +12,8 @@ public class Assingment4 extends TestActions {
         }
 
         @AfterTest
-        public void tearUp(){
-        driver.close();
-        driver.quit();
+        public void testClose(){
+        tearUp();
         }
 
 }
