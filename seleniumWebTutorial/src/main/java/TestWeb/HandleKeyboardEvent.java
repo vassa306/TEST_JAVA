@@ -7,15 +7,16 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-public class RightClickTest extends TestActions {
+public class HandleKeyboardEvent extends TestActions {
+
     @BeforeTest
-        public void setUp(){
-        commonSetUp(POPUPURL);
+    public void setUp(){
+        commonSetUp(TESTGMAIL);
     }
 
     @Test
-    public void testCaseRightClc() throws IOException {
-        rightClick();
+    public void testcaseHandleKeyboard() throws IOException {
+        pressKeyboard();
     }
 
     @AfterTest

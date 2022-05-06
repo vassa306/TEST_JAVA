@@ -263,6 +263,8 @@ public abstract class TestActions extends TestConstants {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
     }
 
+
+
     //second Method for Mobile Set UP
     public void setUpForIphone(String baseUrl) {
         Map<String, String> mobileEm = new HashMap<String, String>();
@@ -680,7 +682,7 @@ public abstract class TestActions extends TestConstants {
     public void testMobileIphone() throws IOException {
         String currentUrl = driver.getCurrentUrl();
         System.out.println("current url: " + currentUrl);
-        Assert.assertEquals(currentUrl, "https://accounts.google.com/signin/v2/identifier?service=mail&passive=1209600&osid=1&continue=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&followup=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&emr=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin"
+        Assert.assertEquals(currentUrl, "https://accounts.google.com/signin/v2/identifier?service=mail&passive=1209600&osid=1&continue=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&followup=https%3A%2F%2Fmail.goohttps://accounts.google.com/signin/v2/identifier?service=mail&passive=1209600&osid=1&continue=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&followup=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&emr=1&flowName=GlifWebSignIn&flowEntry=ServiceLogingle.com%2Fmail%2Fu%2F0%2F&emr=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin"
                 , "Invalid loaded URL");
         WebElement emailField = driver.findElement(By.xpath("//input[@type=\"email\"]"));
         emailField.sendKeys(DEFAULT_LOGIN);
@@ -884,13 +886,33 @@ public abstract class TestActions extends TestConstants {
         List<String> winIndex = new ArrayList<String>();
         while (iterator.hasNext()) {
             //add winids into list
+
             winIndex.add(iterator.next());
         }
-        //get first window a close it
+        //get second window
         driver.switchTo().window(winIndex.get(1));
         url = driver.getCurrentUrl();
-        Assert.assertEquals(url,"http://deluxe-menu.com/installation-info.html","wrong item has been selected");
+        Assert.assertEquals(url,URLEXP,"wrong page opened");
         captureFullpage("secondWindow");
+    }
+    //how to handle CTRL C or CTRL+V with Selenium
+    //use element instead of actions and working now
+    public void pressKeyboard() throws IOException {
+
+        WebElement search = driver.findElement(By.id("identifierId"));
+        search.sendKeys("testvasek@gmail.com");
+        search.sendKeys(Keys.chord(Keys.CONTROL+"a"));
+        search.sendKeys(Keys.chord(Keys.CONTROL+"c"));
+        driver.findElement(By.xpath("//*[@id=\"view_container\"]/div/div/div[2]/div/div[1]/div/form/span/section/div")).click();
+        search.click();
+        search.sendKeys(Keys.chord(Keys.CONTROL+"v"));
+        System.out.println(search.getText());
+        captureFullpage("CTRLC + V");
+
+
+
+
+
     }
 }
 

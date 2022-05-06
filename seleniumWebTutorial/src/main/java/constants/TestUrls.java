@@ -7,4 +7,6 @@ public class TestUrls {
     public static String GOOGLEBTNSRCHXPTH = "/html/body/div[1]/div[3]/form/div[1]/div[1]/div[3]/center/input[1]";
     public static String LINKW2A = "Practice Site 1";
     public static String LINKASS ="Installation";
+    public static String POPUPURL ="https://deluxe-menu.com/popup-mode-sample.html";
+    public static String TESTGMAIL = "https://gmail.com";
 }

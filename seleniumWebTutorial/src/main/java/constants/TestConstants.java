@@ -25,5 +25,6 @@ public class TestConstants extends TestUrls {
     public static String TITLESSL = "expired.badssl.com";
     public static String LOCATORFORRES = "//div[@class='ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se']";
     public static String FRAME = "//iframe[@class='demo-frame']";
+    public static String URLEXP ="http://deluxe-menu.com/installation-info.html";
 
 }
