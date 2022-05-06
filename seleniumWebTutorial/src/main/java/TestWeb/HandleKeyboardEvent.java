@@ -16,7 +16,7 @@ public class HandleKeyboardEvent extends TestActions {
 
     @Test
     public void testcaseHandleKeyboard() throws IOException {
-        pressKeyboard();
+        pressKeyboard(GMAILSEARCHBOXID);
     }
 
     @AfterTest

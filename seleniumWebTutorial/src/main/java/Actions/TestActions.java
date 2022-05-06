@@ -897,17 +897,31 @@ public abstract class TestActions extends TestConstants {
     }
     //how to handle CTRL C or CTRL+V with Selenium
     //use element instead of actions and working now
-    public void pressKeyboard() throws IOException {
+    public void pressKeyboard(String locator) throws IOException {
 
-        WebElement search = driver.findElement(By.id("identifierId"));
+        WebElement search = driver.findElement(By.id(locator));
         search.sendKeys("testvasek@gmail.com");
         search.sendKeys(Keys.chord(Keys.CONTROL+"a"));
         search.sendKeys(Keys.chord(Keys.CONTROL+"c"));
         driver.findElement(By.xpath("//*[@id=\"view_container\"]/div/div/div[2]/div/div[1]/div/form/span/section/div")).click();
         search.click();
         search.sendKeys(Keys.chord(Keys.CONTROL+"v"));
-        System.out.println(search.getText());
         captureFullpage("CTRLC + V");
+    }
+
+    public void handleJSAlert(){
+        driver.findElement(By.linkText("Sign in")).click();
+        WebElement btnLogin = driver.findElement(By.xpath("//input[@type='submit']"));
+        btnLogin.click();
+        // confirm Alert
+
+        Alert alert = driver.switchTo().alert();
+        String alertText = alert.getText();
+        System.out.println("Text in alert is: "+ alertText);
+        Assert.assertEquals(alertText,VALIDATIONMSGREDIFF,"wrong alert text");
+        alert.accept();
+
+
 
 
 

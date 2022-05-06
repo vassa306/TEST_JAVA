@@ -26,5 +26,7 @@ public class TestConstants extends TestUrls {
     public static String LOCATORFORRES = "//div[@class='ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se']";
     public static String FRAME = "//iframe[@class='demo-frame']";
     public static String URLEXP ="http://deluxe-menu.com/installation-info.html";
+    public static String GMAILSEARCHBOXID = "identifierId";
+    public static String VALIDATIONMSGREDIFF = "Please enter a valid user name";
 
 }
