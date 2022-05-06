@@ -913,19 +913,31 @@ public abstract class TestActions extends TestConstants {
         driver.findElement(By.linkText("Sign in")).click();
         WebElement btnLogin = driver.findElement(By.xpath("//input[@type='submit']"));
         btnLogin.click();
-        // confirm Alert
-
         Alert alert = driver.switchTo().alert();
         String alertText = alert.getText();
         System.out.println("Text in alert is: "+ alertText);
         Assert.assertEquals(alertText,VALIDATIONMSGREDIFF,"wrong alert text");
         alert.accept();
 
+    }
 
+    //how to get locations on any element on page
+    public void testEnhacement(){
+        String url = null;
+        WebElement Accept = driver.findElement(By.id("L2AGLb"));
+        Accept.click();
+        WebElement link = driver.findElement(By.linkText("Gmail"));
+        //get location of x
+        int x = link.getRect().getX();
 
+        int y = link.getRect().getY();
 
+        Actions actions = new Actions(driver);
+        actions.moveByOffset(x,y).click().perform();
 
-
+        url = driver.getCurrentUrl();
+        System.out.println("current URL " + url);
+        Assert.assertEquals(url,GMAIL,"wrong page opens");
 
     }
 }

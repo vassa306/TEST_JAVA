@@ -10,4 +10,5 @@ public class TestUrls {
     public static String POPUPURL ="https://deluxe-menu.com/popup-mode-sample.html";
     public static String TESTGMAIL = "https://gmail.com";
     public static String REDIFF = "https://rediff.com";
+    public static String GMAIL = "https://www.google.com/intl/cs/gmail/about/";
 }
