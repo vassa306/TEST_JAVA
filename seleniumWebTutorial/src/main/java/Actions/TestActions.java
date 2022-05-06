@@ -942,33 +942,17 @@ public abstract class TestActions extends TestConstants {
 
     }
 
-    //in course but page changed//
-    public void handleSVGGraph() throws InterruptedException {
-        /*
-        Thread.sleep(5000);
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"root\"]/div/div[3]/div[1]/div[4]/div[2]/div/div[9]/div[1]/div[1]")));
-
-        //add values into LIST
-        List<WebElement> graphPoints = driver.findElements(By.xpath("(//*[name()='svg' and @preserveAspectRatio='xMidYMid meet'])[6]"));
-
-        Actions actions = new Actions(driver);
-        for(WebElement point: graphPoints){
-            actions.moveToElement(point).perform();
-            System.out.println(driver.findElement(By.xpath("//div[@class=\"stats is-confirmed\"]/div/h2")).getText());
-
-         */
-
-        //new code
+    //in course but page
+    public void handleSVGGraph(String locator, int duration, String datelocator) throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[1]/div[4]/div[2]/div/div[9]/div[1]/div[1]")).click();
-//Select no of days button at bottom
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(text(),'30 days')]"))).click();
+        driver.findElement(By.xpath(locator)).click();
+        //Select no of days button at bottom
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(text(),'"+duration+" days')]"))).click();
 
-//come back to state Delhi
-        driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[1]/div[4]/div[2]/div/div[9]/div[1]/div[1]")).click();
+        //come back to state Delhi
+        driver.findElement(By.xpath(locator)).click();
 
-//get list of all circle elements
+        //get list of all circle elements
         List<WebElement> confirmedPts = driver.findElements(By.xpath("//div[@class='svg-parent fadeInUp is-confirmed']//*[name()='circle']"));
         System.out.println("no of graphpoints = " + confirmedPts.size());
         Actions action = new Actions(driver);
@@ -979,7 +963,7 @@ public abstract class TestActions extends TestConstants {
         for (WebElement point : confirmedPts) {
             i++;
             action.moveToElement(point).perform();
-            System.out.println("day" + i + "=" + driver.findElement(By.xpath("//div[@class='stats is-confirmed']/div/h2")).getText());
+            System.out.println("Confirmed cases in day" + i + " = " + driver.findElement(By.xpath("//div[@class='stats is-confirmed']/div/h2")).getText());
         }
 
         List<WebElement> activePts = driver.findElements(By.xpath("//div[@class='svg-parent fadeInUp is-confirmed']//*[name()='circle']"));
@@ -988,7 +972,7 @@ public abstract class TestActions extends TestConstants {
         for (WebElement point : activePts) {
             j++;
             action.moveToElement(point).perform();
-            System.out.println("number of confirmed cases in day" + j + "=" + driver.findElement(By.xpath("//div[@class='stats is-active']//div/h2")).getText());
+            System.out.println("number of confirmed cases in day" + j + " = " + driver.findElement(By.xpath("//div[@class='stats is-active']//div/h2")).getText());
 
         }
 
@@ -998,16 +982,16 @@ public abstract class TestActions extends TestConstants {
         for (WebElement point : recoveredPts) {
             k++;
             action.moveToElement(point).perform();
-            System.out.println("day" + k + "=" + driver.findElement(By.xpath("//div[@class='stats is-recovered']//div/h2")).getText());
+            System.out.println("Recovered cases in day" + k + " = " + driver.findElement(By.xpath("//div[@class='stats is-recovered']//div/h2")).getText());
         }
-
+        //last print contains also date
         List<WebElement> vacinatedPTS = driver.findElements(By.xpath("//div[@class='svg-parent fadeInUp is-vaccinated']//*[name()='circle']"));
         int l = 0;
         System.out.println("Vacinated cases");
         for (WebElement point: vacinatedPTS) {
             l++;
             action.moveToElement(point).perform();
-            System.out.println("Vaccinated cases in day" + l + "=" + driver.findElement(By.xpath("//div[@class='stats is-vaccinated']//div/h2")).getText());
+            System.out.println("Vaccinated cases in " + driver.findElement(By.xpath(datelocator)).getText() + " - "+ driver.findElement(By.xpath("//div[@class='stats is-vaccinated']//div/h2")).getText());
 
         }
 

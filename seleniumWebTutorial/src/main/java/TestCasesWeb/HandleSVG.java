@@ -11,9 +11,12 @@ public class HandleSVG extends TestActions {
         commonSetUp("https://covid19india.org");
     }
 
+    /*
+     parameter duration 90, 30 days
+     */
     @Test
     public void testcaseSVG() throws InterruptedException {
-        handleSVGGraph();
+        handleSVGGraph(XPATHCOVIDINDIA,90,COVIDH5XPATH);
 
     }
 }
