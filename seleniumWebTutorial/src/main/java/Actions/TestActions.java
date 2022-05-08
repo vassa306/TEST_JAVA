@@ -264,7 +264,10 @@ public abstract class TestActions extends TestConstants {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
     }
 
-
+    /**
+     *
+     * @param baseUrl
+     */
     //second Method for Mobile Set UP
     public void setUpForIphone(String baseUrl) {
         Map<String, String> mobileEm = new HashMap<String, String>();
@@ -361,6 +364,11 @@ public abstract class TestActions extends TestConstants {
         }
     }
 
+    /**
+     *
+     * @param driver
+     * @param name
+     */
     public void getDropdownValues(WebDriver driver, String name) {
         List<WebElement> options = driver.findElements(By.name(name));
         System.out.println("Printingvalues :");
@@ -370,6 +378,12 @@ public abstract class TestActions extends TestConstants {
         }
     }
 
+    /**
+     *
+     * @param driver
+     * @param name
+     * @param option
+     */
     public void pickValueFromDropdown(WebDriver driver, String name, String option) {
         WebElement dropdown = driver.findElement(By.name(name));
         boolean displayed = dropdown.isDisplayed();
@@ -381,6 +395,12 @@ public abstract class TestActions extends TestConstants {
         System.out.println("selected value is " + actt);
     }
 
+    /**
+     *
+     * @param driver
+     * @param id
+     * @param option
+     */
     public void pickValueByVisibleText(WebDriver driver, String id, String option) {
         Select select = new Select(driver.findElement(By.id(id)));
         select.selectByVisibleText(option);
@@ -391,6 +411,14 @@ public abstract class TestActions extends TestConstants {
 
     }
 
+    /**
+     *
+     * @param driver
+     * @param Id
+     * @param value
+     * @throws InterruptedException
+     * @throws IOException
+     */
     public void pickValuefrom(WebDriver driver, String Id, String value) throws InterruptedException, IOException {
         Select select = new Select(driver.findElement(By.id(Id)));
         select.selectByValue(value);
@@ -470,6 +498,12 @@ public abstract class TestActions extends TestConstants {
 
     }
 
+    /**
+     *
+     * @param row
+     * @param coll
+     * @throws IOException
+     */
     public void handleWebTables(String row, String coll) throws IOException {
         List<WebElement> rowNums = driver.findElements(By.xpath(row));
         System.out.println("Row count is : " + rowNums.size());
@@ -492,6 +526,11 @@ public abstract class TestActions extends TestConstants {
 
     }
 
+    /**
+     *
+     * @param rowNums
+     * @throws IOException
+     */
     public void exportToTxt(List<WebElement> rowNums) throws IOException {
         File F = new File("C:\\FileWriting\\myTextFile.txt");
         FileWriter fw = new FileWriter(F, false);
@@ -516,6 +555,11 @@ public abstract class TestActions extends TestConstants {
 
     }
 
+    /**
+     *
+     * @param locator
+     * @throws InterruptedException
+     */
     public void handleJSelement(String locator) throws InterruptedException {
         driver.findElement(By.id(locator)).sendKeys("BENG");
         driver.findElement(By.id(locator)).sendKeys(Keys.DOWN);
@@ -558,7 +602,14 @@ public abstract class TestActions extends TestConstants {
         return String.valueOf(month);
     }
 
-
+    /**
+     *
+     * @param locator
+     * @param expDay
+     * @param expMonth
+     * @param expYear
+     * @throws ParseException
+     */
     public static void pickValueFromPicker(String locator, String expDay, String expMonth, String expYear) throws ParseException {
         try {
 
@@ -742,9 +793,9 @@ public abstract class TestActions extends TestConstants {
         Assert.assertEquals(currentUrl, "https://www.google.com/intl/cs/gmail/about/", "Wrong windows selected");
         int openedsize = driver.getWindowHandles().size();
         System.out.println(openedsize);
-        Set<String> winids = driver.getWindowHandles();
+        Set<String> winIds = driver.getWindowHandles();
         //create iterator
-        Iterator<String> iterator = winids.iterator();
+        Iterator<String> iterator = winIds.iterator();
         //iterate through
         List<String> winIndex = new ArrayList<String>();
         while (iterator.hasNext()) {
@@ -778,7 +829,7 @@ public abstract class TestActions extends TestConstants {
         captureFullpage("BasicAuthorization");
     }
 
-    /*
+    /**
         parameters:
         @String name
         @Webdriver driver
@@ -789,12 +840,20 @@ public abstract class TestActions extends TestConstants {
         Files.write(Paths.get("./" + name + ".pdf"), OutputType.BYTES.convertFromBase64Png(pdf.getContent()));
     }
 
+    /**
+     *
+     * @param driver
+     * @throws IOException
+     */
     public void checkOptions(WebDriver driver) throws IOException {
         String title = driver.getTitle();
         Assert.assertEquals(title, TITLESSL, "invalid title printed");
         captureFullpage("badSSL");
     }
 
+    /**
+     * no params
+     */
     public void getRectAttributes() {
         WebElement img = driver.findElement(By.xpath("//*[@id=\"logo\"]"));
         // call method get Rect from Rectangle class
@@ -812,12 +871,17 @@ public abstract class TestActions extends TestConstants {
 
     }
 
-    public void testMouseOver(WebDriver driver, String xpathlocator, String locator) {
+    /**
+     *
+     * @param xpathlocator
+     * @param locator
+     */
+    public void testMouseOver(String xpathlocator, String locator) {
         WebElement accept = driver.findElement(By.id("L2AGLb"));
         accept.click();
         WebElement search = driver.findElement(By.name("q"));
         search.sendKeys("way2automation");
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpathlocator))).click();
         driver.findElement(By.partialLinkText("Way2Automation: Get Online Selenium Certification Course")).click();
         WebElement menu = driver.findElement(By.id("menu-item-27617"));
@@ -829,13 +893,24 @@ public abstract class TestActions extends TestConstants {
 
     }
 
-    //Actions contains interactions actions for slider e.g.
+    /**
+     *
+     * @param locator
+     * @return
+     */
     public WebDriver switchToFrame(String locator) {
         WebElement frame = driver.findElement(By.xpath(locator));
         return driver.switchTo().frame(frame);
 
     }
 
+    /**
+     *
+     * @param driver
+     * @param xOffest
+     * @param locator
+     * @throws IOException
+     */
     public void handleDemoSlider(WebDriver driver, int xOffest, String locator) throws IOException {
         switchToFrame(locator);
         WebElement mainSlider = driver.findElement(By.id("slider"));
@@ -845,6 +920,10 @@ public abstract class TestActions extends TestConstants {
         captureFullpage("slider");
     }
 
+    /**
+     *
+     * @param locator
+     */
     public void handleResizable(String locator) {
         // better cannot repeat the same code x times!!!
         switchToFrame("//iframe[@class=\"demo-frame\"]");
@@ -857,7 +936,10 @@ public abstract class TestActions extends TestConstants {
 
     }
 
-    //drag and drop
+    /**
+     *
+     * @param driver
+     */
     public void dragAndDrop(WebDriver driver) {
         switchToFrame(FRAME);
         WebElement draggable = driver.findElement(By.xpath("//div[@class=\"ui-widget-content ui-draggable ui-draggable-handle\"]"));
@@ -867,6 +949,10 @@ public abstract class TestActions extends TestConstants {
         actions.dragAndDrop(draggable, droppable).perform();
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     public void rightClick() throws IOException {
         String url = null;
         WebElement img = driver.findElement(By.xpath("/html/body/div/table/tbody/tr/td[2]/div[2]/table[1]/tbody/tr/td[3]/p[2]/img"));
@@ -942,7 +1028,13 @@ public abstract class TestActions extends TestConstants {
 
     }
 
-    //in course but page
+    /**
+     *
+     * @param locator
+     * @param duration
+     * @param datelocator
+     * @throws InterruptedException
+     */
     public void handleSVGGraph(String locator, int duration, String datelocator) throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.findElement(By.xpath(locator)).click();

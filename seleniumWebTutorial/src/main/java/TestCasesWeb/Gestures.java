@@ -12,7 +12,7 @@ public class Gestures extends TestActions {
     }
     @Test
     public void testcaseAction() {
-        testMouseOver(driver,GOOGLEBTNSRCHXPTH,LINKW2A);
+        testMouseOver(GOOGLEBTNSRCHXPTH,LINKW2A);
 
     }
 
