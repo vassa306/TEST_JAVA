@@ -1,6 +1,7 @@
 package TestCasesWeb;
 
 import Actions.TestActions;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -15,6 +16,12 @@ public class HandleSlider extends TestActions {
         @Test
         public void TestcaseSlider() throws IOException {
             handleDemoSlider(driver,700,FRAME);
+        }
+
+        @AfterTest
+        public void tearUp(){
+            driver.close();
+            driver.quit();
         }
 
 

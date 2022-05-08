@@ -22,6 +22,7 @@ public class BadSSL extends TestActions {
     @AfterTest
     public void tearUp() {
         driver.close();
+        driver.quit();
 
 
     }

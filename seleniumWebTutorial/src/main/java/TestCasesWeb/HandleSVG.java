@@ -1,6 +1,7 @@
 package TestCasesWeb;
 
 import Actions.TestActions;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -19,4 +20,11 @@ public class HandleSVG extends TestActions {
         handleSVGGraph(XPATHCOVIDINDIA,90,COVIDH5XPATH);
 
     }
+    @AfterTest
+    public void tearUp(){
+        driver.close();
+        driver.quit();
+    }
+
+
 }

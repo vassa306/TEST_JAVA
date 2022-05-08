@@ -22,6 +22,6 @@ public class HandleNewTab extends TestActions {
     @AfterTest
     public void tearUp(){
         driver.close();
-        System.out.println("test completed xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+        driver.quit();
     }
 }

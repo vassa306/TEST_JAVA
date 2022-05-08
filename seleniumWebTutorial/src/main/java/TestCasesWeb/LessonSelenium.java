@@ -20,5 +20,6 @@ public class LessonSelenium extends TestActions {
     @AfterMethod
     public void tearUp(){
         driver.close();
+        driver.quit();
     }
 }
