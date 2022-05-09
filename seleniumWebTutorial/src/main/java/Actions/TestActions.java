@@ -12,19 +12,14 @@ import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.SourceType;
 import org.openqa.selenium.print.PrintOptions;
 import org.openqa.selenium.support.locators.RelativeLocator;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
@@ -34,6 +29,7 @@ import java.util.*;
 
 import static constants.ValidationMessages.*;
 import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 
 public abstract class TestActions extends TestConstants {
@@ -265,7 +261,6 @@ public abstract class TestActions extends TestConstants {
     }
 
     /**
-     *
      * @param baseUrl
      */
     //second Method for Mobile Set UP
@@ -365,7 +360,6 @@ public abstract class TestActions extends TestConstants {
     }
 
     /**
-     *
      * @param driver
      * @param name
      */
@@ -379,7 +373,6 @@ public abstract class TestActions extends TestConstants {
     }
 
     /**
-     *
      * @param driver
      * @param name
      * @param option
@@ -396,7 +389,6 @@ public abstract class TestActions extends TestConstants {
     }
 
     /**
-     *
      * @param driver
      * @param id
      * @param option
@@ -412,7 +404,6 @@ public abstract class TestActions extends TestConstants {
     }
 
     /**
-     *
      * @param driver
      * @param Id
      * @param value
@@ -499,7 +490,6 @@ public abstract class TestActions extends TestConstants {
     }
 
     /**
-     *
      * @param row
      * @param coll
      * @throws IOException
@@ -527,7 +517,6 @@ public abstract class TestActions extends TestConstants {
     }
 
     /**
-     *
      * @param rowNums
      * @throws IOException
      */
@@ -555,8 +544,35 @@ public abstract class TestActions extends TestConstants {
 
     }
 
+    public void exportToTxtInt(List<Integer> locations) throws IOException {
+        File F = new File("C:\\FileWriting\\myTextFileInt.txt");
+        FileWriter fw = new FileWriter(F, false);
+        BufferedWriter writer = new BufferedWriter(fw);
+
+        //Writing into file first loop rows and second columns
+        for (int rof = 0; rof < 1; rof++) {
+            for (int col = 0; col < 1; col++) {
+                for (Integer  location : locations) {
+
+                    writer.write(location.toString().toUpperCase() + "," + "\n ");
+                }
+                writer.newLine();
+
+            }
+            writer.close();
+            System.out.println("file created!");
+
+
+        }
+
+
+    }
+
+
+
+
+
     /**
-     *
      * @param locator
      * @throws InterruptedException
      */
@@ -603,7 +619,6 @@ public abstract class TestActions extends TestConstants {
     }
 
     /**
-     *
      * @param locator
      * @param expDay
      * @param expMonth
@@ -733,7 +748,7 @@ public abstract class TestActions extends TestConstants {
     public void testMobileIphone() throws IOException {
         String currentUrl = driver.getCurrentUrl();
         System.out.println("current url: " + currentUrl);
-        Assert.assertEquals(currentUrl, "https://accounts.google.com/signin/v2/identifier?service=mail&passive=1209600&osid=1&continue=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&followup=https%3A%2F%2Fmail.goohttps://accounts.google.com/signin/v2/identifier?service=mail&passive=1209600&osid=1&continue=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&followup=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&emr=1&flowName=GlifWebSignIn&flowEntry=ServiceLogingle.com%2Fmail%2Fu%2F0%2F&emr=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin"
+        Assert.assertEquals(currentUrl, "https://accounts.google.com/signin/v2/identifier?service=mail&passive=1209600&osid=1&continue=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&followup=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&emr=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin"
                 , "Invalid loaded URL");
         WebElement emailField = driver.findElement(By.xpath("//input[@type=\"email\"]"));
         emailField.sendKeys(DEFAULT_LOGIN);
@@ -830,9 +845,10 @@ public abstract class TestActions extends TestConstants {
     }
 
     /**
-        parameters:
-        @String name
-        @Webdriver driver
+     * parameters:
+     *
+     * @String name
+     * @Webdriver driver
      */
     public void printToPDF(WebDriver driver, String name) throws IOException {
         Pdf pdf = ((PrintsPage) driver).print(new PrintOptions());
@@ -841,7 +857,6 @@ public abstract class TestActions extends TestConstants {
     }
 
     /**
-     *
      * @param driver
      * @throws IOException
      */
@@ -872,7 +887,6 @@ public abstract class TestActions extends TestConstants {
     }
 
     /**
-     *
      * @param xpathlocator
      * @param locator
      */
@@ -882,7 +896,7 @@ public abstract class TestActions extends TestConstants {
         WebElement search = driver.findElement(By.name("q"));
         search.sendKeys("way2automation");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpathlocator))).click();
+        wait.until(visibilityOfElementLocated(By.xpath(xpathlocator))).click();
         driver.findElement(By.partialLinkText("Way2Automation: Get Online Selenium Certification Course")).click();
         WebElement menu = driver.findElement(By.id("menu-item-27617"));
         Actions action = new Actions(driver);
@@ -894,7 +908,6 @@ public abstract class TestActions extends TestConstants {
     }
 
     /**
-     *
      * @param locator
      * @return
      */
@@ -905,7 +918,6 @@ public abstract class TestActions extends TestConstants {
     }
 
     /**
-     *
      * @param driver
      * @param xOffest
      * @param locator
@@ -921,7 +933,6 @@ public abstract class TestActions extends TestConstants {
     }
 
     /**
-     *
      * @param locator
      */
     public void handleResizable(String locator) {
@@ -937,7 +948,6 @@ public abstract class TestActions extends TestConstants {
     }
 
     /**
-     *
      * @param driver
      */
     public void dragAndDrop(WebDriver driver) {
@@ -950,7 +960,6 @@ public abstract class TestActions extends TestConstants {
     }
 
     /**
-     *
      * @throws IOException
      */
     public void rightClick() throws IOException {
@@ -1009,24 +1018,32 @@ public abstract class TestActions extends TestConstants {
     }
 
     //how to get locations on any element on page
-    public void testEnhacement() {
-        String url = null;
+    public void getLocationOfElement() throws IOException {
+        List<Integer> locations = new ArrayList<Integer>();
+
         WebElement Accept = driver.findElement(By.id("L2AGLb"));
         Accept.click();
         WebElement link = driver.findElement(By.linkText("Gmail"));
-        //get location of x
+        //get location of x and y
+
         int x = link.getRect().getX();
 
         int y = link.getRect().getY();
+        locations.add(x);
+        locations.add(y);
+        String url = null;
 
         Actions actions = new Actions(driver);
-        actions.moveByOffset(x, y).click().perform();
+        // click on element according to location
+        actions.moveByOffset(locations.get(0), locations.get(1)).click().perform();
+
 
         url = driver.getCurrentUrl();
         System.out.println("current URL " + url);
         Assert.assertEquals(url, GMAIL, "wrong page opens");
-
+        exportToTxtInt(locations);
     }
+
 
     /**
      *
@@ -1039,7 +1056,7 @@ public abstract class TestActions extends TestConstants {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.findElement(By.xpath(locator)).click();
         //Select no of days button at bottom
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(text(),'"+duration+" days')]"))).click();
+        wait.until(visibilityOfElementLocated(By.xpath("//button[contains(text(),'"+duration+" days')]"))).click();
 
         //come back to state Delhi
         driver.findElement(By.xpath(locator)).click();
@@ -1086,6 +1103,10 @@ public abstract class TestActions extends TestConstants {
             System.out.println("Vaccinated cases in " + driver.findElement(By.xpath(datelocator)).getText() + " - "+ driver.findElement(By.xpath("//div[@class='stats is-vaccinated']//div/h2")).getText());
 
         }
+
+    }
+
+    public void handleShadowDom(){
 
     }
 

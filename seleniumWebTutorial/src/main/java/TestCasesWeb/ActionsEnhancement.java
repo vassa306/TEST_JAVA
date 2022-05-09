@@ -3,7 +3,13 @@ package TestCasesWeb;
 import Actions.TestActions;
 import org.testng.annotations.*;
 
+import java.io.IOException;
+import java.util.List;
+
 public class ActionsEnhancement extends TestActions {
+
+
+
     @BeforeMethod
     public void setUp(){
         commonSetUp("https://google.com");
@@ -11,8 +17,8 @@ public class ActionsEnhancement extends TestActions {
     }
 
     @Test
-    public void testcaseEnhancements(){
-        testEnhacement();
+    public void testcaseEnhancements() throws IOException {
+        getLocationOfElement();
     }
 
     @AfterMethod
