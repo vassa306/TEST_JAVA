@@ -5,18 +5,20 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
+
 public class DragAndDropTest extends TestActions {
     @BeforeTest
     public void seatUp(){
-        commonSetUp("https://jqueryui.com/droppable/");
+        commonSetUp(JQUERYEX);
     }
 
     @Test
-    public void testcaseDroppable(){
-        dragAndDrop(driver);
+    public void testcaseDroppable() throws IOException {
+        dragAndDropJS(driver);
     }
 
-     @AfterMethod
+    @AfterMethod
     public void tearUp() {
          driver.close();
          driver.quit();

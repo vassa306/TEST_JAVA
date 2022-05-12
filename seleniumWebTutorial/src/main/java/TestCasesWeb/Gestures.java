@@ -10,6 +10,7 @@ public class Gestures extends TestActions {
     public void setUp() {
         setupWithNewOptions("https://www.google.cz");
     }
+
     @Test
     public void testcaseAction() {
         testMouseOver(GOOGLEBTNSRCHXPTH,LINKW2A);
@@ -18,7 +19,6 @@ public class Gestures extends TestActions {
 
     @AfterTest
     public void tearUp(){
-        driver.close();
         driver.quit();
     }
 

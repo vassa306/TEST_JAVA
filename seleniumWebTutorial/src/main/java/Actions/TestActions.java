@@ -65,7 +65,7 @@ public abstract class TestActions extends TestConstants {
         driver.manage().window().maximize();
         String baseUrl = "https://www.way2automation.com/way2auto_jquery/index.php";
         driver.get(baseUrl);
-        driver.manage().timeouts().implicitlyWait(15, SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
     public static void commonSetupWiki() {
@@ -152,7 +152,6 @@ public abstract class TestActions extends TestConstants {
 
     public static void commonSetUp(String baseUrl) {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("disable-notifications");
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
         System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver.exe");
         driver = new ChromeDriver(options);
@@ -277,13 +276,10 @@ public abstract class TestActions extends TestConstants {
 
     }
 
-
+    //update to Selenium 4
     public void checkPageLink(WebDriver driver) throws InterruptedException {
         LoginPage loginPage = getLoginPage();
-        loginPage.getLogin().sendKeys(DEFAULT_LOGIN);
-        loginPage.getPasssword().sendKeys(DEFAULT_PASS);
-        driver.manage().timeouts().implicitlyWait(8, SECONDS);
-
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         String title = driver.getTitle();
         String URL = driver.getCurrentUrl();
         Assert.assertEquals(title, LOGINPAGE_TITLE);
@@ -336,10 +332,8 @@ public abstract class TestActions extends TestConstants {
     }
 
     public void tearUp() {
-        driver.close();
+       // driver.close();
         driver.quit();
-
-
     }
 
     public void getAllLinks(WebDriver driver) {
@@ -485,6 +479,26 @@ public abstract class TestActions extends TestConstants {
         }
         File f = block.getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(f, new File("./screenshot/block.jpg"));
+
+
+    }
+
+    public void tickCheckboxesNewPage(WebDriver driver) throws IOException {
+//               int i = 1;
+//                int count = 0;
+//               while (isElementPresent("//div[4]/input["+i+"]")) {
+//                    driver.findElement(By.xpath("//div[4]/input["+i+"]")).click();
+//                  i++;
+//                    count++;
+//             }
+        WebElement block = driver.findElement(By.id("ex1"));
+        List<WebElement> checkboxes = block.findElements(By.xpath("//input[@type='checkbox']"));
+        System.out.println("number of checkboxes is : " + checkboxes.size());
+        for (WebElement checkbox : checkboxes) {
+            checkbox.click();
+        }
+        File f = block.getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(f, new File("./screenshot/NewPageCheckboxesblock.jpg"));
 
 
     }
@@ -950,14 +964,32 @@ public abstract class TestActions extends TestConstants {
     /**
      * @param driver
      */
-    public void dragAndDrop(WebDriver driver) {
-        switchToFrame(FRAME);
-        WebElement draggable = driver.findElement(By.xpath("//div[@class=\"ui-widget-content ui-draggable ui-draggable-handle\"]"));
-        WebElement droppable = driver.findElement(By.xpath("//div[@id = 'droppable']"));
+    public void dragAndDropW3C(WebDriver driver) {
+        // accept button W3C
+        WebElement acceptBtn  = driver.findElement(By.id("accept-choices"));
+        acceptBtn.click();
+
+        switchToFrame(FRAMEW3C);
+        WebElement draggable = driver.findElement(By.id("drag1"));
+        WebElement droppable = driver.findElement(By.id("div2"));
         Actions actions = new Actions(driver);
         //do not forget perform
         actions.dragAndDrop(draggable, droppable).perform();
     }
+
+    public void dragAndDropJS(WebDriver driver) throws IOException {
+        // accept button W3C
+        switchToFrame(FRAME);
+        WebElement draggable = driver.findElement(By.xpath("//div[@class='ui-widget-content ui-draggable ui-draggable-handle']"));
+        WebElement droppable = driver.findElement(By.xpath("//div[@id = 'droppable']"));
+        Actions actions = new Actions(driver);
+        //do not forget perform
+        actions.dragAndDrop(draggable, droppable).perform();
+        captureFullpage("drag and drop");
+
+    }
+
+
 
     /**
      * @throws IOException
@@ -973,6 +1005,7 @@ public abstract class TestActions extends TestConstants {
         // move to submenu 3
         actions.moveToElement(driver.findElement(By.id("dm2m2i1tdT"))).perform();
         driver.findElement(By.id("dm2m3i1tdT")).click();
+        /*
         //print url of second page
         Set<String> winids = driver.getWindowHandles();
         //create iterator
@@ -989,6 +1022,7 @@ public abstract class TestActions extends TestConstants {
         url = driver.getCurrentUrl();
         Assert.assertEquals(url, URLEXP, "wrong page opened");
         captureFullpage("secondWindow");
+         */
     }
 
     //how to handle CTRL C or CTRL+V with Selenium
@@ -1106,11 +1140,16 @@ public abstract class TestActions extends TestConstants {
 
     }
 
-    public void handleShadowDom(){
+    public void rightClickInFacebook(WebDriver driver){
+        getLoginPage();
+        Actions actions = new Actions(driver);
+        actions.contextClick(getLoginPage().getLogin()).moveToElement(getLoginPage().getLogin()).perform();
 
     }
 
 }
+
+
 
 
 

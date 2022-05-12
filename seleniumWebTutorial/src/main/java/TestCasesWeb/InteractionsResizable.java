@@ -6,7 +6,7 @@ import org.testng.annotations.*;
 public class InteractionsResizable extends TestActions {
     @BeforeMethod
     public void setUp(){
-        commonSetUp("https://jqueryui.com/resizable/");
+        commonSetUp("https://jqueryui.com/droppable/");
 
     }
 

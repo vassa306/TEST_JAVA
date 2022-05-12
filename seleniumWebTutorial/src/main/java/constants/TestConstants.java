@@ -25,10 +25,12 @@ public class TestConstants extends TestUrls {
     public static String TITLESSL = "expired.badssl.com";
     public static String LOCATORFORRES = "//div[@class='ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se']";
     public static String FRAME = "//iframe[@class='demo-frame']";
+    public static String FRAMEW3C = "//div[@class='w3-example']//iframe";
     public static String URLEXP ="http://deluxe-menu.com/installation-info.html";
     public static String GMAILSEARCHBOXID = "identifierId";
     public static String VALIDATIONMSGREDIFF = "Please enter a valid user name";
     public static String XPATHCOVIDINDIA = "//*[@id='root']/div/div[3]/div[1]/div[4]/div[2]/div/div[9]/div[1]/div[1]";
     public static String COVIDH5XPATH = "//*[@id=\"root\"]/div/div[3]/div[2]/div[2]/div[3]/div[6]/div/h5[2]";
-
+    public static String DRAGANDDROPJS = "//div[@class='ui-widget-content ui-draggable ui-draggable-handle']/";
+    public static String JQUERYDROP = "//div[@id = 'droppable']";
 }

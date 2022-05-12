@@ -10,17 +10,16 @@ import java.io.IOException;
 public class Checkboxes extends TestActions {
     @BeforeMethod
     public void setUp(){
-        commonSetupCheckbox();
+        commonSetUp("https://www.w3.org/TR/wai-aria-practices-1.1/examples/checkbox/checkbox-2/checkbox-2.html");
     }
 
     @Test
     public void handleCheckboxes() throws IOException {
-        tickCheckboxes(driver);
+        tickCheckboxesNewPage(driver);
     }
 
     @AfterMethod
     public void tearUp(){
-        driver.close();
         driver.quit();
     }
 }

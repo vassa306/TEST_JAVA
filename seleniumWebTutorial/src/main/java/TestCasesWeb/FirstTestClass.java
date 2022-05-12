@@ -42,6 +42,11 @@ public class FirstTestClass extends TestActions{
         getLinksFromFooter(driver);
     }
 
+    @Test
+    public void testCaseRightClick(){
+        rightClickInFacebook(driver);
+    }
+
     @AfterMethod
     public void exitTests(){
         tearUp();

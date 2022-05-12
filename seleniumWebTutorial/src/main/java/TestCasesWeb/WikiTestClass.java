@@ -10,7 +10,7 @@ import java.io.IOException;
 public class WikiTestClass extends TestActions {
     @BeforeMethod
     public void setUp() {
-        commonSetupWiki();
+        commonSetUp("https://www.wikipedia.org");
     }
 
 

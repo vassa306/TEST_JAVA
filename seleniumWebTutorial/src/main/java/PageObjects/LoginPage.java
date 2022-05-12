@@ -10,14 +10,14 @@ public class LoginPage {
     private final WebElement passsword;
     private final WebElement link;
 
+    //Create constructor
     public LoginPage(WebDriver driver){
         banner = driver.findElement(By.xpath("//button[@data-cookiebanner='accept_button']"));
         login = driver.findElement(By.id("email"));
         passsword = driver.findElement(By.id("pass"));
         link = driver.findElement(By.partialLinkText("Forgot password?"));
-
     }
-
+    // get value of Webelement This methods returns values containing constructor
     public WebElement getBanner() {
         return banner;
     }

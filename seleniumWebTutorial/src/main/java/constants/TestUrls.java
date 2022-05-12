@@ -11,4 +11,5 @@ public class TestUrls {
     public static String TESTGMAIL = "https://gmail.com";
     public static String REDIFF = "https://rediff.com";
     public static String GMAIL = "https://www.google.com/intl/cs/gmail/about/";
+    public static String JQUERYEX = "https://jqueryui.com/droppable/";
 }
