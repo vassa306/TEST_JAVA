@@ -43,7 +43,7 @@ public class FirstTestClass extends TestActions{
     }
 
     @Test
-    public void testCaseRightClick(){
+    public void testCaseRightClick() throws IOException {
         rightClickInFacebook(driver);
     }
 

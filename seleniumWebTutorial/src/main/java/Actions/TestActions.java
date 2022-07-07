@@ -20,9 +20,11 @@ import org.testng.Assert;
 
 
 import java.io.*;
+import java.net.SocketException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Month;
 import java.util.*;
@@ -293,7 +295,7 @@ public abstract class TestActions extends TestConstants {
     public void invalidPassword(WebDriver driver) {
 
         LoginPage loginPage = getLoginPage();
-        loginPage.getLogin().sendKeys(DEFAULT_LOGIN);
+        loginPage.getEmail().sendKeys(DEFAULT_LOGIN);
         loginPage.getPasssword().sendKeys(Keys.ENTER);
         String validationMgs = TestActions.driver.findElement(By.className("_9ay7")).getText();
         Assert.assertEquals(validationMgs, Incorrect_Password);
@@ -302,7 +304,7 @@ public abstract class TestActions extends TestConstants {
 
     public void invalidLogin(WebDriver driver) {
         LoginPage loginPage = getLoginPage();
-        loginPage.getLogin().sendKeys(Keys.ENTER);
+        loginPage.getEmail().sendKeys(Keys.ENTER);
         String valLoginMsg = TestActions.driver.findElement(By.className("_9ay7")).getText();
         Assert.assertEquals(valLoginMsg, Incorrect_Login);
         System.out.println("value is " + valLoginMsg);
@@ -328,11 +330,11 @@ public abstract class TestActions extends TestConstants {
     private LoginPage getLoginPage() {
         LoginPage loginPage = new Homepage(driver).getLoginPage();
         loginPage.getBanner().click();
+
         return loginPage;
     }
 
     public void tearUp() {
-       // driver.close();
         driver.quit();
     }
 
@@ -592,9 +594,9 @@ public abstract class TestActions extends TestConstants {
      */
     public void handleJSelement(String locator) throws InterruptedException {
         driver.findElement(By.id(locator)).sendKeys("BENG");
-        driver.findElement(By.id(locator)).sendKeys(Keys.DOWN);
-        Thread.sleep(TIMEOUT);
-        driver.findElement(By.id(locator)).sendKeys(Keys.DOWN);
+     //   driver.findElement(By.id(locator)).sendKeys(Keys.DOWN);
+      //  driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+     //   driver.findElement(By.id(locator)).sendKeys(Keys.DOWN);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         // do not forget insert return before statement
         String script = "return document.getElementById(\"fromPlaceName\").value;";
@@ -602,23 +604,25 @@ public abstract class TestActions extends TestConstants {
         //System.out.println(text);
         //Assert.assertEquals(text,FROM," Invalid value selected");
         int i = 0;
+        int max = 10;
 
         while (!text.equalsIgnoreCase(FROM)) {
             i++;
             driver.findElement(By.id(locator)).sendKeys(Keys.DOWN);
-            Thread.sleep(TIMEOUT);
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
             text = (String) js.executeScript(script);
-            System.out.println(text);
-            if (i > 10) {
+
+            if (i > max) {
                 break;
             }
-            if (i > 10) {
+            if (i > max) {
                 System.out.println("Element not found");
             } else {
                 System.out.println("Element found");
             }
         }
         Assert.assertEquals(text, FROM, "Invalid value selected");
+        System.out.println(text);
     }
 
     public static String[] getMonthYear(String monthYearVal) {
@@ -773,6 +777,10 @@ public abstract class TestActions extends TestConstants {
 
     //new way how to take full page screenshot
     public void captureFullpage(String name) throws IOException {
+        Date date = new Date();
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date1 = formatter.format(date);
+        System.out.println(date1);
         File pageScreenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(pageScreenshot, new File("./screenshot/" + name + ".jpg"));
 
@@ -1005,7 +1013,7 @@ public abstract class TestActions extends TestConstants {
         // move to submenu 3
         actions.moveToElement(driver.findElement(By.id("dm2m2i1tdT"))).perform();
         driver.findElement(By.id("dm2m3i1tdT")).click();
-        /*
+
         //print url of second page
         Set<String> winids = driver.getWindowHandles();
         //create iterator
@@ -1022,7 +1030,7 @@ public abstract class TestActions extends TestConstants {
         url = driver.getCurrentUrl();
         Assert.assertEquals(url, URLEXP, "wrong page opened");
         captureFullpage("secondWindow");
-         */
+
     }
 
     //how to handle CTRL C or CTRL+V with Selenium
@@ -1035,6 +1043,7 @@ public abstract class TestActions extends TestConstants {
         search.sendKeys(Keys.chord(Keys.CONTROL + "c"));
         driver.findElement(By.xpath("//*[@id=\"view_container\"]/div/div/div[2]/div/div[1]/div/form/span/section/div")).click();
         search.click();
+        search.sendKeys(Keys.SPACE);
         search.sendKeys(Keys.chord(Keys.CONTROL + "v"));
         captureFullpage("CTRLC + V");
     }
@@ -1140,13 +1149,36 @@ public abstract class TestActions extends TestConstants {
 
     }
 
-    public void rightClickInFacebook(WebDriver driver){
-        getLoginPage();
+    public void rightClickInFacebook(WebDriver driver) throws IOException {
+        LoginPage loginPage = getLoginPage();
         Actions actions = new Actions(driver);
-        actions.contextClick(getLoginPage().getLogin()).moveToElement(getLoginPage().getLogin()).perform();
-
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(3));
+        wait.until(visibilityOfElementLocated(By.cssSelector("#email"))).click();
+        try {
+            actions.contextClick(loginPage.getEmail()).moveToElement(loginPage.getEmail()).perform();
+        }
+        catch (StaleElementReferenceException e){
+            System.out.println(e.getStackTrace());
+        }
+        finally {
+            captureFullpage("facebook");
+        }
     }
 
+    public void ClickInventiSearch() throws IOException {
+        driver.findElement(By.xpath("//div[@class='search-panel-toggle']")).click();
+        driver.findElement(By.id("search-panel__input")).sendKeys("Testing");
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(4));
+        wait.until(visibilityOfElementLocated(By.xpath("//button[@class='search-panel__submit']"))).click();
+        String results = driver.findElement(By.xpath("//div[@class = 'col col-1-12 grid-12-12']/h2")).getText();
+        results = results.substring(27);
+        results = results.substring(1,8);
+        System.out.println(results);
+        Assert.assertEquals(results,"Testing","Invalid search content");
+        System.out.println(results);
+        captureFullpage("Inventi results");
+
+    }
 }
 
 

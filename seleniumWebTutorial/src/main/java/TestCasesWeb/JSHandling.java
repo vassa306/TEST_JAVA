@@ -1,14 +1,12 @@
 package TestCasesWeb;
 
 import Actions.TestActions;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.text.ParseException;
 
 public class JSHandling extends TestActions {
-    @BeforeMethod
+    @BeforeSuite
     public void setUp(){
         commonSetupHandleJs();
     }
@@ -20,7 +18,7 @@ public class JSHandling extends TestActions {
 
     @Test
     public void pickerFrom() throws ParseException {
-        pickValueFromPicker("txtJourneyDate","5","May","2022");
+        pickValueFromPicker("txtJourneyDate","16","May","2022");
 
 
     }
@@ -32,9 +30,9 @@ public class JSHandling extends TestActions {
 
 
 
-    @AfterMethod
+    @AfterSuite
     public void tearUp(){
-        driver.close();
+
         driver.quit();
     }
 

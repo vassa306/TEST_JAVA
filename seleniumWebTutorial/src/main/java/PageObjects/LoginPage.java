@@ -13,7 +13,7 @@ public class LoginPage {
     //Create constructor
     public LoginPage(WebDriver driver){
         banner = driver.findElement(By.xpath("//button[@data-cookiebanner='accept_button']"));
-        login = driver.findElement(By.id("email"));
+        login = driver.findElement(By.cssSelector("input#email._55r1._6luy"));
         passsword = driver.findElement(By.id("pass"));
         link = driver.findElement(By.partialLinkText("Forgot password?"));
     }
@@ -22,7 +22,7 @@ public class LoginPage {
         return banner;
     }
 
-    public WebElement getLogin() {
+    public WebElement getEmail() {
         return login;
     }
 
