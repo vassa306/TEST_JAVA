@@ -4,7 +4,7 @@ import PageObjects.Homepage;
 import PageObjects.LoginPage;
 import constants.TestConstants;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.apache.commons.io.FileUtils;
+import org.codehaus.plexus.util.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -18,9 +18,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
-
-import java.io.*;
-import java.net.SocketException;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
@@ -31,7 +32,7 @@ import java.util.*;
 
 import static constants.ValidationMessages.*;
 import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.openqa.selenium.support.ui.ExpectedConditions.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 
 public abstract class TestActions extends TestConstants {
