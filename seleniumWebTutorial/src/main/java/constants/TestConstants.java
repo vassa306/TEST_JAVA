@@ -6,7 +6,7 @@ public class TestConstants extends TestUrls {
     public static String LOGINPAGE_TITLE = "Facebook - log in or sign up";
     public static String LOGINPAGE_URL ="https://www.facebook.com/";
     public static int LINKSCOUNT = 67;
-    public static int FOOTERLINKSCOUNT = 41;
+    public static int FOOTERLINKSCOUNT = 42;
     public static String SELECTEDROODOWN = "Germany";
     public static int ROWSCOUNTA = 533;
     public static int ROWSCOUNTALL = 1415;

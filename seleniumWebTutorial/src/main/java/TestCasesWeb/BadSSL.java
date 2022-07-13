@@ -1,7 +1,7 @@
 package TestCasesWeb;
 
 import Actions.TestActions;
-import org.testng.annotations.AfterTest;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -19,11 +19,12 @@ public class BadSSL extends TestActions {
         System.out.println("Bad SSL page appears");
     }
 
-    @AfterTest
-    public void tearUp() {
-        driver.close();
-        driver.quit();
-
-
+    @AfterMethod
+    public void exitTests(){
+        tearUp();
     }
+
+
+
 }
+

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Testing Example">
-    <test name="Regression">
+<suite name="Functional Testing Suite">
+    <test name="Facebook">
+        <classes>
+            <class name="TestCasesWeb.FirstTestClass"/>
+        </classes>
+    </test>
+    <test name="BadSSL">
         <classes>
             <class name="TestCasesWeb.BadSSL"/>
-            <class name="TestCasesWeb.FirstTestClass"/>
-            <class name="TestCasesWeb.HandleSVG"/>
         </classes>
     </test> <!-- Test -->
 </suite> <!-- Suite -->

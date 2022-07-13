@@ -336,7 +336,7 @@ public abstract class TestActions extends TestConstants {
     }
 
     public void tearUp() {
-        driver.quit();
+        driver.close();
     }
 
     public void getAllLinks(WebDriver driver) {
