@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Master Suite">
+
+    <listeners>
+        <listener class-name="ParalelTesting.RetryListener" />
+    </listeners>
+
+    <test name ="Logjn">
+        <classes>
+            <class name="Parametrization.TestFailure"></class>
+        </classes>
+    </test>
+
+</suite> <!-- Suite -->

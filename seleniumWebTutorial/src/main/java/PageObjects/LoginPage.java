@@ -10,6 +10,7 @@ public class LoginPage {
     private final WebElement passsword;
     private final WebElement link;
 
+    public static  WebDriver driver;
     //Create constructor
     public LoginPage(WebDriver driver){
         banner = driver.findElement(By.xpath("//button[@data-cookiebanner='accept_button']"));

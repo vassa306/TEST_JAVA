@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Functional Testing Suite">
-    <test name="Facebook">
+
+
+    <listeners>
+        <listener class-name="ParalelTesting.Listeners"></listener>
+    </listeners>
+
+<!--<groups>
+        <run>
+            <include name="smoke"></include>
+        </run>
+    </groups>
+    -->
+    <test name="smoke">
+        <parameter name="browser" value="firefox"/>
         <classes>
             <class name="TestCasesWeb.FirstTestClass"/>
         </classes>
     </test>
     <test name="BadSSL">
+        <parameter name="browser" value="firefox"></parameter>
         <classes>
+
             <class name="TestCasesWeb.BadSSL"/>
         </classes>
-    </test> <!-- Test -->
+    </test>
+    <test name="failTest">
+        <classes>
+            <class name="Parametrization.TestFailure"/>
+        </classes>
+    </test>
+
+    <test name="ParamTest">
+        <parameter name="browser" value="chrome"></parameter>
+
+        <classes>
+            <class name="ParalelTesting.TestBrowser"/>
+        </classes>
+    </test>
+    <test name="ParamTest2">
+        <parameter name="browser" value="firefox"></parameter>
+        <classes>
+            <class name="ParalelTesting.TestBrowser"/>
+        </classes>
+    </test>
+
 </suite> <!-- Suite -->

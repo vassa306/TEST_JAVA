@@ -2,7 +2,6 @@ package TestCasesWeb;
 
 import Actions.TestActions;
 import org.testng.annotations.*;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -10,44 +9,44 @@ import java.util.Properties;
 
 public class FirstTestClass extends TestActions{
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"facebook","smoke"})
     public void setUp() {
     commonSetup();
     }
 
-    @Test(priority = 1)
+    @Test(priority = 1, groups = "facebook")
     public void getLinks() throws InterruptedException {
     checkPageLink(driver);
 
     }
 
-    @Test(priority = 2)
+    @Test(priority = 2, groups = "smoke")
     public void invalidPassFb(){
         invalidPassword(driver);
 
     }
 
-    @Test(priority = 3)
+    @Test(priority = 3, groups = "smoke")
     public void invalidLoginFb(){
         invalidLogin(driver);
 
     }
 
-    @Test(priority = 4)
+    @Test(priority = 4, groups = "smoke")
     public void getPageLinks(){
         getAllLinks(driver);
     }
-    @Test(priority = 5)
+    @Test(priority = 5, groups = "smoke")
     public void getFooterLink(){
         getLinksFromFooter(driver);
     }
 
-    @Test
+    @Test(priority = 2, groups = {"facebook", "smoke"})
     public void testCaseRightClick() throws IOException {
         rightClickInFacebook(driver);
     }
 
-    @AfterMethod
+    @AfterMethod(groups = {"facebbok","smoke"})
     public void exitTests(){
         tearUp();
     }

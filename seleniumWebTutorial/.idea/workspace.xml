@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="dfaacf91-2f56-4af5-a7a3-d4a7e154dce6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/screenshot/AppScreenshots/automation.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ParalelTesting/Listeners.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ParalelTesting/MonitoringMail.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ParalelTesting/TestBrowser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ParalelTesting/TestCase1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ParalelTesting/TestConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ParalelTesting/Utils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Parametrization/TestFailure.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/maven_clean_plugin_2_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/docs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/poi_5_2_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mastersuite.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mastersuite.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/Automation.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/BasicAuthorization.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot/AppScreenshots/BasicAuthorization.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/CTRLC + V.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot/AppScreenshots/CTRLC + V.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/Inventi results .jpg" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot/AppScreenshots/Inventi results .jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/Inventi results.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/Inventi results/date1  .jpg" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot/Inventi-results/date1  .jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/NewPageCheckboxesblock.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot/AppScreenshots/NewPageCheckboxesblock.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/W3schoolsPage.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot/AppScreenshots/W3schoolsPage.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/badSSL.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot/AppScreenshots/badSSL.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/below.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot/AppScreenshots/below.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/block.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot/AppScreenshots/block.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/check.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot/AppScreenshots/check.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/drag and drop.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot/AppScreenshots/drag and drop.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/emailfield.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot/AppScreenshots/emailfield.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/facebook .jpg" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot/AppScreenshots/facebook .jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/facebook.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot/AppScreenshots/facebook.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/frames.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot/AppScreenshots/frames.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/googlePageResult.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot/AppScreenshots/googlePageResult.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/img right click.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot/AppScreenshots/img right click.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/lastUrlScreen.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot/AppScreenshots/lastUrlScreen.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/page.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot/AppScreenshots/page.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/pass.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot/AppScreenshots/pass.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/secondWindow.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot/AppScreenshots/secondWindow.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot/slider.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot/AppScreenshots/slider.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/PageObjects/LoginPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PageObjects/LoginPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Parametrization/Test_Listeners.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TestCasesWeb/FirstTestClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TestCasesWeb/FirstTestClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/PageObjects/LoginPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/PageObjects/LoginPage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Parametrization/Test_Listeners.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/TestCasesWeb/FirstTestClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TestCasesWeb/FirstTestClass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/java/config/object.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/seleniumWebTutorial-1.0-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testng.xml" beforeDir="false" afterPath="$PROJECT_DIR$/testng.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2CKf9vTvcnOffVi6RbukJsY7G73" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\devops\TEST_JAVA\seleniumWebTutorial\screenshot\AppScreenshots" />
+    </key>
+  </component>
+  <component name="RunManager" selected="TestNG.TestCase1">
+    <configuration name="C:/devops/TEST_JAVA/seleniumWebTutorial/mastersuite.xml" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="seleniumWebTutorial" />
+      <option name="SUITE_NAME" value="$PROJECT_DIR$/mastersuite.xml" />
+      <option name="TEST_OBJECT" value="SUITE" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="C:/devops/TEST_JAVA/seleniumWebTutorial/retry.xml" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="seleniumWebTutorial" />
+      <option name="SUITE_NAME" value="$PROJECT_DIR$/retry.xml" />
+      <option name="TEST_OBJECT" value="SUITE" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="C:/devops/TEST_JAVA/seleniumWebTutorial/testng.xml" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="seleniumWebTutorial" />
+      <option name="SUITE_NAME" value="$PROJECT_DIR$/testng.xml" />
+      <option name="TEST_OBJECT" value="SUITE" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestCase1" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="seleniumWebTutorial" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ParalelTesting.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ParalelTesting" />
+      <option name="MAIN_CLASS_NAME" value="ParalelTesting.TestCase1" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestFailure.login" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="seleniumWebTutorial" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Parametrization.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Parametrization" />
+      <option name="MAIN_CLASS_NAME" value="Parametrization.TestFailure" />
+      <option name="METHOD_NAME" value="login" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="TestNG.TestCase1" />
+        <item itemvalue="TestNG.C:/devops/TEST_JAVA/seleniumWebTutorial/retry.xml" />
+        <item itemvalue="TestNG.TestFailure.login" />
+        <item itemvalue="TestNG.C:/devops/TEST_JAVA/seleniumWebTutorial/mastersuite.xml" />
+        <item itemvalue="TestNG.C:/devops/TEST_JAVA/seleniumWebTutorial/testng.xml" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dfaacf91-2f56-4af5-a7a3-d4a7e154dce6" name="Changes" comment="" />
+      <created>1658556058102</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1658556058102</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
